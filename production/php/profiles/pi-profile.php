@@ -1,9 +1,11 @@
 <?php include "../bancos/conecta.php";?>
-<?php include "../bancos/banco-cliente.php";?>
-<?php include "../bancos/banco-departamento.php";?>
 <?php include "../bancos/banco-pis.php";?>
+<?php include "../bancos/banco-macroprocesso.php";?>
+<?php include "../bancos/banco-subprocesso.php";?>
 <?php
-  $pis = listaPis($conexao);
+  $cod_pi = $_GET['cod_pi'];
+  $pi = buscaPi($conexao , $cod_pi);
+  $macroprocessos = listaPiMacroprocessos($conexao, $cod_pi);
 ?>
 
 <!DOCTYPE html>
@@ -13,25 +15,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PROJEK | Pis</title>
+    <title>PROJEK | Pi</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="../../ico/favicon.ico"/>
     <!-- Bootstrap -->
     <link href="../../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../../../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../../../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- Datatables -->
-    <link href="../../../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="../../../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="../../../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="../../../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="../../../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-    <!-- Datatables -->
-    <link rel="stylesheet" type="text/css" href="../../../vendors/bootstrap-notify-3.1.3/dist/bootstrap-notify.js">
     <!-- Custom Theme Style -->
     <link href="../../../build/css/custom.min.css" rel="stylesheet">
   </head>
@@ -175,44 +165,99 @@
                   <div class="x_content">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
-                        <table id="tabela" class="table table-hover">
-                          <thead>
-                            <tr>
-                              <th>Código PI</th>
-                              <th>Empresa</th>
-                              <th>Departamento</th>
-                              <th>Ações</th>
-                            </tr>
-                          </thead>
-                          <tbody>
+                        <div class="panel-group" id="accordion">
 
-                            <?php
-                              foreach ($pis as  $pi) {
-                                $departamento = buscaDepartamento($conexao, $pi['id_departamento']);
-                                $cliente = buscaCliente($conexao, $departamento['id_cliente']);
-                            ?>
+                          <?php
+                            foreach ($macroprocessos as  $macroprocesso) { 
+                          ?>
 
-                            <tr>
-                              <td><?=$pi['cod_pi']?></td>
-                              <td><?=$cliente['nome']?></td>
-                              <td><?=$departamento['nome']?></td>
-                              <td align="center">
-                                <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-success btn-xs"><i class="fa fa-search"></i></button></a>
-                                <a href="../forms/form-macroprocesso.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-warning btn-xs"><i class="fa fa-plus"></i></button></a>
-                                <a href="../imprime/imprime-pi.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-primary btn-xs"><i class="fa fa-print"></i></button></a>
-                              </td>
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">                               
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                <?=$macroprocesso['n_processo']?> <?=$macroprocesso['t_processo']?></a>
+                                <a href="../forms/form-subprocesso.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a>                                
+                                <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-pencil"></i></button></a> 
+                                <div class="clearfix"></div>
+                              </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse">
+                              <div class="panel-body">
+                                <div class="panel-group" id="accordion2">
 
-                            </tr>
+                                  <?php
+                                    $subprocessos = listaMacroSubprocessos($conexao, $macroprocesso['id_macroprocesso']);
+                                    $i = 1;
+                                    foreach ($subprocessos as  $sub) {
+                                     $num = (string)$i;
+                                     $id = '#'.$num;
+                                     $i = $i + 1;
+                                  ?>
 
-                            <?php 
-                              }
-                            ?>
-                            
-                          </tbody>
-                        </table>
-                        <div class="ln_solid"></div>
-                          <a class="btn btn-success btn-round" style="" href="../forms/form-cliente.php?"><i class="fa fa-plus"></i></a>
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                      <a data-toggle="collapse" data-parent="#accordion2" href="<?=$id?>"><?=$sub['n_subprocesso']?> <?=$sub['t_subprocesso']?>
+                                      </a>
+                                       </h4>
+                                    </div>
+                                    <div id="<?=$num?>" class="panel-collapse collapse">
+                                      <div class="panel-body"><?=$sub['descricao']?></div>
+                                    </div>
+                                  </div>
+
+                                  <?php
+                                     }
+                                  ?>
+
+                                </div> 
+                              </div>
+                            </div>
+                          </div>
+
+                          <?php
+                            }
+                          ?>
+
                         </div>
+
+                        <!-- Modal -->
+                        <div id="myModal" class="modal fade" role="dialog" ">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content" >
+                              <form  role="form" action="../adiciona/adiciona-subprocesso.php" method="get" >
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">Novo Subprocesso</h4>
+                                </div>
+                                <div class="modal-body" >
+                                  <div class="form-group" >
+                                    <label for="macroprocesso" class="control-label">Macroprocesso</label>   
+                                    <input type="text" name="macroprocesso" class="form-control">
+                                  </div>
+                                  <div class="form-group" >
+                                    <label for="t_subprocesso" class="control-label">Nº Subprocesso</label>   
+                                    <input type="" name="n_subprocesso" class="form-control">
+                                  </div>
+                                  <div class="form-group" >
+                                    <label for="t_subprocesso" class="control-label">Título</label>   
+                                    <input type="" name="t_subprocesso" class="form-control">
+                                  </div>
+                                  <div class="form-group" >
+                                    <label for="recipient-name" class="control-label">Descrição</label>   
+                                    <textarea rows="6" class="form-control" name="descricao" ></textarea>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                  <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
+                                </div>
+                              </form>  
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Modal -->
+
                       </div>
                     </div>  
                   </div>
@@ -237,27 +282,18 @@
     <script src="../../../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="../../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../../../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../../../vendors/nprogress/nprogress.js"></script>
-    <!-- iCheck -->
-    <script src="../../../vendors/iCheck/icheck.min.js"></script>
-    <!-- Datatables -->
-    <script src="../../../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../../../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="../../../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../../../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="../../../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="../../../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="../../../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="../../../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="../../../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="../../../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../../../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="../../../vendors/bootstrap-notify-3.1.3/dist/bootstrap-notify.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../../build/js/custom.min.js"></script>
     <script src="../../js/datatable.js"></script>
+    <script>
+      $('#myModal').on('show.bs.modal', function(e) {
+
+          var macroprocesso = $(e.relatedTarget).data('macroprocesso');
+          $(e.currentTarget).find('input[name="macroprocesso"]').val(macroprocesso);
+      });
+
+    </script>
   </body>
 </html>
