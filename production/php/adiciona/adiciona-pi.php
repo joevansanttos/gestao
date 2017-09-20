@@ -4,7 +4,7 @@
 $id_departamento = $_GET['id_departamento'];
 $cod_pi = $_GET['cod_pi'];
 
- $query = "insert into pi (id_departamento, cod_pi) values ({$id_departamento}, '{$cod_pi}')";
+ $query = "insert into piS (id_departamento, cod_pi) values ({$id_departamento}, '{$cod_pi}')";
 
   if(mysqli_query($conexao, $query)){
   		mysqli_close($conexao);

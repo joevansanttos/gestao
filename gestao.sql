@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 19-Set-2017 às 21:01
+-- Generation Time: 20-Set-2017 às 21:46
 -- Versão do servidor: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -62,7 +62,9 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`id_cliente`, `nome`) VALUES
 (4, 'Gevan'),
-(5, 'Petrobras');
+(5, 'Petrobras'),
+(6, 'Pimenta Advogados'),
+(7, 'Pimenta Advogados');
 
 -- --------------------------------------------------------
 
@@ -105,7 +107,10 @@ CREATE TABLE `departamentos` (
 --
 
 INSERT INTO `departamentos` (`id_departamento`, `id_cliente`, `nome`) VALUES
-(1, 4, 'Folha de Pagamento');
+(1, 4, 'Folha de Pagamento'),
+(2, 7, 'Financeiro'),
+(3, 4, 'Compras'),
+(4, 4, 'Compras');
 
 -- --------------------------------------------------------
 
@@ -155,7 +160,11 @@ CREATE TABLE `gestor_macro` (
 --
 
 INSERT INTO `gestor_macro` (`id_gestor_macro`, `nome`, `tel`, `email`, `cargo`, `id_macroprocesso`) VALUES
-(2, 'Fábio Dias', '(71) 22222-2222', 'fabiodias@gevan.com', 'Gestor', 10);
+(2, 'Fábio Dias', '(71) 22222-2222', 'fabiodias@gevan.com', 'Gestor', 10),
+(3, '', '', '', '', 10),
+(4, 'José da Silva', '(71) 98344-4444', 'jose@hotmail.com', 'Contador', 10),
+(5, 'Leandro Rosário', '(71) 99959-5669', 'leandro@pimenta.com.br', 'Financeiro', 13),
+(6, 'Joevan', '(71) 22222-2222', 'fabio@projek.com', 'Gestor', 13);
 
 -- --------------------------------------------------------
 
@@ -205,7 +214,10 @@ CREATE TABLE `macroprocessos` (
 --
 
 INSERT INTO `macroprocessos` (`id_macroprocesso`, `cod_pi`, `data_ultima`, `data_proxima`, `id_classificao`, `t_processo`, `n_processo`) VALUES
-(10, 'FOL01', NULL, NULL, NULL, 'Adiantamento Salarial', '5.1.');
+(10, 'FOL01', NULL, NULL, NULL, 'Adiantamento Salarial', '5.1.'),
+(12, 'FOL01', NULL, NULL, NULL, 'Faturamento de Benefícios', '5.2.'),
+(13, 'FIN00', NULL, NULL, NULL, 'Contas a pagar', '5.1.'),
+(14, 'FIN00', NULL, NULL, NULL, 'Faturamento de Benefícios', '5.2.');
 
 -- --------------------------------------------------------
 
@@ -238,6 +250,7 @@ CREATE TABLE `pis` (
 --
 
 INSERT INTO `pis` (`id_departamento`, `cod_pi`, `data_revisado`, `id_consultor`, `id_gestor_pi`) VALUES
+(2, 'FIN00', NULL, NULL, NULL),
 (1, 'FOL01', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -249,8 +262,19 @@ INSERT INTO `pis` (`id_departamento`, `cod_pi`, `data_revisado`, `id_consultor`,
 CREATE TABLE `subprocessos` (
   `id_subprocesso` int(11) NOT NULL,
   `id_macroprocesso` int(11) DEFAULT NULL,
-  `descricao` varchar(10000) DEFAULT NULL
+  `descricao` varchar(10000) DEFAULT NULL,
+  `n_subprocesso` varchar(10) DEFAULT NULL,
+  `t_subprocesso` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `subprocessos`
+--
+
+INSERT INTO `subprocessos` (`id_subprocesso`, `id_macroprocesso`, `descricao`, `n_subprocesso`, `t_subprocesso`) VALUES
+(3, 10, 'dsdsdsdsds', '5.1.1.', 'Verificar Gastos do funcionário do mês anterior'),
+(4, 10, 'Se após a verificação foi percebido que o funcionário gastou nos benefícios mais que 40 % do valor integral do salário então é enviada a ele uma carta de anuência', '5.1.2', 'Gasto Inferior a 40%'),
+(5, 12, 'O arquivo de texto em geral é um arquivo em que consta de cada funcionário', '5.2.1.', 'Importar arquivo de texto de cada benefício para f');
 
 --
 -- Indexes for dumped tables
@@ -364,7 +388,7 @@ ALTER TABLE `classificacoes`
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `cliente_img`
 --
@@ -379,7 +403,7 @@ ALTER TABLE `definicoes`
 -- AUTO_INCREMENT for table `departamentos`
 --
 ALTER TABLE `departamentos`
-  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `diretores`
 --
@@ -394,7 +418,7 @@ ALTER TABLE `gestor_dep`
 -- AUTO_INCREMENT for table `gestor_macro`
 --
 ALTER TABLE `gestor_macro`
-  MODIFY `id_gestor_macro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_gestor_macro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `gestor_sub`
 --
@@ -409,7 +433,7 @@ ALTER TABLE `informacoes`
 -- AUTO_INCREMENT for table `macroprocessos`
 --
 ALTER TABLE `macroprocessos`
-  MODIFY `id_macroprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_macroprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `objetivos`
 --
@@ -419,7 +443,7 @@ ALTER TABLE `objetivos`
 -- AUTO_INCREMENT for table `subprocessos`
 --
 ALTER TABLE `subprocessos`
-  MODIFY `id_subprocesso` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `id_subprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -168,20 +168,22 @@
                         <div class="panel-group" id="accordion">
 
                           <?php
+                          
                             foreach ($macroprocessos as  $macroprocesso) { 
+  
                           ?>
 
                           <div class="panel panel-default">
                             <div class="panel-heading">
                               <h4 class="panel-title">                               
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#panel">
                                 <?=$macroprocesso['n_processo']?> <?=$macroprocesso['t_processo']?></a>
                                 <a href="../forms/form-subprocesso.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a>                                
                                 <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-pencil"></i></button></a> 
                                 <div class="clearfix"></div>
                               </h4>
                             </div>
-                            <div id="collapse1" class="panel-collapse collapse">
+                            <div id="panel" class="panel-collapse collapse">
                               <div class="panel-body">
                                 <div class="panel-group" id="accordion2">
 
@@ -257,7 +259,7 @@
                           </div>
                         </div>
                         <!-- Modal -->
-
+                        <a class="btn btn-success btn-round" style="" href="../forms/form-macroprocesso.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-plus"></i></a>
                       </div>
                     </div>  
                   </div>
