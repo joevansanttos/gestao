@@ -1,0 +1,45 @@
+#conteudo  p {
+	text-align: justify;
+	font-size: 11pt;
+	font-family: Calibri;
+	display: inline;
+	     
+}
+
+#conteudo {
+	text-align: justify;
+	text-justify: inter-word;
+}
+
+#conteudo  h1{
+	font-size: 16pt;
+	font-family: Calibri;
+}
+
+#conteudo  h2{
+	font-size: 18pt;
+	font-family: Calibri;
+}
+	  
+#conteudo {
+	    background-color: white;
+	    
+}
+
+.center{
+	font-size: 100pt;
+	text-align: center;
+}
+
+
+
+.logo img{
+	max-height:100%; max-width:100%;
+}
+
+.cabecalho{
+	border: 1px solid green;
+}
+
+
+
