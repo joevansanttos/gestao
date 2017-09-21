@@ -1,4 +1,16 @@
-
+<?php include "../bancos/conecta.php";?>
+<?php include "../bancos/banco-pis.php";?>
+<?php include "../bancos/banco-macroprocesso.php";?>
+<?php include "../bancos/banco-subprocesso.php";?>
+<?php
+  $cod_pi = $_GET['cod_pi'];
+  $pi = buscaPi($conexao , $cod_pi);
+  $macroprocessos = listaPiMacroprocessos($conexao, $cod_pi);
+  $objetivo = buscaObjetivo($conexao, $cod_pi);
+  $aplicacao = buscaAplicacao($conexao, $cod_pi);
+  $informacao = buscaInformacao($conexao, $cod_pi);
+  $definicoes = listaDefinicaoPI($conexao, $cod_pi);
+?>
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +38,6 @@
 
 		<script src='.../../../vendors/jsPDF-1.3.2/dist/jspdf.min.js'></script>
 		<script src="../../../vendors/jquery/dist/jquery.min.js"></script>
-		<script type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="../../css/imprime.css">
 	</head>
 	<body>
@@ -34,32 +45,27 @@
 		  <div class="row">
 		    <div class="col-md-12 col-sm-12 col-xs-12">
 		    	<div id="conteudo">
-		    		<nav class="navbar">
-		    			<div class="container">
-		    				<div class="row cabecalho">
-		    					<div class="col-md-3" style="border: 1px solid red">
-		    						<div class="logo">
-		    							<img style=""  class="img-responsive" src="../../images/projek.png">
-		    						</div>
-		    						<div></div>
-		    						<div></div>
-		    						<div></div>
-		    					</div>
-		    					<div class="col-md-6" style="border: 1px solid blue">
-		    						<div style="text-align: center;"></div>
-		    					</div>
-		    					<div class="col-md-3" style="border: 1px solid green">
-		    						<div></div>
-		    					</div>
-		    				</div>
-		    			</div>	
-		    	 	</nav>
+		    		<div class="container">
+		    			<div class="row">
+		    				<p><strong>1. Objetivo:</strong></p><br>
+		    				<p><?=$objetivo['descricao']?></p><br><br>
+		    				<p><strong>2. Aplicação:</strong></p><br>
+		    				<p><?=$aplicacao['descricao']?></p><br><br>
+		    				<p><strong>3. Definições:</strong></p><br>
+		    			<?php
+		    			foreach ($definicoes as $definicao) {		    			
+		    		
+		    			?>
+		    				<p><?=$definicao['descricao']?></p><br>
+		    			<?php
+		    			}
+		    			?>
+		    				<br>
+		    				<p><strong>4. Informações Gerais:</strong></p><br>
+		    				<p><?=$informacao['descricao']?></p><br><br>
+		    			</div>
+		    		</div>
 		    	 	<div class="clearfix"></div>
-		    	 	<section>
-		    	 		<div class="container">
-		    	 			fdfdfd
-		    	 		</div>
-		    	 	</section>
 		    	</div>
 		    </div>
 		  </div>

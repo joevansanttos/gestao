@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 20-Set-2017 às 21:46
+-- Generation Time: 21-Set-2017 às 18:22
 -- Versão do servidor: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -33,6 +33,13 @@ CREATE TABLE `aplicacoes` (
   `cod_pi` int(11) DEFAULT NULL,
   `descricao` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `aplicacoes`
+--
+
+INSERT INTO `aplicacoes` (`id_aplicacao`, `cod_pi`, `descricao`) VALUES
+(1, 0, 'Aplica-se ao departamento de Folha de pagamento da Gevan');
 
 -- --------------------------------------------------------
 
@@ -89,6 +96,16 @@ CREATE TABLE `definicoes` (
   `cod_pi` varchar(11) DEFAULT NULL,
   `descricao` varchar(10000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `definicoes`
+--
+
+INSERT INTO `definicoes` (`id_definicao`, `cod_pi`, `descricao`) VALUES
+(3, 'FOL01', 'Carta de Anuência: uma carta que informa'),
+(4, 'FOL01', 'Relação de Líquidos'),
+(5, 'FOL01', 'BM: Boletim de Medição'),
+(6, 'FOL01', 'INSS: Instituto Nacional do Seguro Social');
 
 -- --------------------------------------------------------
 
@@ -193,6 +210,13 @@ CREATE TABLE `informacoes` (
   `descricao` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `informacoes`
+--
+
+INSERT INTO `informacoes` (`id_informacao`, `cod_pi`, `descricao`) VALUES
+(1, 'FOL01', 'O Procedimento Interno, do Departamento de Folha de Pagamento da Gevan, caracteriza rotinas adotas visando estabelecer eficiência e eficácia em suas operações.');
+
 -- --------------------------------------------------------
 
 --
@@ -230,6 +254,13 @@ CREATE TABLE `objetivos` (
   `cod_pi` varchar(11) DEFAULT NULL,
   `descricao` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `objetivos`
+--
+
+INSERT INTO `objetivos` (`id_objetivo`, `cod_pi`, `descricao`) VALUES
+(2, 'FOL01', 'Estabelecer as diretrizes para os processos inerentes ao Setor de Folha de Pagamento da Gevan, a fim de atender aos requisitos estabelecidos pelo SQ');
 
 -- --------------------------------------------------------
 
@@ -378,7 +409,7 @@ ALTER TABLE `subprocessos`
 -- AUTO_INCREMENT for table `aplicacoes`
 --
 ALTER TABLE `aplicacoes`
-  MODIFY `id_aplicacao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_aplicacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `classificacoes`
 --
@@ -398,7 +429,7 @@ ALTER TABLE `cliente_img`
 -- AUTO_INCREMENT for table `definicoes`
 --
 ALTER TABLE `definicoes`
-  MODIFY `id_definicao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_definicao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `departamentos`
 --
@@ -428,7 +459,7 @@ ALTER TABLE `gestor_sub`
 -- AUTO_INCREMENT for table `informacoes`
 --
 ALTER TABLE `informacoes`
-  MODIFY `id_informacao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_informacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `macroprocessos`
 --
@@ -438,7 +469,7 @@ ALTER TABLE `macroprocessos`
 -- AUTO_INCREMENT for table `objetivos`
 --
 ALTER TABLE `objetivos`
-  MODIFY `id_objetivo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `subprocessos`
 --

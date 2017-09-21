@@ -6,6 +6,10 @@
   $cod_pi = $_GET['cod_pi'];
   $pi = buscaPi($conexao , $cod_pi);
   $macroprocessos = listaPiMacroprocessos($conexao, $cod_pi);
+  $objetivo = buscaObjetivo($conexao, $cod_pi);
+  $aplicacao = buscaAplicacao($conexao, $cod_pi);
+  $informacao = buscaInformacao($conexao, $cod_pi);
+  $definicoes = listaDefinicaoPI($conexao, $cod_pi);
 ?>
 
 <!DOCTYPE html>
@@ -62,15 +66,13 @@
                   <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="clientes.php">Clientes</a></li>
-                      <li><a href="departamentos.php">Departamentos</a></li>
-                      <li><a href="pis.php">Pis</a></li>
+                      <li><a href="departamentos.php">Departamentos</a></li>                      
                       <li><a href="gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file"></i> Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file"></i> Pis<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
-                      <li><a href="../processos/processos.php">Processos Finalizados</a></li>                    
+                     <li><a href="../clientes/pis.php">Pis</a></li>
                     </ul>
                   </li>           
                 </ul>
@@ -149,80 +151,153 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a></li>
-                          <li><a href="#">Settings 2</a></li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                    </ul>
+                    
                   </div>
                   <div class="clearfix"></div>                
                   <div class="x_content">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="panel-group" id="accordion">
+                        <!-- Panel Objetivo -->
+                        <div class="panel-group" id="panelobjetivo" >
+                          <div class="panel panel-default" >
+                              <div class="panel-heading primary">
+                                <h4 class="panel-title">
+                                  <a data-toggle="collapse" href="#objetivo">1. Objetivo</a>
+                                  <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-pencil"></i></button></a> 
+                                  <div class="clearfix"></div>
+                                </h4>
+                              </div>
+                              <div id="objetivo" class="panel-collapse collapse">
+                                <div class="panel-body"><?=$objetivo['descricao']?></div>
+                              </div>
+                            </div>   
+                        </div>
+                        <!-- End Panel Objetivo -->
+                        <!-- Panel Aplicacao -->
+                        <div class="panel-group" id="panelaplicacao">
+                          <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h4 class="panel-title">
+                                  <a data-toggle="collapse" href="#aplicacao">2. Aplicação</a>
+                                  <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-pencil"></i></button></a> 
+                                  <div class="clearfix"></div>
+                                </h4>
+                              </div>
+                              <div id="aplicacao" class="panel-collapse collapse">
+                                <div class="panel-body"><?=$aplicacao['descricao']?></div>
 
-                          <?php
+                              </div>
+                            </div>   
+                        </div>
+                        <!-- End Panel Aplicacao -->
+                        <!-- Panel Definicao-->
+                        <div class="panel-group" id="paneldefinicao">
+                          <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h4 class="panel-title">
+                                  <a data-toggle="collapse" href="#definicao">3. Definições</a>
+                                  <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-pencil"></i></button></a> 
+                                  <div class="clearfix"></div>
+                                </h4>
+                              </div>                          
+                              <div id="definicao" class="panel-collapse collapse">
+                                <?php
+                                  foreach ($definicoes as $definicao) {
+                                ?>
+                                <div class="panel-body"><?=$definicao['descricao']?></div>
+                                <?php
+                                  }
+                                ?>
+                              </div>
                           
-                            foreach ($macroprocessos as  $macroprocesso) { 
-  
-                          ?>
-
+                              
+                            </div>   
+                        </div>
+                        <!-- End Panel Definicao -->
+                        <!-- Panel Informacao -->
+                        <div class="panel-group" id="panelinformacao">
+                          <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h4 class="panel-title">
+                                  <a data-toggle="collapse" href="#informacao">4. Informações Gerais</a>
+                                  <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-pencil"></i></button></a> 
+                                  <div class="clearfix"></div>
+                                </h4>
+                              </div>
+                              <div id="informacao" class="panel-collapse collapse">
+                                <div class="panel-body"><?=$informacao['descricao']?></div>
+                              </div>
+                            </div>   
+                        </div>
+                        <!-- End Panel Informacao -->                       
+                        <!-- Panel Macroprocessos-->
+                        <div class="panel-group" id="accordion">
+                      <?php
+                        $m = 1;                        
+                        foreach ($macroprocessos as  $macroprocesso) {
+                          $string = (string)$m;
+                          $panel = 'panel_' . $string;
+                          $idpanel = '#'.$panel;
+                          $m = $m + 1;
+                          $accordion = 'accordion_'. $panel;
+                          $idaccordion = '#'. $accordion;  
+                      ?>
+                          <!-- Panel Defaul -->
                           <div class="panel panel-default">
                             <div class="panel-heading">
                               <h4 class="panel-title">                               
-                                <a data-toggle="collapse" data-parent="#accordion" href="#panel">
+                                <a data-toggle="collapse" data-parent="#accordion" href="<?=$idpanel?>">
                                 <?=$macroprocesso['n_processo']?> <?=$macroprocesso['t_processo']?></a>
                                 <a href="../forms/form-subprocesso.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a>                                
                                 <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-pencil"></i></button></a> 
                                 <div class="clearfix"></div>
                               </h4>
                             </div>
-                            <div id="panel" class="panel-collapse collapse">
+                            <!-- Panel Titulo -->
+                            <div id="<?=$panel?>" class="panel-collapse collapse">
                               <div class="panel-body">
-                                <div class="panel-group" id="accordion2">
-
-                                  <?php
-                                    $subprocessos = listaMacroSubprocessos($conexao, $macroprocesso['id_macroprocesso']);
-                                    $i = 1;
-                                    foreach ($subprocessos as  $sub) {
-                                     $num = (string)$i;
-                                     $id = '#'.$num;
-                                     $i = $i + 1;
-                                  ?>
+                                <div class="panel-group" id="<?=$accordion?>">
+                              <?php
+                                $subprocessos = listaMacroSubprocessos($conexao, $macroprocesso['id_macroprocesso']);
+                                $i = 1;
+                                foreach ($subprocessos as  $sub) {                                  
+                                  $string2 = (string)$i;
+                                  $panel2 = 'panel2_' . $string. '_' . $string2;
+                                  $idpanel2 = '#'.$panel2;
+                                  $i = $i + 1;
+                                  $accordion2 = 'accordion2_'. $panel2;
+                                  $idaccordion2 = '#'. $accordion2;  
+                              ?>
                                   <div class="panel panel-default">
                                     <div class="panel-heading">
                                       <h4 class="panel-title">
-                                      <a data-toggle="collapse" data-parent="#accordion2" href="<?=$id?>"><?=$sub['n_subprocesso']?> <?=$sub['t_subprocesso']?>
-                                      </a>
-                                       </h4>
+                                        <a data-toggle="collapse" data-parent="<?=$idaccordion?>" href="<?=$idpanel2?>">
+                                          <?=$sub['n_subprocesso']?> <?=$sub['t_subprocesso']?>
+                                        </a>
+                                      </h4>
                                     </div>
-                                    <div id="<?=$num?>" class="panel-collapse collapse">
-                                      <div class="panel-body"><?=$sub['descricao']?></div>
+                                    <div id="<?=$panel2?>" class="panel-collapse collapse">
+                                      <div class="panel-body">
+                                        <?=$sub['descricao']?>
+                                      </div>
                                     </div>
                                   </div>
-
-                                  <?php
-                                     }
-                                  ?>
-
+                              <?php
+                               }
+                              ?>
                                 </div> 
                               </div>
                             </div>
                           </div>
 
-                          <?php
-                            }
-                          ?>
+                      <?php
+                        }
+                      ?>
 
                         </div>
+                        <!-- End Panel Macroprocessos -->
 
-                        <!-- Modal -->
+                        <!-- 
                         <div id="myModal" class="modal fade" role="dialog" ">
                           <div class="modal-dialog modal-lg">
                             <div class="modal-content" >
@@ -257,8 +332,14 @@
                             </div>
                           </div>
                         </div>
-                        <!-- Modal -->
-                        <a class="btn btn-success btn-round" style="" href="../forms/form-macroprocesso.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-plus"></i></a>
+                        -->
+                        <a class="btn btn-primary" style="" href="../forms/form-objetivo.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-success" style="" href="../forms/form-aplicacao.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-warning" style="" href="../forms/form-informacao.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-danger" style="" href="../forms/form-definicao.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-info" style="" href="../forms/form-macroprocesso.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-default" style="" href="../imprime/imprime-pi.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-print"></i></a>
+
                       </div>
                     </div>  
                   </div>

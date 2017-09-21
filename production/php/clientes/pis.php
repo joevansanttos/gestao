@@ -72,15 +72,13 @@
                   <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="clientes.php">Clientes</a></li>
-                      <li><a href="departamentos.php">Departamentos</a></li>
-                      <li><a href="pis.php">Pis</a></li>
+                      <li><a href="departamentos.php">Departamentos</a></li>                      
                       <li><a href="gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file"></i> Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file"></i> Pis<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
-                      <li><a href="../processos/processos.php">Processos Finalizados</a></li>                    
+                      <li><a href="pis.php">Pis</a></li>
                     </ul>
                   </li>           
                 </ul>
@@ -175,7 +173,7 @@
                   <div class="x_content">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
-                        <table id="tabela" class="table table-hover">
+                        <table id="tabela" class="table table-striped">
                           <thead>
                             <tr>
                               <th>Código PI</th>
