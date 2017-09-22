@@ -1,6 +1,8 @@
 <?php include "../bancos/conecta.php";?>
 <?php include "../bancos/banco-cliente.php";?>
 <?php include "../bancos/banco-departamento.php";?>
+<?php include "../bancos/banco-gestores.php";?>
+
 <?php
   $departamentos = listaDepartamentos($conexao);
 ?>
@@ -71,15 +73,13 @@
                   <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="clientes.php">Clientes</a></li>
-                      <li><a href="departamentos.php">Departamentos</a></li>
-                      <li><a href="pis.php">Pis</a></li>
+                      <li><a href="departamentos.php">Departamentos</a></li>                      
                       <li><a href="gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file"></i> Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
-                      <li><a href="../processos/processos.php">Processos Finalizados</a></li>                    
+                      <li><a href="pis.php">Pis</a></li>
                     </ul>
                   </li>           
                 </ul>
@@ -157,19 +157,6 @@
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
-                  <div class="x_title">
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a></li>
-                          <li><a href="#">Settings 2</a></li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                    </ul>
-                  </div>
                   <div class="clearfix"></div>                
                   <div class="x_content">
                     <div class="row">
@@ -179,7 +166,10 @@
                             <tr>
                               <th>Empresa</th>
                               <th>Departamento</th>
-                              <th>Ações</th>
+                              <th>Responsável</th>
+                              <th>Email</th>
+                              <th>Telefone</th>
+                              <th class="col-md-2">Ações</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -187,13 +177,19 @@
                             <?php
                               foreach ($departamentos as  $departamento) {
                                 $cliente = buscaCliente($conexao, $departamento['id_cliente']);
+                                $gestor = buscaGestoresDepartamentos($conexao, $departamento['id_departamento']);
                             ?>
 
                             <tr>
                               <td><?=$cliente['nome']?></td>
                               <td><?=$departamento['nome']?></td>
+                              <td><?=$gestor['nome']?></td>
+                              <td><?=$gestor['email']?></td>
+                              <td><?=$gestor['tel']?></td>
                               <td align="center">
                                 <a href="../forms/form-pi.php?id_departamento=<?=$departamento['id_departamento']?>"><button class="btn btn-warning btn-xs"><i class="fa fa-plus"></i></button></a>
+                                <a href="../forms/form-altera-departamento.php?id_departamento=<?=$departamento['id_departamento']?>"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
+                                <a href="../remove/remove-departamento.php?id_departamento=<?=$departamento['id_departamento']?>"><button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button></a>
                               </td>
 
                             </tr>

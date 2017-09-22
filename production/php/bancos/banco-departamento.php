@@ -19,4 +19,13 @@ function listaDepartamentos($conexao){
     return $clientes;
 }
 
+
+function  buscaDepartamentoNome($conexao, $nome, $id_cliente){
+    $query = "select  * from departamentos where id_cliente = $id_cliente and nome = '{$nome}'";
+    $resultado = mysqli_query($conexao, $query);
+    $departamento = mysqli_fetch_assoc($resultado);
+    return $departamento;
+
+}
+
 ?>

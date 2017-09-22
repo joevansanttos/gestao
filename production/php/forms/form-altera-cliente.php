@@ -1,4 +1,12 @@
 <?php include "../bancos/conecta.php";?>
+<?php include "../bancos/banco-cliente.php";?>
+<?php include "../bancos/banco-cliente_img.php";?>
+
+<?php
+$id_cliente = $_GET['id_cliente'];
+$cliente = buscaCliente($conexao , $id_cliente);
+$imagem =  buscaImagemCliente($conexao , $id_cliente);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -139,25 +147,47 @@
 	            <div class="x_content">
 	            	<div class="row">
 	            	  <div class="col-md-12 col-sm-12 col-xs-12">
-	            	  	<form action="../adiciona/adiciona-cliente.php" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+	            	  	<form action="../altera/altera-cliente.php" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
 	            	  	 <div class="form-group">
 	            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Nome<span class="required">*</span>
 	            	  	   </label>
 	            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-	            	  	     <input type="text" id="nome" name="nome" required="required" class="form-control col-md-7 col-xs-12">
+	            	  	     <input type="text" id="nome" value="<?=$cliente['nome']?>" name="nome" required="required" class="form-control col-md-7 col-xs-12">
 	            	  	   </div>
 	            	  	 </div>
-	            	  	 <div class="form-group">
-	            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="telefone">Imagem<span class="required">*</span></label>
-	            	  	   <div class="col-md-3 col-sm-6 col-xs-12">
-	            	  	     <input type="file" name="image">
-	            	  	   </div>
-	            	  	 </div>              
+	            	  	 <?php
+	            	  	 if(count($imagem) > 0){
+	            	  	?>
+
+	            	  		<div class="form-group">
+	            	  		  <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="telefone">Imagem<span class="required">*</span></label>
+	            	  		  <div class="col-md-3 col-sm-6 col-xs-12">
+	            	  		    <input type="file" value="" name="image">
+	            	  		  </div>
+	            	  		</div>   
+
+	            	  	<?php
+	            	  	 }else{
+	            	  	?>
+
+	            	  	<div class="form-group">
+	            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="telefone">Imagem<span class="required">*</span></label>
+	            	  	  <div class="col-md-3 col-sm-6 col-xs-12">
+	            	  	    <input type="file" value="<?=$imagem['image']?>" name="image">
+	            	  	  </div>
+	            	  	</div>   
+	            	  	
+	            	  	<?php
+	            	  	 }
+	            	  	 ?>
+	            	  	            
 	            	  	 <div class="ln_solid"></div>
 	            	  	 <div class=" form-group">
 	            	  	   <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 	            	  	     <button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
 	            	  	     <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
+	            	  	     <input type="hidden" name="id_cliente" value="<?=$cliente['id_cliente']?>">
+	            	  	     <input type="hidden" name="id_cliente_img" value="<?=$imagem['id_cliente_img']?>">
 	            	  	   </div>
 	            	  	 </div>
 	            	  	</form>

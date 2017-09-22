@@ -9,7 +9,7 @@ function  buscaCliente($conexao , $id_cliente){
 }
 
 function  buscaClienteNome($conexao , $nome){
-    $query = "select  * from clientes where id_usuario = '{$nome}'";
+    $query = "select  * from clientes where nome = '{$nome}'";
     $resultado = mysqli_query($conexao, $query);
     $cliente = mysqli_fetch_assoc($resultado);
     return $cliente;

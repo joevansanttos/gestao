@@ -17,7 +17,7 @@ $tel = $_GET['tel'];
   	$query = "insert into gestor_macro (id_macroprocesso, nome, email, tel, cargo) values ({$macroprocesso['id_macroprocesso']}, '{$nome}', '{$email}' , '{$tel}', '{$cargo}')";
   	if(mysqli_query($conexao, $query)){
   		mysqli_close($conexao);
-  		header("Location: ../processos/processos.php"); 
+  		header("Location: ../profiles/pi-profile.php?cod_pi=$cod_pi");
   	}else{
   		echo mysqli_error($conexao);
   	}

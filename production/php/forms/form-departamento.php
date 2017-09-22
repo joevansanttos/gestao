@@ -55,15 +55,13 @@
 	                  <li><a><i class="fa fa-building"></i> Clientes<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../clientes/clientes.php">Clientes</a></li>
-	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>
-	                      <li><a href="../clientes/pis.php">Pis</a></li>
+	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>	                      
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file"></i> Processos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
-	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
-	                      <li><a href="../processos/processos.php">Processos Finalizados</a></li>                    
+	                      <li><a href="../clientes/pis.php">Pis</a></li>
 	                    </ul>
 	                  </li>           
 	                </ul>
@@ -145,10 +143,10 @@
 	            	  <div class="col-md-12 col-sm-12 col-xs-12">
 	            	  	<form action="../adiciona/adiciona-departamento.php" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 	            	  	 <div class="form-group">
-	            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Empresa<span class="required">*</span>
+	            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Cliente<span class="required">*</span>
 	            	  	   </label>
 	            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-	            	  	     <input type="text" value="<?=$cliente['nome']?>" id="cliente" name="cliente" required="required" class="form-control col-md-7 col-xs-12">
+	            	  	     <input type="text" readonly="readonly" value="<?=$cliente['nome']?>" id="cliente" name="cliente" required="required" class="form-control col-md-7 col-xs-12">
 	            	  	   </div>
 	            	  	 </div>
 	            	  	 <div class="form-group">
@@ -156,6 +154,25 @@
 	            	  	   </label>
 	            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
 	            	  	     <input type="text" id="nome" name="nome" required="required" class="form-control col-md-7 col-xs-12">
+	            	  	   </div>
+	            	  	 </div>
+	            	  	 <div class="item form-group ">
+	            	  	   <div class="form-group">
+	            	  	     <label for="socio" class="control-label col-md-3 col-sm-3 col-xs-12">Responsável pelo Processo <span class="required">*</span></label>                      
+	            	  	     <div class=" col-sm-6 col-xs-12 col-md-6">
+	            	  	       <div class="form-group">
+	            	  	         <input type="text" placeholder="Nome" name="responsavel" class="form-control">
+	            	  	       </div>            	  	     
+	            	  	       <div class="form-group">
+	            	  	         <input type="text" placeholder="Cargo" id="profissao" name="cargo" required="required" class="form-control col-md-7 col-xs-12">
+	            	  	       </div>
+	            	  	       <div class="form-group">
+	            	  	         <input type="email" placeholder="Email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
+	            	  	       </div>
+	            	  	       <div class="form-group">
+	            	  	         <input data-inputmask="'mask' : '(99) 99999-9999'" type="text" placeholder="Telefone" id="tel" name="tel" required="required" class="form-control col-md-7 col-xs-12">
+	            	  	       </div>                      
+	            	  	     </div>
 	            	  	   </div>
 	            	  	 </div>            	  	             
 	            	  	 <div class="ln_solid"></div>

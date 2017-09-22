@@ -69,15 +69,13 @@
                   <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="clientes.php">Clientes</a></li>
-                      <li><a href="departamentos.php">Departamentos</a></li>
-                      <li><a href="pis.php">Pis</a></li>
+                      <li><a href="departamentos.php">Departamentos</a></li>                      
                       <li><a href="gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file"></i> Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
-                      <li><a href="../processos/processos.php">Processos Finalizados</a></li>                    
+                     <li><a href="../pis/pis.php">Pis</a></li>
                     </ul>
                   </li>           
                 </ul>
@@ -172,11 +170,12 @@
                   <div class="x_content">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
-                        <table id="tabela" class="table table-bordered">
+                        <table id="tabela" class="table table-hover table-responsive">
                           <thead>
                             <tr>
+                              <th>Imagem</th>
                               <th>Nome</th>
-                              <th>Ações</th>
+                              <th class="col-md-2">Ações</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -186,9 +185,26 @@
                             ?>
 
                             <tr>
+                              <td>
+                                <div style= "" >
+                                  <?php
+                                    $id_cliente = $cliente['id_cliente'];                  
+                                    $sql = "SELECT * FROM cliente_img WHERE id_cliente = $id_cliente";
+                                    $sth = $conexao->query($sql);
+                                    $result=mysqli_fetch_array($sth);
+                                    if(count($result) > 0){
+                                      echo '<img class=" col-md-2 media-object img-responsive" src="data:image/jpeg;base64,'.base64_encode( $result['image'] ).'"/>';
+                                    }                            
+                                    
+                                  ?>
+                                </div>
+                               
+                              </td>
                               <td><?=$cliente['nome']?></td>
                               <td align="center">
                                 <a href="../forms/form-departamento.php?id_cliente=<?=$cliente['id_cliente']?>"><button class="btn btn-warning btn-xs"><i class="fa fa-plus"></i></button></a>
+                                <a href="../forms/form-altera-cliente.php?id_cliente=<?=$cliente['id_cliente']?>"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
+                                <a href="../remove/remove-cliente.php?id_cliente=<?=$cliente['id_cliente']?>"><button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button></a>
                               </td>
 
                             </tr>

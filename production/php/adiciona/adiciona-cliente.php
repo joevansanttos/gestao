@@ -12,9 +12,13 @@
 		  $cliente = buscaClienteNome($conexao , $nome);
 		  $id_cliente = $cliente['id_cliente'];
 		  $query = "insert into cliente_img (image, id_cliente) VALUES ('$imgContent', $id_cliente )";
-		  mysqli_query($conexao,$query);
-		  mysqli_close($conexao);
-		  header("Location: ../clientes/clientes.php");
+		  if(mysqli_query($conexao,$query)){
+		  	mysqli_close($conexao);
+		  	header("Location: ../clientes/clientes.php");
+		  }else{
+		  	echo mysqli_error($conexao);
+		  }
+		  
 		}
 	}else{
 		echo mysqli_error($conexao);

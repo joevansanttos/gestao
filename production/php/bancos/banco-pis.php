@@ -27,8 +27,22 @@ function buscaObjetivo($conexao, $cod_pi){
     return $cliente;
 }
 
+function buscaObjetivoId($conexao, $id_objetivo){
+    $query = "select  * from objetivos where id_objetivo={$id_objetivo}";
+    $resultado = mysqli_query($conexao, $query);
+    $cliente = mysqli_fetch_assoc($resultado);    
+    return $cliente;
+}
+
 function buscaAplicacao($conexao, $cod_pi){
     $query = "select  * from aplicacoes where cod_pi='{$cod_pi}'";
+    $resultado = mysqli_query($conexao, $query);
+    $cliente = mysqli_fetch_assoc($resultado);    
+    return $cliente;
+}
+
+function buscaAplicacaoId($conexao, $id_objetivo){
+    $query = "select  * from aplicacoes where id_objetivo={$id_objetivo}";
     $resultado = mysqli_query($conexao, $query);
     $cliente = mysqli_fetch_assoc($resultado);    
     return $cliente;

@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PROJEK | Usuários</title>
+    <title>PROJEK | Consultores</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="../../ico/favicon.ico"/>
     <!-- Bootstrap -->
@@ -40,16 +40,10 @@
             <div class="clearfix"></div>
             <div class="profile clearfix">
               <div class="profile_pic">
-                <?php                  
-                  $sql = "SELECT * FROM profileimg WHERE id_usuario = $id_usuario";
-                  $sth = $conexao->query($sql);
-                  $result=mysqli_fetch_array($sth);                            
-                  echo '<img class="img-responsive img-circle profile_img" src="data:image/jpeg;base64,'.base64_encode( $result['image'] ).'"/>';
-                ?>
               </div>
               <div class="profile_info">
                 <span>Bem Vindo,</span>
-                <h2><?=$usuario['nome']?></h2>
+                <h2></h2>
               </div>
             </div>
             <br />
@@ -57,77 +51,31 @@
               <div class="menu_section">
                 <h3>Geral</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-desktop"></i> LISTAR<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> Home<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="usuarios.php">USUÁRIOS</a></li>
-                      <li><a href="../produtos/produtos.php">PRODUTOS</a></li>
-                      <li><a href="consultores.php">CONSULTORES</a></li>
+                      <li><a href="index2.php">Dashboard</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> NEGÓCIOS <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-user"></i> Usuários<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../empresas/market.php">MARKET</a></li>
-                      <li><a href="../empresas/leads.php">LEADS</a></li>
-                      <li><a href="../empresas/suspects.php">SUSPECTS</a></li>
-                      <li><a href="../empresas/prospects.php">PROSPECTS</a></li>
-                      <li><a href="../contratos/contratos.php">CONTRATOS</a></li>                     
-                      <li><a href="../pos-venda/pos-venda.php">PÓS-VENDA</a></li>
+                      <li><a href="consultores.php">Consultores</a></li>
                     </ul>
                   </li>
-                    <li><a><i class="fa fa-table"></i> CONSULTORIA <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="contrato-mapeamento.php">MAPEAMENTO DE PROCESSOS</a></li>
-                        <li><a href="contrato-auditoria.php">AUDITORIA DE PROCESSOS</a></li>
-                        <li><a href="contrato-gestao.php">GESTÃO DE CONHECIMENTO</a></li>
-                      </ul>
-                    </li>
-                    <li><a><i class="fa fa-bar-chart-o"></i> FINANCEIRO <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="chartjs.html">CONTAS A PAGAR</a></li>
-                        <li><a href="chartjs2.html">CONTAS A RECEBER</a></li>
-                        <li><a href="morisjs.html">CONCILIAÇÃO</a></li>
-                        <li><a href="echarts.html">FLUXO DE CAIXA</a></li>
-                        <li><a href="other_charts.html">COBRANÇA</a></li>
-                      </ul>
-                    </li>
-                    <li><a><i class="fa fa-cart-plus"></i> COMPRAS <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="index2.html">SOLICITAÇÃO DE COMPRAS</a></li>
-                        <li><a href="form_advanced.html">ORÇAMENTO</a></li>
-                        <li><a href="form_validation.html">ORDEM DE COMPRA</a></li>
-                        <li><a href="form_wizards.html">ACOMPANHAMENTO DE ENTREGA</a></li>
-                      </ul>
-                    </li>
-                    <li><a><i class="fa fa-group"></i>RECURSOS HUMANOS <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="fixed_sidebar.html">SOLICITAÇÃO COLABORADOR</a></li>
-                        <li><a href="fixed_footer.html">SELEÇÃO</a></li>
-                        <li><a href="fixed_footer.html">RECRUTAMENTO</a></li>
-                        <li><a href="fixed_footer.html">ADMISSÃO</a></li>
-                        <li><a href="fixed_footer.html">AVALIAÇÃO DE DESEMPENHO</a></li>
-                        <li><a href="fixed_footer.html">FÉRIAS</a></li>
-                        <li><a href="fixed_footer.html">DESENVOLVIMENTO HUMANO</a></li>
-                        <li><a href="fixed_footer.html">DEMISSÃO</a></li>
-                      </ul>
-                    </li>               
+                  <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../clientes/clientes.php">Clientes</a></li>
+                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>                        
+                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-file-text"></i> Pis<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../clientes/pis.php">Pis</a></li>  
+                    </ul>
+                  </li>           
                 </ul>
               </div>
-              <!-- /menu footer buttons -->
-              <div class="sidebar-footer hidden-small">
-                <a data-toggle="tooltip" data-placement="top" title="Settings">
-                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                </a>
-                <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                  <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                </a>
-                <a data-toggle="tooltip" data-placement="top" title="Lock">
-                  <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                </a>
-                <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                  <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                </a>
-              </div> 
-            </div>         
+            </div>        
           </div>
         </div>      
         <!-- Col-->
@@ -141,7 +89,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <?=$usuario['nome']?>
+                    
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -168,7 +116,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Usuários</h3>
+                <h3>Consultores</h3>
               </div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -205,50 +153,35 @@
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <table id="tabela" class="table table-hover">
-                                <thead>
-                                  <tr>
-                                    <th>Nome</th>
-                                    <th>Profissão</th>
-                                    <th>Email</th>
-                                    <th>Estado</th>
-                                    <th>Telefone</th>
-                                    <th>Ações</th>
-                                  </tr>
-                                </thead>
-                                <tfoot>
-                                  <tr>
-                                    <th>Nome</th>
-                                    <th>Profissão</th>
-                                    <th>Email</th>
-                                    <th>Estado</th>
-                                    <th>Telefone</th>
-                                    <th></th>
-                                  </tr>
-                                </tfoot>
-                                <tbody>
-                                  <?php
-                                    $usuarios = listaUsuarios($conexao);
-                                    foreach ($usuarios as $usuario) {                                  
-                                  ?>
-                                    <tr>
-                                      <td><?=$usuario['nome']?></td>
-                                    <?php
-                                      $profissao = buscaProfissao($conexao, $usuario['id_profissao']);
-                                    ?>  
-                                      <td><?=$profissao['descricao']?></td>
-                                      <td><?=$usuario['email']?></td>
-                                      <td><?=$usuario['estado']?></td>
-                                      <td><?=$usuario['telefone']?></td>
-                                      <td align="center">
-                                        <a href="../profiles/usuario-profile.php?id=<?=$usuario['id_usuario']?>"><button class="btn btn-success btn-xs"><i class="fa fa-search"></i></button></a>
-                                        <a href="../forms/form-altera-usuario.php?id=<?=$usuario['id_usuario']?>"><button class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></button></a>    
-                                        <a href="../remove/remove-usuario.php?id=<?=$usuario['id_usuario']?>"><button class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></a>
-                                      </td>
-                                    </tr>
-                                  <?php
-                                    }
-                                  ?>
-                                </tbody>
+                          <thead>
+                            <tr>
+                              <th>Nome</th>
+                              <th>Email</th>
+                              <th>Estado</th>
+                              <th>Telefone</th>
+                              <th class="col-md-2">Ações</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                              $usuarios = listaUsuarios($conexao);
+                              foreach ($usuarios as $usuario) {                                  
+                            ?>
+                              <tr>
+                                <td><?=$usuario['nome']?></td>
+                                <td><?=$usuario['email']?></td>
+                                <td><?=$usuario['estado']?></td>
+                                <td><?=$usuario['telefone']?></td>
+                                <td align="center">
+                                  <a href="../profiles/usuario-profile.php?id=<?=$usuario['id_usuario']?>"><button class="btn btn-success btn-xs"><i class="fa fa-search"></i></button></a>
+                                  <a href="../forms/form-altera-usuario.php?id=<?=$usuario['id_usuario']?>"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>    
+                                  <a href="../remove/remove-usuario.php?id=<?=$usuario['id_usuario']?>"><button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button></a>
+                                </td>
+                              </tr>
+                            <?php
+                              }
+                            ?>
+                          </tbody>      
                         </table>
                         <div class="ln_solid"></div>
                           <a class="btn btn-success btn-round" style="" href="../forms/form-usuario.php?"><i class="fa fa-plus"></i></a>

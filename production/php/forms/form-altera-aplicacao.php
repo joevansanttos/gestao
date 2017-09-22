@@ -1,4 +1,14 @@
 <?php include "../bancos/conecta.php";?>
+<?php include "../bancos/banco-departamento.php";?>
+<?php include "../bancos/banco-cliente.php";?>
+<?php include "../bancos/banco-pis.php";?>
+<?php
+	$cod_pi = $_GET['cod_pi'];
+	$pi = buscaPi($conexao, $cod_pi);
+  $departamento = buscaDepartamento($conexao, $pi['id_departamento']);
+  $cliente = buscaCliente($conexao, $departamento['id_cliente']);
+  $aplicacao = buscaAplicacao($conexao, $cod_pi);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,16 +17,13 @@
 	  <meta charset="utf-8">
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	 	<title>Projek | Novo Cliente</title>
+	 	<title>Projek | Altera Aplicação</title>
+
 	  <link rel="shortcut icon" type="image/x-icon" href="../../ico/favicon.ico"/>
 	  <link href="../../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	  <link href="../../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	  <link href="../../../vendors/nprogress/nprogress.css" rel="stylesheet">
-	  <link href="../../../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-	  <link href="../../../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-	  <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 	  <link href="../../../build/css/custom.min.css" rel="stylesheet">
-	  <link rel="stylesheet" type="text/css" href="css/teste.css">
 	</head>
 	<body class="nav-md">
 	  <div class="container body">
@@ -24,7 +31,7 @@
 	      <div class="col-md-3 left_col">
 	        <div class="left_col scroll-view">
 	          <div class="navbar nav_title" style="border: 0;">
-	            <a href="../../index2.php" class="site_title"><img src="../../images/botão copiar.png" width="40" right="40" ><span>PROJEK</span></a>
+	            <a href="../index/index2.php" class="site_title"><img src="../../images/botao.png" width="40" right="40" ><span>PROJEK</span></a>
 	            <div class="clearfix"></div>
 	            <div class="profile clearfix">
 	              <div class="profile_pic">
@@ -53,13 +60,15 @@
 	                  <li><a><i class="fa fa-building"></i> Clientes<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../clientes/clientes.php">Clientes</a></li>
-	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>	                      
+	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>
+	                      <li><a href="../clientes/pis.php">Pis</a></li>
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file"></i> Processos<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
-	                      <li><a href="../clientes/pis.php">Pis</a></li>
+	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
+	                      <li><a href="../processos/processos.php">Processos Finalizados</a></li>                    
 	                    </ul>
 	                  </li>           
 	                </ul>
@@ -122,7 +131,7 @@
 	          <div class="">
 	            <div class="page-title">
 	              <div class="title_left">
-	                <h3>Cliente</h3>
+	                <h3>Altera Aplicação</h3>
 	              </div>
 	              <div class="title_right">
 	                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -139,27 +148,29 @@
 	            <div class="x_content">
 	            	<div class="row">
 	            	  <div class="col-md-12 col-sm-12 col-xs-12">
-	            	  	<form action="../adiciona/adiciona-cliente.php" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
-	            	  	 <div class="form-group">
-	            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Nome<span class="required">*</span>
-	            	  	   </label>
-	            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-	            	  	     <input type="text" id="nome" name="nome" required="required" class="form-control col-md-7 col-xs-12">
-	            	  	   </div>
-	            	  	 </div>
-	            	  	 <div class="form-group">
-	            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="telefone">Imagem<span class="required">*</span></label>
-	            	  	   <div class="col-md-3 col-sm-6 col-xs-12">
-	            	  	     <input type="file" name="image">
-	            	  	   </div>
-	            	  	 </div>              
-	            	  	 <div class="ln_solid"></div>
-	            	  	 <div class=" form-group">
-	            	  	   <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-	            	  	     <button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
-	            	  	     <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
-	            	  	   </div>
-	            	  	 </div>
+	            	  	<form action="../altera/altera-aplicacao.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+	            	  		<div class="form-group">
+	            	  		   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Código PI<span class="required">*</span>
+	            	  		   </label>
+	            	  		   <div class="col-md-6 col-sm-6 col-xs-12">
+	            	  		     <input type="text" placeholder="<?=$pi['cod_pi']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
+	            	  		   </div>
+	            	  		</div>		            	  	
+		            	  	<div class="form-group">
+		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Aplicação<span class="required">*</span>
+		            	  	  </label>
+		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
+		            	  	    <textarea  name="descricao" class="form-control col-md-12 col-xs-12" rows="6"><?=$aplicacao['descricao']?></textarea> 
+		            	  	  </div>
+		            	  	</div>  	             
+		            	  	<div class="ln_solid"></div>
+		            	  	<div class=" form-group">
+	            	  	  	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+	            	  	    <button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
+	            	  	    <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
+	            	  	    <input type="hidden" name="id_aplicacao" value="<?=$aplicacao['id_aplicacao']?>" >
+	            	  	    </div>
+	            	  	 	</div>
 	            	  	</form>
 	            	  </div>
 	            	</div>  	
@@ -178,42 +189,16 @@
 	      <!-- /footer content -->
 	    </div>
 	  </div>
+	  <!-- JQuery -->
 		<script src="../../../vendors/jquery/dist/jquery.min.js"></script>
-		<script src="../../js/cidades-estados2-utf8.js"></script>
 		<!-- Bootstrap -->
 		<script src="../../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-		<!-- FastClick -->
-		<script src="../../../vendors/fastclick/lib/fastclick.js"></script>
 		<!-- NProgress -->
 		<script src="../../../vendors/nprogress/nprogress.js"></script>
-		<!-- bootstrap-progressbar -->
-		<script src="../../../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-		<!-- iCheck -->
-		<script src="../../../vendors/iCheck/icheck.min.js"></script>
-		<!-- bootstrap-daterangepicker -->
-		<script src="../../../vendors/moment/min/moment.min.js"></script>
-		<script src="../../../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-		<!-- bootstrap-wysiwyg -->
-		<script src="../../../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-		<script src="../../../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
-		<script src="../../../vendors/google-code-prettify/src/prettify.js"></script>
-		<!-- jQuery Tags Input -->
-		<script src="../../../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
-		<!-- Switchery -->
-		<script src="../../../vendors/switchery/dist/switchery.min.js"></script>
-		<!-- Select2 -->
-		<script src="../../../vendors/select2/dist/js/select2.full.min.js"></script>
 		<!-- Parsley -->
 		<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
-
+		<!-- InputMask -->
 		<script src="../../../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
-
-		<!-- Autosize -->
-		<script src="../../../vendors/autosize/dist/autosize.min.js"></script>
-		<!-- jQuery autocomplete -->
-		<script src="../../../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
-		<!-- starrr -->
-		<script src="../../../vendors/starrr/dist/starrr.js"></script>
 		<!-- Custom Theme Scripts -->
 		<script src="../../../build/js/custom.min.js"></script>
 	</body>
