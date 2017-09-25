@@ -60,7 +60,7 @@
                   </li>
                   <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../clientes/pis.php">Pis</a></li>  
+                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>  
                     </ul>
                   </li>           
                 </ul>

@@ -8,7 +8,7 @@ $cod_pi = $_GET['cod_pi'];
 
   if(mysqli_query($conexao, $query)){
   		mysqli_close($conexao);
-  		header("Location: ../clientes/pis.php");   	
+  		header("Location: ../processos/processos.php");   	
   }else{
       echo mysqli_error($conexao);
   }	

@@ -68,9 +68,9 @@
                       <li><a href="../clientes/gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file-text"></i> Pis<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../clientes/pis.php">Pis</a></li>  
+                      <li><a href="../clientes/pis.php">Processos</a></li>  
                     </ul>
                   </li>           
                 </ul>
@@ -184,7 +184,7 @@
                           </tbody>      
                         </table>
                         <div class="ln_solid"></div>
-                          <a class="btn btn-success btn-round" style="" href="../forms/form-usuario.php?"><i class="fa fa-plus"></i></a>
+                          <a class="btn btn-default" style="" href="../forms/form-usuario.php?"><i class="fa fa-plus"></i></a>
                         </div>
                       </div>
                     </div>                     

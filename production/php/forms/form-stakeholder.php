@@ -5,8 +5,6 @@
 <?php
 	$cod_pi = $_GET['cod_pi'];
 	$pi = buscaPi($conexao, $cod_pi);
-  $departamento = buscaDepartamento($conexao, $pi['id_departamento']);
-  $cliente = buscaCliente($conexao, $departamento['id_cliente']);
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +14,7 @@
 	  <meta charset="utf-8">
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	 	<title>Projek | Novo Processo</title>
+	 	<title>Projek | Novo Subprocesso</title>
 
 	  <link rel="shortcut icon" type="image/x-icon" href="../../ico/favicon.ico"/>
 	  <link href="../../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -123,12 +121,13 @@
 	        </div>
 	      </div>
 	      <!-- /top navigation -->
+
 	      <!-- page content -->
 	      <div class="right_col" role="main">
 	          <div class="">
 	            <div class="page-title">
 	              <div class="title_left">
-	                <h3>Macroprocesso</h3>
+	                <h3>Parte Interessada</h3>
 	              </div>
 	              <div class="title_right">
 	                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -142,99 +141,46 @@
 	              </div>
 	            </div>
 	            <div class="clearfix"></div>
-	            <div class="x_content">
-	            	<div class="row">
-	            	  <div class="col-md-12 col-sm-12 col-xs-12">
-	            	  	<form action="../adiciona/adiciona-macroprocesso.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="nome">Empresa<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text" placeholder="<?=$cliente['nome']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Departamento<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text" placeholder="<?=$departamento['nome']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Código PI<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text" placeholder="<?=$pi['cod_pi']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Nº do Processo<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input  data-inputmask="'mask' : '*.*.'" type="text"  id="n_processo" name="n_processo" required="required" class="form-control col-md-6 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do Processo<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text"  id="t_processo" name="t_processo" required="required" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="item form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qPessoas">Nº de Pessoas<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-3 col-sm-6 col-xs-12">
-		            	  	    <input type="text"  id="qPessoas" name="qPessoas" required="required" class="form-control">
-		            	  	  </div>         
-		            	  	  <label for="horas" class="control-label col-md-1">Horas <span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-2 col-sm-6 col-xs-12">
-		            	  	    <input type="text"  id="horas" name="horas" required="required" class="form-control">
-		            	  	  </div>		            	  	  
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sexo">Periodicidade<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <select class="form-control col-md-3"  id="sexo" name="sexo" required="required" >
-		            	  	      <option value="feminino">Diariamente</option>
-		            	  	      <option value="masculino">Semanalmente</option>
-		            	  	      <option value="nada">Mensalmente</option>
-		            	  	    </select>  
-		            	  	  </div>
-		            	  	</div>      
-		            	  	<div class="item form-group ">
-		            	  	  <div class="form-group">
-		            	  	    <label for="socio" class="control-label col-md-3 col-sm-3 col-xs-12">Responsável pelo Processo <span class="required">*</span></label>                      
-		            	  	    <div class=" col-sm-6 col-xs-12 col-md-6">
-		            	  	      <div class="form-group">
-		            	  	        <input type="text" placeholder="Nome" name="nome" class="form-control">
-		            	  	      </div>            	  	     
-		            	  	      <div class="form-group">
-		            	  	        <input type="text" placeholder="Cargo" id="profissao" name="cargo" required="required" class="form-control col-md-7 col-xs-12">
-		            	  	      </div>
-		            	  	      <div class="form-group">
-		            	  	        <input type="email" placeholder="Email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
-		            	  	      </div>
-		            	  	      <div class="form-group">
-		            	  	        <input data-inputmask="'mask' : '(99) 99999-9999'" type="text" placeholder="Telefone" id="tel" name="tel" required="required" class="form-control col-md-7 col-xs-12">
-		            	  	      </div>                      
-		            	  	    </div>
-		            	  	  </div>
-		            	  	</div>	  	             
-		            	  	<div class="ln_solid"></div>
-		            	  	<div class=" form-group">
-	            	  	  	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-	            	  	    <button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
-	            	  	    <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
-	            	  	    <input type="hidden" name="cod_pi" value="<?=$pi['cod_pi']?>">
-	            	  	 		</div>
-	            	  	 	</div>
-	            	  	</form>
-	            	  </div>
-	            	</div>  	
-	              <br />
+	            <div class="row">
+	              <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                	<div class="x_content">
+	                		<form action="../adiciona/adiciona-stakeholder.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+	                			<div class="item form-group ">
+	                				<div class="form-group">
+	                					<label for="socio" class="control-label col-md-3 col-sm-3 col-xs-12">Stakeholder <span class="required">*</span></label>                      
+	                					<div class=" col-sm-6 col-xs-12 col-md-6">
+	                						<div class="form-group">
+	                							<input type="text" placeholder="Nome" name=nomes[]" class="form-control">
+	                						</div>	            				      
+	                						<div class="form-group">
+	                							<input type="email" placeholder="@email.com" id="email" name="emails[]" required="required" class="form-control col-md-7 col-xs-12">
+	                						</div>
+	                						<div class="form-group">
+	                							<input type="text" placeholder="Cargo" id="cargo" name="cargos[]" required="required" class="form-control col-md-7 col-xs-12">
+	                						</div>
+	                						<div class="form-group">
+	                							<input type="text" placeholder="Departamento" id="departamento" name="departamentos[]" required="required" class="form-control col-md-7 col-xs-12">
+	                						</div>	            				    
+	                						<span class="input-group-btn "><button type="button" class=" btn btn-default btn-add">+
+	                						</button></span>                       
+	                					</div>
+	                				</div>
+	                			</div>
+	                			<div class="ln_solid"></div>
+	                			<div class=" form-group">
+	                				<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+	                					<button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
+	                					<button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
+	                					<input type="hidden" name="cod_pi" value="<?=$pi['cod_pi']?>">
+	                				</div>
+	                			</div>
+	                		</form>
+	                	</div>
+	                </div>
+	              </div>
+	            </div>	
+	            <br />
 	           </div>
 	          </div>
 	      </div>
@@ -261,5 +207,6 @@
 		<script src="../../../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
 		<!-- Custom Theme Scripts -->
 		<script src="../../../build/js/custom.min.js"></script>
+		<script src="../../js/multiple.js"></script>
 	</body>
 </html>

@@ -160,7 +160,7 @@
 	            	  				<label class="control-label col-md-3 col-sm-3 col-xs-12">Definições</label>
 	            	  				<div class="col-sm-6 col-xs-12 col-md-6">
 	            	  					<div class="form-group input-group">
-	            	  						<input type="text" name="multiple[]" class="form-control">
+	            	  						<textarea   name="multiple[]" class="form-control" rows="6"></textarea> 
 	            	  						<span class="input-group-btn"><button type="button" class="btn btn-default btn-add">+
 	            	  						</button></span>
 	            	  						</div>

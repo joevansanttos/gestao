@@ -1,7 +1,5 @@
 <?php include "../bancos/conecta.php";?>
 <?php include "../bancos/banco-usuario.php";?>
-<?php include "../bancos/banco-profissao.php";?>
-<?php include "../logica/logica-usuario.php";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,16 +53,16 @@
                       <li><a href="../usuarios/consultores.php">Consultores</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-building"></i> Clientes<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../clientes/clientes.php">Clientes</a></li>
                       <li><a href="../clientes/departamentos.php">Departamentos</a></li>                        
                       <li><a href="../clientes/gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../clientes/pis.php">Pis</a></li>
+                      <li><a href="../processos/processos.php">Pis</a></li>
                     </ul>
                   </li>           
                 </ul>
@@ -170,23 +168,7 @@
                       <option value="nada">Não Opinar</option>
                     </select>  
                   </div>
-                </div>                   
-                <div class="item form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="profissao">Profissão<span class="required">*</span>
-                  </label>
-                  <div class="col-sm-8 col-xs-12 col-md-6">
-                    <select id="profissao" name="profissao" required class="form-control col-md-8 col-xs-12">
-                    <?php
-                    $profissoes = listaProfissao($conexao);
-                    foreach ($profissoes as $profissao) {
-                    ?>
-                      <option value="<?=$profissao['id_profissao']?>"><?=$profissao['descricao']?></option>
-                    <?php                         
-                    }
-                    ?>
-                    </select>
-                  </div>
-                </div> 
+                </div>                 
                 <div class=" form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="estado1">Estado <span class="required">*</span>
                   </label>

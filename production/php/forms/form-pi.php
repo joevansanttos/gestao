@@ -14,7 +14,7 @@
 	  <meta charset="utf-8">
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	 	<title>Projek | Novo PI</title>
+	 	<title>Projek | Novo Manual de Processos</title>
 
 	  <link rel="shortcut icon" type="image/x-icon" href="../../ico/favicon.ico"/>
 	  <link href="../../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -54,18 +54,16 @@
 	                      <li><a href="../usuarios/consultores.php">Consultores</a></li>
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-building"></i> Clientes<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../clientes/clientes.php">Clientes</a></li>
 	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>
-	                      <li><a href="../clientes/pis.php">Pis</a></li>
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file"></i> Processos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
-	                      <li><a href="../processos/processos.php">Processos Finalizados</a></li>                    
 	                    </ul>
 	                  </li>           
 	                </ul>
@@ -128,7 +126,7 @@
 	          <div class="">
 	            <div class="page-title">
 	              <div class="title_left">
-	                <h3>Procedimento Interno</h3>
+	                <h3>Manual de Processos</h3>
 	              </div>
 	              <div class="title_right">
 	                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">

@@ -65,3 +65,15 @@ function listaDefinicaoPI($conexao, $cod_pi){
     
     return $clientes;
 }
+
+
+function listaStakeholdersPi($conexao, $cod_pi){
+  $clientes = array();
+    $query = "select  * from stakeholders where cod_pi='{$cod_pi}'";
+    $resultado = mysqli_query($conexao, $query);
+    while ($cliente = mysqli_fetch_assoc($resultado)) {
+      array_push($clientes, $cliente);
+    }
+    
+    return $clientes;
+}

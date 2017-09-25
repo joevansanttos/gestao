@@ -2,7 +2,6 @@
 <?php include "../bancos/banco-cliente.php";?>
 <?php include "../bancos/banco-departamento.php";?>
 <?php include "../bancos/banco-pis.php";?>
-<?php include "../bancos/banco-macroprocesso.php";?>
 <?php
   $pis = listaPis($conexao);
 ?>
@@ -72,14 +71,14 @@
                   </li>
                   <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../clientes/clientes.php">Clientes</a></li>
-                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>                     
-                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
+                      <li><a href="clientes.php">Clientes</a></li>
+                      <li><a href="departamentos.php">Departamentos</a></li>                      
+                      <li><a href="gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                       <li><a href="../processos/processos.php">Processos em Andamento</a></li>
+                      <li><a href="pis.php">Pis</a></li>
                     </ul>
                   </li>           
                 </ul>
@@ -140,7 +139,7 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              <div class="title_left"><h3>Processos</h3></div>
+              <div class="title_left"><h3>Pis</h3></div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
@@ -156,14 +155,27 @@
             <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">                 
+                <div class="x_panel">
+                  <div class="x_title">
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a></li>
+                          <li><a href="#">Settings 2</a></li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                    </ul>
+                  </div>
                   <div class="clearfix"></div>                
                   <div class="x_content">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
-                        <table id="tabela" class="table table-hover">
+                        <table id="tabela" class="table table-striped">
                           <thead>
-                            <tr>                             
+                            <tr>
                               <th>Código PI</th>
                               <th>Empresa</th>
                               <th>Departamento</th>
@@ -178,12 +190,14 @@
                                 $cliente = buscaCliente($conexao, $departamento['id_cliente']);
                             ?>
 
-                            <tr>                              
+                            <tr>
                               <td><?=$pi['cod_pi']?></td>
                               <td><?=$cliente['nome']?></td>
                               <td><?=$departamento['nome']?></td>
                               <td align="center">
                                 <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-success btn-xs"><i class="fa fa-search"></i></button></a>
+                                <a href="../forms/form-macroprocesso.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-warning btn-xs"><i class="fa fa-plus"></i></button></a>
+                                <a href="../imprime/imprime-pi.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-primary btn-xs"><i class="fa fa-print"></i></button></a>
                               </td>
 
                             </tr>
@@ -195,6 +209,7 @@
                           </tbody>
                         </table>
                         <div class="ln_solid"></div>
+                          <a class="btn btn-success btn-round" style="" href="../forms/form-cliente.php?"><i class="fa fa-plus"></i></a>
                         </div>
                       </div>
                     </div>  

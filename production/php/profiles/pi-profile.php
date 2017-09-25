@@ -10,7 +10,9 @@
   $aplicacao = buscaAplicacao($conexao, $cod_pi);
   $informacao = buscaInformacao($conexao, $cod_pi);
   $definicoes = listaDefinicaoPI($conexao, $cod_pi);
+  $stakeholders = listaStakeholdersPi($conexao, $cod_pi);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +21,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PROJEK | Pi</title>
+    <title>PROJEK | Processos</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="../../ico/favicon.ico"/>
     <!-- Bootstrap -->
@@ -65,14 +67,14 @@
                   </li>
                   <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="clientes.php">Clientes</a></li>
-                      <li><a href="departamentos.php">Departamentos</a></li>                      
-                      <li><a href="gestores.php">Gestores</a></li>                          
+                      <li><a href="../clientes/clientes.php">Clientes</a></li>
+                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>                      
+                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                     <li><a href="../clientes/pis.php">Pis</a></li>
+                     <li><a href="../processos/processos.php">Processos em Andamento</a></li>
                     </ul>
                   </li>           
                 </ul>
@@ -149,10 +151,7 @@
             <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    
-                  </div>
+                <div class="x_panel">                  
                   <div class="clearfix"></div>                
                   <div class="x_content">
                     <div class="row">
@@ -163,7 +162,14 @@
                               <div class="panel-heading primary">
                                 <h4 class="panel-title">
                                   <a data-toggle="collapse" href="#objetivo">1. Objetivo</a>
-                                  <a href="../forms/form-objetivo.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a> </a>
+                                  <?php
+                                    if(count($objetivo) == 0){
+                                  ?>
+                                    <a href="../forms/form-objetivo.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a> </a>
+                                  <?php    
+                                    }
+                                  ?>                                  
+                                  
                                   <a href="../forms/form-altera-objetivo.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-pencil"></i></button></a> 
                                   <div class="clearfix"></div>
                                 </h4>
@@ -180,7 +186,13 @@
                               <div class="panel-heading">
                                 <h4 class="panel-title">
                                   <a data-toggle="collapse" href="#aplicacao">2. Aplicação</a>
-                                  <a href="../forms/form-aplicacao.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a> </a>
+                                  <?php
+                                    if(count($aplicacao) == 0){
+                                  ?>
+                                    <a href="../forms/form-aplicacao.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a> </a>
+                                  <?php    
+                                    }
+                                  ?>        
                                   <a href="../forms/form-altera-aplicacao.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-pencil"></i></button></a> 
                                   <div class="clearfix"></div>
                                 </h4>
@@ -223,7 +235,14 @@
                               <div class="panel-heading">
                                 <h4 class="panel-title">
                                   <a data-toggle="collapse" href="#informacao">4. Informações Gerais</a>
-                                  <a href="../forms/form-informacao.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a> </a>
+                                  <?php
+                                    if(count($aplicacao) == 0){
+                                  ?>
+                                    <a href="../forms/form-informacao.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a> </a>
+                                  <?php    
+                                    }
+                                  ?>    
+                                  
                                   <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-pencil"></i></button></a> 
                                   <div class="clearfix"></div>
                                 </h4>
@@ -240,8 +259,7 @@
                               <div class="panel-heading">
                                 <h4 class="panel-title">
                                   <a data-toggle="collapse" href="#processo">5. Processos</a>
-                                  <a href="../forms/form-informacao.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a> </a>
-                                  <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-pencil"></i></button></a> 
+                                  <a href="../forms/form-macroprocesso.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a> </a>                                  
                                   <div class="clearfix"></div>
                                 </h4>
                               </div>
@@ -318,49 +336,52 @@
                             </div>   
                         </div>
 
-
-                        
-
-                        <!-- 
-                        <div id="myModal" class="modal fade" role="dialog" ">
-                          <div class="modal-dialog modal-lg">
-                            <div class="modal-content" >
-                              <form  role="form" action="../adiciona/adiciona-subprocesso.php" method="get" >
-                                <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h4 class="modal-title">Novo Subprocesso</h4>
-                                </div>
-                                <div class="modal-body" >
-                                  <div class="form-group" >
-                                    <label for="macroprocesso" class="control-label">Macroprocesso</label>   
-                                    <input type="text" name="macroprocesso" class="form-control">
-                                  </div>
-                                  <div class="form-group" >
-                                    <label for="t_subprocesso" class="control-label">Nº Subprocesso</label>   
-                                    <input type="" name="n_subprocesso" class="form-control">
-                                  </div>
-                                  <div class="form-group" >
-                                    <label for="t_subprocesso" class="control-label">Título</label>   
-                                    <input type="" name="t_subprocesso" class="form-control">
-                                  </div>
-                                  <div class="form-group" >
-                                    <label for="recipient-name" class="control-label">Descrição</label>   
-                                    <textarea rows="6" class="form-control" name="descricao" ></textarea>
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                                  <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
-                                </div>
-                              </form>  
-                            </div>
-                          </div>
+                        <!-- Panel Stakeholders -->
+                        <div class="panel-group" id="panelstakeholder">
+                          <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h4 class="panel-title">
+                                  <a data-toggle="collapse" href="#stakeholder">Stakeholders</a>                               
+                                  <a href="../forms/form-stakeholder.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-default pull-right"><i class="fa fa-plus"></i></button></a> </a>                      
+                                  <div class="clearfix"></div>
+                                </h4>
+                              </div>
+                              <div id="stakeholder" class="panel-collapse collapse">                               
+                               <div class="panel-body">
+                                <table class="table table-bordered">
+                                  <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Departamento</th>
+                                    <th>Cargo</th>
+                                    <th>Ações</th>
+                                  </tr>
+                                  <?php
+                                    foreach ($stakeholders as $stakeholder) {
+                                  ?>
+                                  <tr>
+                                    <td><?=$stakeholder['nome']?></td>
+                                    <td><?=$stakeholder['email']?></td>
+                                    <td><?=$stakeholder['departamento']?></td>
+                                    <td><?=$stakeholder['cargo']?></td>
+                                    <td align="center">
+                                      <a href="../forms/form-altera-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></a>
+                                    </td>
+                                  </tr>
+                                  <?php
+                                    }
+                                  ?>
+                                </table>
+                                
+                                 
+                               </div>
+                              
+                              </div>
+                            </div>   
                         </div>
-                        -->                        
-                        
-                        <a class="btn btn-default" style="" href="../forms/form-macroprocesso.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-plus"></i></a>
+                        <!-- End Panel Informacao --> 
+                        <a class="btn btn-default" style="" href="../forms/form-stakeholder.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-envelope"></i></a>
                         <a class="btn btn-default" style="" href="../imprime/imprime-pi.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-print"></i></a>
-
                       </div>
                     </div>  
                   </div>
@@ -400,3 +421,5 @@
     </script>
   </body>
 </html>
+
+
