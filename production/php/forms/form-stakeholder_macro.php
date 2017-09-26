@@ -3,12 +3,11 @@
 <?php include "../bancos/banco-cliente.php";?>
 <?php include "../bancos/banco-pis.php";?>
 <?php include "../bancos/banco-macroprocesso.php";?>
+
 <?php
 	$id_macroprocesso = $_GET['id_macroprocesso'];
 	$macroprocesso = buscaMacroprocessoId($conexao, $id_macroprocesso);
 	$pi = buscaPi($conexao, $macroprocesso['cod_pi']);
-  $departamento = buscaDepartamento($conexao, $pi['id_departamento']);
-  $cliente = buscaCliente($conexao, $departamento['id_cliente']);
 ?>
 
 <!DOCTYPE html>
@@ -58,16 +57,16 @@
 	                      <li><a href="../usuarios/consultores.php">Consultores</a></li>
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-building"></i> Clientes<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../clientes/clientes.php">Clientes</a></li>
-	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>	                      
+	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
-	                      <li><a href="../clientes/pis.php">Pis</a></li>
+	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
 	                    </ul>
 	                  </li>           
 	                </ul>
@@ -125,12 +124,13 @@
 	        </div>
 	      </div>
 	      <!-- /top navigation -->
+
 	      <!-- page content -->
 	      <div class="right_col" role="main">
 	          <div class="">
 	            <div class="page-title">
 	              <div class="title_left">
-	                <h3>Subprocesso</h3>
+	                <h3>Parte Interessada do Processo</h3>
 	              </div>
 	              <div class="title_right">
 	                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -144,50 +144,61 @@
 	              </div>
 	            </div>
 	            <div class="clearfix"></div>
-	            <div class="x_content">
-	            	<div class="row">
-	            	  <div class="col-md-12 col-sm-12 col-xs-12">
-	            	  	<form action="../adiciona/adiciona-subprocesso.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">		            	  	
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do Macroprocesso<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text"  id="t_processo" name="t_processo" placeholder="<?=$macroprocesso['t_processo']?>" readonly="readonly"  required="required" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t_subprocesso">Título do Subprocesso<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text"  id="t_subprocesso" name="t_subprocesso" required="required" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t_subprocesso">Nº do Subprocesso<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text" data-inputmask="'mask' : '9.9.9.'" id="n_subprocesso" name="n_subprocesso" required="required" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Descrição<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <textarea  name="descricao" class="form-control" rows="6"></textarea> 
-		            	  	  </div>
-		            	  	</div>  	             
-		            	  	<div class="ln_solid"></div>
-		            	  	<div class=" form-group">
-	            	  	  	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-	            	  	    <button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
-	            	  	    <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
-	            	  	    <input type="hidden" name="id_macroprocesso" value="<?=$macroprocesso['id_macroprocesso']?>">
-	            	  	 		</div>
-	            	  	 	</div>
-	            	  	</form>
-	            	  </div>
-	            	</div>  	
-	              <br />
+	            <div class="row">
+	              <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                	<div class="x_content">
+	                		<form action="../adiciona/adiciona-stakeholder_macro.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+	                			<div class="form-group">
+	                			   <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="t_processo">Manual do Processo<span class="required">*</span>
+	                			   </label>
+	                			   <div class="col-md-6 col-sm-6 col-xs-12">
+	                			     <input type="text" placeholder="<?=$pi['cod_pi']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
+	                			   </div>
+	                			</div>
+	                			<div class="form-group">
+	                			   <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="t_processo">Processo<span class="required">*</span>
+	                			   </label>
+	                			   <div class="col-md-6 col-sm-6 col-xs-12">
+	                			     <input type="text" placeholder="<?=$macroprocesso['t_processo']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
+	                			   </div>
+	                			</div>
+	                			<div class="item form-group ">
+	                				<div class="form-group">
+	                					<label for="socio" class="control-label col-md-3 col-sm-3 col-xs-12">Stakeholder <span class="required">*</span></label>                      
+	                					<div class=" col-sm-6 col-xs-12 col-md-6">
+	                						<div class="form-group">
+	                							<input type="text" placeholder="Nome" name=nomes[]" class="form-control">
+	                						</div>	            				      
+	                						<div class="form-group">
+	                							<input type="email" placeholder="@email.com" id="email" name="emails[]" required="required" class="form-control col-md-7 col-xs-12">
+	                						</div>
+	                						<div class="form-group">
+	                							<input type="text" placeholder="Cargo" id="cargo" name="cargos[]" required="required" class="form-control col-md-7 col-xs-12">
+	                						</div>
+	                						<div class="form-group">
+	                							<input type="text" placeholder="Departamento" id="departamento" name="departamentos[]" required="required" class="form-control col-md-7 col-xs-12">
+	                						</div>	            				    
+	                						<span class="input-group-btn "><button type="button" class=" btn btn-default btn-add">+
+	                						</button></span>                       
+	                					</div>
+	                				</div>
+	                			</div>
+	                			<div class="ln_solid"></div>
+	                			<div class=" form-group">
+	                				<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+	                					<button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
+	                					<button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
+	                					<input type="hidden" name="cod_pi" value="<?=$pi['cod_pi']?>">
+	                					<input type="hidden" name="id_macroprocesso" value="<?=$macroprocesso['id_macroprocesso']?>">
+	                				</div>
+	                			</div>
+	                		</form>
+	                	</div>
+	                </div>
+	              </div>
+	            </div>	
+	            <br />
 	           </div>
 	          </div>
 	      </div>
@@ -214,5 +225,6 @@
 		<script src="../../../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
 		<!-- Custom Theme Scripts -->
 		<script src="../../../build/js/custom.min.js"></script>
+		<script src="../../js/multiple.js"></script>
 	</body>
 </html>

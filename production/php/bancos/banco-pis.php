@@ -77,3 +77,14 @@ function listaStakeholdersPi($conexao, $cod_pi){
     
     return $clientes;
 }
+
+function listaStakeholdersMacro($conexao, $id_macroprocesso){
+  $clientes = array();
+    $query = "select  * from stakeholders_macro where id_macroprocesso={$id_macroprocesso}";
+    $resultado = mysqli_query($conexao, $query);
+    while ($cliente = mysqli_fetch_assoc($resultado)) {
+      array_push($clientes, $cliente);
+    }
+    
+    return $clientes;
+}

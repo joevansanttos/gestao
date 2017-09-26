@@ -10,3 +10,10 @@ function listaMacroSubprocessos($conexao, $id_macroprocesso){
 	  
 	  return $clientes;
 }
+
+function buscaSubprocessoId($conexao, $id_subprocesso){
+    $query = "select  * from subprocessos where id_subprocesso = {$id_subprocesso}";
+    $resultado = mysqli_query($conexao, $query);
+    $usuario = mysqli_fetch_assoc($resultado);
+    return $usuario;
+}
