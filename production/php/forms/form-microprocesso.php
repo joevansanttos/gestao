@@ -27,6 +27,7 @@
 	  <link href="../../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	  <link href="../../../vendors/nprogress/nprogress.css" rel="stylesheet">
 	  <link href="../../../build/css/custom.min.css" rel="stylesheet">
+	  
 	</head>
 	<body class="nav-md">
 	  <div class="container body">
@@ -165,14 +166,14 @@
 		            	  	   </div>
 		            	  	</div>
 		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t_subprocesso">Título do Microprocesso<span class="required">*</span>
+		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t_subprocesso">Título do Subprocesso<span class="required">*</span>
 		            	  	   </label>
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
 		            	  	     <input type="text"  id="t_microprocesso" name="t_microprocesso" required="required" class="form-control col-md-7 col-xs-12">
 		            	  	   </div>
 		            	  	</div>
 		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t_subprocesso">Nº do Microprocesso<span class="required">*</span>
+		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t_subprocesso">Nº do Subprocesso<span class="required">*</span>
 		            	  	   </label>
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
 		            	  	     <input type="text" data-inputmask="'mask' : '9.9.9.9.'" id="n_microprocesso" name="n_microprocesso" required="required" class="form-control col-md-7 col-xs-12">

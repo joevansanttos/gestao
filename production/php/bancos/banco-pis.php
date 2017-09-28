@@ -88,3 +88,17 @@ function listaStakeholdersMacro($conexao, $id_macroprocesso){
     
     return $clientes;
 }
+
+function buscaClassificacaoId($conexao, $id_classificacao){
+    $query = "select  * from classificacao where id_classificacao={$id_classificacao}";
+    $resultado = mysqli_query($conexao, $query);
+    $cliente = mysqli_fetch_assoc($resultado);    
+    return $cliente;
+}
+
+function buscaPeriodicidadeId($conexao, $id_periodicidade){
+    $query = "select  * from periodicidade where id_periodicidade={$id_periodicidade}";
+    $resultado = mysqli_query($conexao, $query);
+    $cliente = mysqli_fetch_assoc($resultado);    
+    return $cliente;
+}

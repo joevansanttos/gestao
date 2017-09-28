@@ -272,26 +272,24 @@
                                 </h4>
                               </div>
                               <div id="processo" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                  <?php
-                                  $m = 1;                        
-                                  foreach ($macroprocessos as  $macroprocesso) {
-                                  $string = (string)$m;
-                                  $panel = 'panel_' . $string;
-                                  $idpanel = '#'.$panel;
-                                  $m = $m + 1;
-                                  $panel_s = 'panel_s_' . $string;
-                                  $idpanel_s = '#'.$panel_s;
-                                  $panel_d = 'panel_d_' . $string;
-                                  $idpanel_d = '#'.$panel_d;
-                                  $panel_c = 'panel_c_' . $string;
-                                  $idpanel_c = '#'.$panel_c;
-                                  $accordion = 'accordion_'. $panel;
-                                  $idaccordion = '#'. $accordion;
-                                  $stakeholders_macro = listaStakeholdersMacro($conexao, $macroprocesso['id_macroprocesso']);  
-                                  ?>  
-
-                                  <div class="panel-group" id="accordion">                                    
+                                <div class="panel-body">                                  
+                                  <div class="panel-group" id="accordion">
+                                    <?php
+                                    $m = 1;                        
+                                    foreach ($macroprocessos as  $macroprocesso) {
+                                    $string = (string)$m;
+                                    $panel = 'panel_' . $string;
+                                    $idpanel = '#'.$panel;
+                                    $m = $m + 1;
+                                    $panel_s = 'panel_s_' . $string;
+                                    $idpanel_s = '#'.$panel_s;
+                                    $panel_d = 'panel_d_' . $string;
+                                    $idpanel_d = '#'.$panel_d;
+                                    $accordion = 'accordion_'. $panel;
+                                    $idaccordion = '#'. $accordion;
+                                    $stakeholders_macro = listaStakeholdersMacro($conexao, $macroprocesso['id_macroprocesso']);  
+                                    ?>
+                                    <!-- Panel Macroprocessos-->
                                     <div class="panel panel-success">
                                       <div class="panel-heading">
                                         <h4 class="panel-title">                               
@@ -306,25 +304,25 @@
                                           </a> 
                                           <div class="clearfix"></div>
                                         </h4>
-                                      </div>
+                                      </div>                                     
 
-                                      <!-- Panel Subprocessos -->                                   
+                                      <!-- Panel Subprocesso -->                                   
                                       <div id="<?=$panel?>" class="panel-collapse collapse">
-                                        <div class="panel-body"> 
-                                          <?php
-                                          $subprocessos = listaMacroSubprocessos($conexao, $macroprocesso['id_macroprocesso']);
-                                          $i = 1;
-                                          foreach ($subprocessos as  $sub) {                                  
-                                            $string2 = (string)$i;
-                                            $panel2 = 'panel2_' . $string. '_' . $string2;
-                                            $idpanel2 = '#'.$panel2;
-                                            $panel2_d = 'panel2_d_' . $string. '_'. $string2;
-                                            $idpanel2_d = '#'.$panel2_d;                                                                                    
-                                            $i = $i + 1;
-                                            $accordion2 = 'accordion2_'. $panel2;
-                                            $idaccordion2 = '#'. $accordion2;  
-                                          ?>                              
-                                          <div class="panel-group" id="<?=$accordion?>">                                            
+                                        <div class="panel-body">                               
+                                          <div class="panel-group" id="<?=$accordion?>">
+                                            <?php
+                                            $subprocessos = listaMacroSubprocessos($conexao, $macroprocesso['id_macroprocesso']);
+                                            $i = 1;
+                                            foreach ($subprocessos as  $sub) {                                  
+                                              $string2 = (string)$i;
+                                              $panel2 = 'panel2_' . $string. '_' . $string2;
+                                              $idpanel2 = '#'.$panel2;
+                                              $panel2_d = 'panel2_d_' . $string. '_'. $string2;
+                                              $idpanel2_d = '#'.$panel2_d;                                            
+                                              $i = $i + 1;
+                                              $accordion2 = 'accordion2_'. $panel2;
+                                              $idaccordion2 = '#'. $accordion2;  
+                                            ?>
                                             <div class="panel panel-warning">
                                               <div class="panel-heading">
                                                 <h4 class="panel-title">
@@ -342,23 +340,23 @@
                                                 </h4>
                                               </div>
                                               <div id="<?=$panel2?>" class="panel-collapse collapse">
-                                                <div class="panel-body">                                         
-                                                  <?php
-                                                      $j = 1;
-                                                      $microprocessos= listaMicroprocessos($conexao, $sub['id_subprocesso']);
-                                                      foreach ($microprocessos as $micro) {
-                                                       $string3 = (string)$j;
-                                                        $panel3 = 'panel3_' . $string2. '_' . $string3;
-                                                        $idpanel3 = '#'.$panel3;
-                                                        $panel3_d = 'panel3_d_' . $string2. '_'. $string3;
-                                                        $idpanel3_d = '#'.$panel3_d;                                            
-                                                        $j = $j + 1;
-                                                        $accordion3 = 'accordion3_'. $panel3;
-                                                        $idaccordion3 = '#'. $accordion3;                                   
-                                                  ?>
+                                                <div class="panel-body">
                                                   <!-- Microprocessos Panel -->
-                                                  <div class="panel-group" id="<?=$accordion3?>">                                 
-                                                    <div class="panel panel-danger">
+                                                  <div class="panel-group" id="<?=$accordion3?>">
+                                                    <?php
+                                                        $j = 1;
+                                                        $microprocessos= listaMicroprocessos($conexao, $sub['id_subprocesso']);
+                                                        foreach ($microprocessos as $micro) {
+                                                         $string3 = (string)$j;
+                                                          $panel3 = 'panel3_' . $string2. '_' . $string3;
+                                                          $idpanel3 = '#'.$panel3;
+                                                          $panel3_d = 'panel3_d_' . $string2. '_'. $string3;
+                                                          $idpanel3_d = '#'.$panel3_d;                                            
+                                                          $j = $j + 1;
+                                                          $accordion3 = 'accordion3_'. $panel3;
+                                                          $idaccordion3 = '#'. $accordion3;                                   
+                                                    ?>
+                                                      <div class="panel panel-danger">
                                                         <div class="panel-heading">
                                                           <h4 class="panel-title">
                                                             <a data-toggle="collapse" href="<?=$idpanel3?>">
@@ -371,12 +369,12 @@
                                                         <div id="<?=$panel3?>" class="panel-collapse collapse">        
                                                           <div class="panel-body"><?=$micro['descricao']?></div>
                                                         </div>
-                                                    </div>   
+                                                      </div>   
+                                                    <?php
+                                                     }
+                                                    ?>
                                                   </div>
-                                                   <!-- End Microprocessos Panel -->      
-                                                  <?php
-                                                   }
-                                                  ?> 
+                                                  <!-- End Microprocessos Panel -->
 
                                                   <!-- Panel Subprocesso Descricao-->
                                                   <div class="panel-group" id="<?=$accordion?>">
@@ -395,18 +393,65 @@
                                                       </div>
                                                     </div>   
                                                   </div>
-                                                  <!-- End Panel Subprocesso Descricao-->                                                                                                                                 
+                                                  <!-- End Panel Subprocesso Descricao-->
                                                 </div>
                                               </div>
-                                            </div>                                            
+                                            </div>
+                                            <?php
+                                              }
+                                            ?>
+                                          </div>
+                                          
                                           </div> 
-                                          <?php
-                                            }
-                                          ?>
+                                        </div>
+                                      </div>
+                                      <!-- End Panel Subprocesso -->
 
-                                          <!-- Panel Descricao Macroprocessos-->
-                                          <div class="panel-group" id="<?=$accordion?>">
-                                            <div class="panel panel-warning">
+                                      <!-- Panel Stakeholders Macroprocessos-->
+                                      <div class="panel-group" id="<?=$accordion?>">
+                                          <div class="panel panel-warning">
+                                              <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                  <a data-toggle="collapse" href="<?=$idpanel_s?>">Partes interessadas</a>   
+                                                  <a href="../forms/form-stakeholder_macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button class="btn btn-warning btn-xs pull-right"><i class="fa fa-plus"></i></button></a> </a>                      
+                                                  <div class="clearfix"></div>
+                                                </h4>
+                                              </div>
+                                              <div id="<?=$panel_s?>" class="panel-collapse collapse">                               
+                                               <div class="panel-body">
+                                                <table class="table table-bordered">
+                                                  <tr>
+                                                    <th>Nome</th>
+                                                    <th>Email</th>
+                                                    <th>Departamento</th>
+                                                    <th>Cargo</th>
+                                                    <th>Ações</th>
+                                                  </tr>
+                                                  <?php
+                                                    foreach ($stakeholders_macro as $stakeholder_macro) {
+                                                  ?>
+                                                  <tr>
+                                                    <td><?=$stakeholder_macro['nome']?></td>
+                                                    <td><?=$stakeholder_macro['email']?></td>
+                                                    <td><?=$stakeholder_macro['departamento']?></td>
+                                                    <td><?=$stakeholder_macro['cargo']?></td>
+                                                    <td align="center">
+                                                      <a href="../forms/form-altera-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></a>
+                                                    </td>
+                                                  </tr>
+                                                  <?php
+                                                    }
+                                                  ?>
+                                                </table>                                                  
+                                               </div>
+                                              </div>
+                                            </div>   
+                                      </div>
+                                      <!-- End Panel Stakeholders Macroprocessos-->
+
+                                      <!-- Panel Descricao Macroprocessos-->
+                                      <div class="panel-group" id="<?=$accordion?>">
+                                          <div class="panel panel-warning">
                                               <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                   <a data-toggle="collapse" href="<?=$idpanel_d?>">Descrição</a>            
@@ -415,100 +460,19 @@
                                                 </h4>
                                               </div>
                                               <div id="<?=$panel_d?>" class="panel-collapse collapse">                               
-                                                <div class="panel-body">                                                 
-                                                  <?=$macroprocesso['descricao']?>                                                     
-                                                </div>                                                  
+                                               <div class="panel-body">                                                 
+                                                <?=$macroprocesso['descricao']?>                                                     
+                                               </div>                                                  
                                               </div>
-                                            </div>   
-                                          </div>
-                                          <!-- End Panel Descricao Macroprocessos-->
-
-                                          <!-- Panel Stakeholders Macroprocessos-->
-                                          <div class="panel-group" id="<?=$accordion?>">
-                                              <div class="panel panel-warning">
-                                                  <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                      <a data-toggle="collapse" href="<?=$idpanel_s?>">Partes interessadas</a>   
-                                                      <a href="../forms/form-stakeholder_macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button class="btn btn-warning btn-xs pull-right"><i class="fa fa-plus"></i></button></a> </a>                      
-                                                      <div class="clearfix"></div>
-                                                    </h4>
-                                                  </div>
-                                                  <div id="<?=$panel_s?>" class="panel-collapse collapse">                               
-                                                   <div class="panel-body">
-                                                    <table class="table table-striped">
-                                                      <tr>
-                                                        <th>Nome</th>
-                                                        <th>Email</th>
-                                                        <th>Departamento</th>
-                                                        <th>Cargo</th>
-                                                        <th>Ações</th>
-                                                      </tr>
-                                                      <?php
-                                                        foreach ($stakeholders_macro as $stakeholder_macro) {
-                                                      ?>
-                                                      <tr>
-                                                        <td><?=$stakeholder_macro['nome']?></td>
-                                                        <td><?=$stakeholder_macro['email']?></td>
-                                                        <td><?=$stakeholder_macro['departamento']?></td>
-                                                        <td><?=$stakeholder_macro['cargo']?></td>
-                                                        <td align="center">
-                                                          <a href="../forms/form-altera-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></a>
-                                                        </td>
-                                                      </tr>
-                                                      <?php
-                                                        }
-                                                      ?>
-                                                    </table>                                                  
-                                                   </div>
-                                                  </div>
-                                                </div>   
-                                          </div>
-                                          <!-- End Panel Stakeholders Macroprocessos-->
-
-                                          <!-- Panel Características Macroprocessos-->
-                                          <div class="panel-group" id="<?=$accordion?>">
-                                              <div class="panel panel-warning">
-                                                  <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                      <a data-toggle="collapse" href="<?=$idpanel_c?>">Características</a>   
-                                                      <a href="../forms/form-stakeholder_macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button class="btn btn-warning btn-xs pull-right"><i class="fa fa-plus"></i></button></a> </a>                      
-                                                      <div class="clearfix"></div>
-                                                    </h4>
-                                                  </div>
-                                                  <div id="<?=$panel_c?>" class="panel-collapse collapse">                               
-                                                   <div class="panel-body">
-                                                    <?php
-                                                      $classificacao = buscaClassificacaoId($conexao, $macroprocesso['id_classificacao']);
-                                                      $periodicidade = buscaPeriodicidadeId($conexao, $macroprocesso['id_periodicidade']);
-                                                    ?>
-                                                    <table class="table table-bordered">
-                                                      <tr>
-                                                        <th>Nº de Pessoas</th>
-                                                        <th>Horas</th>
-                                                        <th>Classificação</th>
-                                                        <th>Periodicidade</th>
-                                                      </tr>                                                    
-                                                      <tr>
-                                                        <td><?=$macroprocesso['qPessoas']?></td>
-                                                        <td><?=$macroprocesso['horas']?></td>
-                                                        <td><?=$classificacao['descricao']?></td> 
-                                                        <td><?=$periodicidade['descricao']?></td>                                                                                      
-                                                    </table>                                                  
-                                                   </div>
-                                                  </div>
-                                                </div>   
-                                          </div>
-                                          <!-- End Panel Características Macroprocessos-->
-
-                                        </div> 
+                                          </div>   
                                       </div>
-                                      <!-- End Panel Subprocessos -->
+                                      <!-- End Panel Descricao Macroprocessos-->
                                     </div>
+                                    <!-- End Panel Macroprocessos -->
+                                    <?php
+                                    }
+                                    ?>
                                   </div>
-
-                                  <?php
-                                  }
-                                  ?>                                                             
                                   
                                 </div>
                               </div>

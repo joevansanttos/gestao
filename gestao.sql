@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 26-Set-2017 às 17:40
+-- Generation Time: 28-Set-2017 às 17:33
 -- Versão do servidor: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -5662,6 +5662,15 @@ CREATE TABLE `classificacao` (
   `descricao` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `classificacao`
+--
+
+INSERT INTO `classificacao` (`id_classificacao`, `descricao`) VALUES
+(1, 'Operação'),
+(2, 'Gestão'),
+(3, 'Suporte');
+
 -- --------------------------------------------------------
 
 --
@@ -5832,7 +5841,8 @@ CREATE TABLE `gestor_macro` (
 
 INSERT INTO `gestor_macro` (`id_gestor_macro`, `nome`, `tel`, `email`, `cargo`, `id_macroprocesso`) VALUES
 (1, 'João da Gevan', '(71) 98773-3333', 'joao@gevan.com', 'Coordenador do setor da Folha de Pagamento', 1),
-(2, 'Jose', '(71) 98888-8888', 'fabiodias@gevan.com', 'Gestor', 1);
+(2, 'Jose', '(71) 98888-8888', 'fabiodias@gevan.com', 'Gestor', 1),
+(3, 'José Remunerador', '(71) 98233-3333', 'jose@remunerador.com', 'Gestor', 1);
 
 -- --------------------------------------------------------
 
@@ -5872,7 +5882,7 @@ CREATE TABLE `macroprocessos` (
   `cod_pi` varchar(11) DEFAULT NULL,
   `data_ultima` varchar(25) DEFAULT NULL,
   `data_proxima` varchar(25) DEFAULT NULL,
-  `id_classificao` int(11) DEFAULT NULL,
+  `id_classificacao` int(11) DEFAULT NULL,
   `t_processo` varchar(255) DEFAULT NULL,
   `n_processo` varchar(10) DEFAULT NULL,
   `qPessoas` int(11) DEFAULT NULL,
@@ -5885,9 +5895,10 @@ CREATE TABLE `macroprocessos` (
 -- Extraindo dados da tabela `macroprocessos`
 --
 
-INSERT INTO `macroprocessos` (`id_macroprocesso`, `cod_pi`, `data_ultima`, `data_proxima`, `id_classificao`, `t_processo`, `n_processo`, `qPessoas`, `id_periodicidade`, `horas`, `descricao`) VALUES
+INSERT INTO `macroprocessos` (`id_macroprocesso`, `cod_pi`, `data_ultima`, `data_proxima`, `id_classificacao`, `t_processo`, `n_processo`, `qPessoas`, `id_periodicidade`, `horas`, `descricao`) VALUES
 (1, 'FOL01', NULL, NULL, NULL, 'Adiantamento Salarial', '5.1.', NULL, NULL, NULL, NULL),
-(2, 'FOL01', NULL, NULL, NULL, 'Faturamento de Benefícios', '5.2.', NULL, NULL, NULL, 'Uma parte dos faturamentos é feito via BM (boletim de medição), checa-se se os valores estão corretos');
+(2, 'FOL01', NULL, NULL, NULL, 'Faturamento de Benefícios', '5.2.', NULL, NULL, NULL, 'Uma parte dos faturamentos é feito via BM (boletim de medição), checa-se se os valores estão corretos'),
+(3, 'FOL01', NULL, NULL, 2, 'Validar Remunerações', '5.3.', 40, 3, 40, NULL);
 
 -- --------------------------------------------------------
 
@@ -5932,6 +5943,27 @@ CREATE TABLE `objetivos` (
 
 INSERT INTO `objetivos` (`id_objetivo`, `cod_pi`, `descricao`) VALUES
 (1, 'FOL01', 'Estabelecer as diretrizes para os processos inerentes ao Setor de Folha de Pagamento da Gevan, a fim de atender aos requisitos estabelecidos pelo SQ....');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `periodicidade`
+--
+
+CREATE TABLE `periodicidade` (
+  `id_periodicidade` int(11) NOT NULL,
+  `descricao` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `periodicidade`
+--
+
+INSERT INTO `periodicidade` (`id_periodicidade`, `descricao`) VALUES
+(1, 'Diário'),
+(2, 'Semanal'),
+(3, 'Quinzenal'),
+(4, 'Mensal');
 
 -- --------------------------------------------------------
 
@@ -6186,6 +6218,12 @@ ALTER TABLE `objetivos`
   ADD PRIMARY KEY (`id_objetivo`);
 
 --
+-- Indexes for table `periodicidade`
+--
+ALTER TABLE `periodicidade`
+  ADD PRIMARY KEY (`id_periodicidade`);
+
+--
 -- Indexes for table `pis`
 --
 ALTER TABLE `pis`
@@ -6245,7 +6283,7 @@ ALTER TABLE `cidade`
 -- AUTO_INCREMENT for table `classificacao`
 --
 ALTER TABLE `classificacao`
-  MODIFY `id_classificacao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_classificacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `clientes`
 --
@@ -6280,7 +6318,7 @@ ALTER TABLE `gestor_dep`
 -- AUTO_INCREMENT for table `gestor_macro`
 --
 ALTER TABLE `gestor_macro`
-  MODIFY `id_gestor_macro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_gestor_macro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `gestor_sub`
 --
@@ -6295,7 +6333,7 @@ ALTER TABLE `informacoes`
 -- AUTO_INCREMENT for table `macroprocessos`
 --
 ALTER TABLE `macroprocessos`
-  MODIFY `id_macroprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_macroprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `microprocessos`
 --
@@ -6306,6 +6344,11 @@ ALTER TABLE `microprocessos`
 --
 ALTER TABLE `objetivos`
   MODIFY `id_objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `periodicidade`
+--
+ALTER TABLE `periodicidade`
+  MODIFY `id_periodicidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `profileimg`
 --

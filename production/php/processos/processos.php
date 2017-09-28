@@ -183,7 +183,7 @@
                               <td><?=$cliente['nome']?></td>
                               <td><?=$departamento['nome']?></td>
                               <td align="center">
-                                <a href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-success btn-xs"><i class="fa fa-search"></i></button></a>
+                                <a data-toggle="tooltip" data-placement="top" title="Ver" href="../profiles/pi-profile.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-success btn-xs"><i class="fa fa-search"></i></button></a>
                               </td>
 
                             </tr>

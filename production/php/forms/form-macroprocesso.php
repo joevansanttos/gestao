@@ -2,11 +2,14 @@
 <?php include "../bancos/banco-departamento.php";?>
 <?php include "../bancos/banco-cliente.php";?>
 <?php include "../bancos/banco-pis.php";?>
+<?php include "../bancos/banco-periodicidade.php";?>
 <?php
 	$cod_pi = $_GET['cod_pi'];
 	$pi = buscaPi($conexao, $cod_pi);
   $departamento = buscaDepartamento($conexao, $pi['id_departamento']);
   $cliente = buscaCliente($conexao, $departamento['id_cliente']);
+  $periodicidades = listaPeriodicidades($conexao);
+  $classificacoes = listaClassificacoes($conexao);
 ?>
 
 <!DOCTYPE html>
@@ -194,16 +197,37 @@
 		            	  	  </div>		            	  	  
 		            	  	</div>
 		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sexo">Periodicidade<span class="required">*</span>
+		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_periodicidade">Periodicidade<span class="required">*</span>
 		            	  	  </label>
 		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <select class="form-control col-md-3"  id="sexo" name="sexo" required="required" >
-		            	  	      <option value="feminino">Diariamente</option>
-		            	  	      <option value="masculino">Semanalmente</option>
-		            	  	      <option value="nada">Mensalmente</option>
+		            	  	    <select class="form-control col-md-3"  id="id_periodicidade" name="id_periodicidade" required="required" >
+		            	  	    	<?php
+		            	  	    		foreach ($periodicidades as $p) {
+		            	  	    	?>
+		            	  	    		<option value="<?=$p['id_periodicidade']?>"><?=$p['descricao']?></option>
+
+		            	  	    	<?php		            	  	    			
+		            	  	    		}
+		            	  	    	?>
 		            	  	    </select>  
 		            	  	  </div>
-		            	  	</div>      
+		            	  	</div>
+		            	  	<div class="form-group">
+		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_classificacao">Classificação<span class="required">*</span>
+		            	  	  </label>
+		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
+		            	  	    <select class="form-control col-md-3"  id="id_classificacao" name="id_classificacao" required="required" >
+		            	  	    	<?php
+		            	  	    		foreach ($classificacoes as $c) {
+		            	  	    	?>
+		            	  	    		<option value="<?=$c['id_classificacao']?>"><?=$c['descricao']?></option>
+
+		            	  	    	<?php		            	  	    			
+		            	  	    		}
+		            	  	    	?>
+		            	  	    </select>  
+		            	  	  </div>
+		            	  	</div>        
 		            	  	<div class="item form-group ">
 		            	  	  <div class="form-group">
 		            	  	    <label for="socio" class="control-label col-md-3 col-sm-3 col-xs-12">Responsável pelo Processo <span class="required">*</span></label>                      
