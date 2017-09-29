@@ -1,8 +1,8 @@
-<?php include "../bancos/conecta.php";?>
-<?php include "../bancos/banco-pis.php";?>
-<?php include "../bancos/banco-macroprocesso.php";?>
-<?php include "../bancos/banco-subprocesso.php";?>
-<?php include "../bancos/banco-microprocesso.php";?>
+<?php require_once "../bancos/conecta.php";?>
+<?php require_once "../bancos/banco-pis.php";?>
+<?php require_once "../bancos/banco-macroprocesso.php";?>
+<?php require_once "../bancos/banco-subprocesso.php";?>
+<?php require_once "../bancos/banco-microprocesso.php";?>
 <?php
   $cod_pi = $_GET['cod_pi'];
   $pi = buscaPi($conexao , $cod_pi);
@@ -520,7 +520,8 @@
                               <div class="panel-heading">
                                 <h4 class="panel-title">
                                   <a data-toggle="collapse" href="#stakeholder">Partes Interessadas</a>                               
-                                  <a href="../forms/form-stakeholder.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-info btn-xs  pull-right"><i class="fa fa-plus"></i></button></a> </a>                      
+                                  <a href="../forms/form-stakeholder.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-info btn-xs  pull-right"><i class="fa fa-plus"></i></button></a> </a>
+                                  <a href="../forms/form-email.php?cod_pi=<?=$pi['cod_pi']?>"><button class="btn btn-info btn-xs  pull-right"><i class="fa fa-envelope"></i></button></a> </a>               
                                   <div class="clearfix"></div>
                                 </h4>
                               </div>
@@ -556,8 +557,7 @@
                         </div>
                         <!-- End Panel Stakeholders --> 
 
-                        <a class="btn btn-default" style="" href="../forms/form-stakeholder.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-envelope"></i></a>
-                        <a class="btn btn-default" style="" href="../imprime/imprime-pi.php?cod_pi=<?=$pi['cod_pi']?>"><i class="fa fa-print"></i></a>
+                       
                       </div>
                     </div>  
                   </div>
