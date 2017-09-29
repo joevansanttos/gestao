@@ -17,3 +17,11 @@ function buscaSubprocessoId($conexao, $id_subprocesso){
     $usuario = mysqli_fetch_assoc($resultado);
     return $usuario;
 }
+
+
+
+function buscaSubprocessoValues($conexao, $id_macroprocesso, $n_subprocesso, $t_subprocesso ){
+  $query = "select * from subprocessos where n_subprocesso = '{$n_subprocesso}' and t_subprocesso= '{$t_subprocesso}' and id_macroprocesso = $id_macroprocesso";
+  $resultado = mysqli_query($conexao, $query);
+  return mysqli_fetch_assoc($resultado);
+}

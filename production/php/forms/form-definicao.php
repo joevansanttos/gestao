@@ -56,16 +56,16 @@
 	                      <li><a href="../usuarios/consultores.php">Consultores</a></li>
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-building"></i> Clientes<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../clientes/clientes.php">Clientes</a></li>
-	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>	                      
+	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
-	                      <li><a href="../clientes/pis.php">Pis</a></li>
+	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
 	                    </ul>
 	                  </li>           
 	                </ul>
@@ -155,18 +155,13 @@
 	            	  		     <input type="text" placeholder="<?=$pi['cod_pi']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
 	            	  		   </div>
 	            	  		</div>
-	            	  		<div class="item form-group">
-	            	  			<div class="form-group multiple-form-group">
-	            	  				<label class="control-label col-md-3 col-sm-3 col-xs-12">Definições</label>
-	            	  				<div class="col-sm-6 col-xs-12 col-md-6">
-	            	  					<div class="form-group input-group">
-	            	  						<textarea   name="multiple[]" class="form-control" rows="6"></textarea> 
-	            	  						<span class="input-group-btn"><button type="button" class="btn btn-default btn-add">+
-	            	  						</button></span>
-	            	  						</div>
-	            	  					</div>    
-	            	  				</div>
-	            	  		</div>		            	  	       
+	            	  		<div class="form-group">
+	            	  		  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Definições<span class="required">*</span>
+	            	  		  </label>
+	            	  		  <div class="col-md-6 col-sm-6 col-xs-12">
+	            	  		    <textarea  name="descricao" rows="20" class="form-control col-md-12 col-xs-12"></textarea> 
+	            	  		  </div>
+	            	  		</div>         	  	       
 		            	  	<div class="ln_solid"></div>
 		            	  	<div class=" form-group">
 	            	  	  	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

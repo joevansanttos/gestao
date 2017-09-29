@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 28-Set-2017 às 17:33
+-- Generation Time: 29-Set-2017 às 18:34
 -- Versão do servidor: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -5720,6 +5720,13 @@ CREATE TABLE `definicoes` (
   `descricao` varchar(10000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `definicoes`
+--
+
+INSERT INTO `definicoes` (`id_definicao`, `cod_pi`, `descricao`) VALUES
+(1, 'FOL01', 'ffffffffffffffffffffffffffffffffff\r\ngggggggggggggggg');
+
 -- --------------------------------------------------------
 
 --
@@ -5737,7 +5744,8 @@ CREATE TABLE `departamentos` (
 --
 
 INSERT INTO `departamentos` (`id_departamento`, `id_cliente`, `nome`) VALUES
-(6, 3, 'Folha de Pagamento ');
+(6, 3, 'Folha de Pagamento '),
+(7, 3, 'Disciplina');
 
 -- --------------------------------------------------------
 
@@ -5818,7 +5826,8 @@ CREATE TABLE `gestor_dep` (
 --
 
 INSERT INTO `gestor_dep` (`id_gestor_dep`, `id_departamento`, `nome`, `email`, `tel`, `cargo`) VALUES
-(1, 6, 'Fábio Dias', 'fabiodias@gevan.com', '(71) 98888-8888', 'Gestor');
+(1, 6, 'Fábio Dias', 'fabiodias@gevan.com', '(71) 98888-8888', 'Gestor'),
+(2, 7, 'Alexsandro Souza', 'alexsandrosouza@pg.gevan.com.br', '(71) 99889-9889', 'Coordenador do setor de Disciplina');
 
 -- --------------------------------------------------------
 
@@ -5840,9 +5849,8 @@ CREATE TABLE `gestor_macro` (
 --
 
 INSERT INTO `gestor_macro` (`id_gestor_macro`, `nome`, `tel`, `email`, `cargo`, `id_macroprocesso`) VALUES
-(1, 'João da Gevan', '(71) 98773-3333', 'joao@gevan.com', 'Coordenador do setor da Folha de Pagamento', 1),
-(2, 'Jose', '(71) 98888-8888', 'fabiodias@gevan.com', 'Gestor', 1),
-(3, 'José Remunerador', '(71) 98233-3333', 'jose@remunerador.com', 'Gestor', 1);
+(4, 'Maria Gevan', '(71) 9876-4567', 'maria@gevan.com', 'Coordenador do setor da Folha de Pagamento', 4),
+(5, 'José Folha', '(71) 98998-8888', 'jose@gevan.com', 'Coordenador do setor da Folha de Pagamento', 4);
 
 -- --------------------------------------------------------
 
@@ -5858,6 +5866,13 @@ CREATE TABLE `gestor_sub` (
   `tel` varchar(25) DEFAULT NULL,
   `cargo` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `gestor_sub`
+--
+
+INSERT INTO `gestor_sub` (`id_gestor_sub`, `id_subprocesso`, `nome`, `email`, `tel`, `cargo`) VALUES
+(1, 7, 'José Gevan', 'jose@gevan.com', '(71) 98888-8888', 'Gestor');
 
 -- --------------------------------------------------------
 
@@ -5879,15 +5894,15 @@ CREATE TABLE `informacoes` (
 
 CREATE TABLE `macroprocessos` (
   `id_macroprocesso` int(11) NOT NULL,
-  `cod_pi` varchar(11) DEFAULT NULL,
+  `cod_pi` varchar(11) NOT NULL,
   `data_ultima` varchar(25) DEFAULT NULL,
   `data_proxima` varchar(25) DEFAULT NULL,
-  `id_classificacao` int(11) DEFAULT NULL,
-  `t_processo` varchar(255) DEFAULT NULL,
-  `n_processo` varchar(10) DEFAULT NULL,
-  `qPessoas` int(11) DEFAULT NULL,
-  `id_periodicidade` int(11) DEFAULT NULL,
-  `horas` int(11) DEFAULT NULL,
+  `id_classificacao` int(11) NOT NULL,
+  `t_processo` varchar(255) NOT NULL,
+  `n_processo` varchar(10) NOT NULL,
+  `qPessoas` int(11) NOT NULL,
+  `id_periodicidade` int(11) NOT NULL,
+  `horas` int(11) NOT NULL,
   `descricao` varchar(2000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -5896,9 +5911,8 @@ CREATE TABLE `macroprocessos` (
 --
 
 INSERT INTO `macroprocessos` (`id_macroprocesso`, `cod_pi`, `data_ultima`, `data_proxima`, `id_classificacao`, `t_processo`, `n_processo`, `qPessoas`, `id_periodicidade`, `horas`, `descricao`) VALUES
-(1, 'FOL01', NULL, NULL, NULL, 'Adiantamento Salarial', '5.1.', NULL, NULL, NULL, NULL),
-(2, 'FOL01', NULL, NULL, NULL, 'Faturamento de Benefícios', '5.2.', NULL, NULL, NULL, 'Uma parte dos faturamentos é feito via BM (boletim de medição), checa-se se os valores estão corretos'),
-(3, 'FOL01', NULL, NULL, 2, 'Validar Remunerações', '5.3.', 40, 3, 40, NULL);
+(4, 'FOL01', NULL, NULL, 1, 'Adiantamento Salarial', '1', 100, 1, 100, NULL),
+(5, 'FOL01', NULL, NULL, 3, 'Faturamento de Benefícios', '2', 100, 2, 20, '');
 
 -- --------------------------------------------------------
 
@@ -5908,22 +5922,15 @@ INSERT INTO `macroprocessos` (`id_macroprocesso`, `cod_pi`, `data_ultima`, `data
 
 CREATE TABLE `microprocessos` (
   `id_microprocesso` int(11) NOT NULL,
-  `id_subprocesso` int(11) DEFAULT NULL,
+  `id_subprocesso` int(11) NOT NULL,
   `descricao` varchar(2000) DEFAULT NULL,
-  `n_microprocesso` varchar(10) DEFAULT NULL,
-  `t_microprocesso` varchar(10) DEFAULT NULL,
-  `qPessoas` int(11) DEFAULT NULL,
-  `id_classificacao` int(11) DEFAULT NULL,
-  `id_periodicidade` int(11) DEFAULT NULL,
-  `horas` int(11) DEFAULT NULL
+  `n_microprocesso` varchar(10) NOT NULL,
+  `t_microprocesso` varchar(10) NOT NULL,
+  `qPessoas` int(11) NOT NULL,
+  `id_classificacao` int(11) NOT NULL,
+  `id_periodicidade` int(11) NOT NULL,
+  `horas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `microprocessos`
---
-
-INSERT INTO `microprocessos` (`id_microprocesso`, `id_subprocesso`, `descricao`, `n_microprocesso`, `t_microprocesso`, `qPessoas`, `id_classificacao`, `id_periodicidade`, `horas`) VALUES
-(2, 2, 'O beneficio odontologico é da empresa Odonto System', '5.2.3.1.', 'Benefício ', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5942,7 +5949,7 @@ CREATE TABLE `objetivos` (
 --
 
 INSERT INTO `objetivos` (`id_objetivo`, `cod_pi`, `descricao`) VALUES
-(1, 'FOL01', 'Estabelecer as diretrizes para os processos inerentes ao Setor de Folha de Pagamento da Gevan, a fim de atender aos requisitos estabelecidos pelo SQ....');
+(2, 'DIS00', 'estaas diretrizes para os processosssssssss........belecer njgmugh');
 
 -- --------------------------------------------------------
 
@@ -5984,6 +5991,7 @@ CREATE TABLE `pis` (
 --
 
 INSERT INTO `pis` (`id_departamento`, `cod_pi`, `data_revisado`, `id_consultor`, `id_gestor_pi`) VALUES
+(7, 'DIS00', NULL, NULL, NULL),
 (6, 'FOL01', NULL, NULL, NULL),
 (6, 'TESTE', NULL, NULL, NULL);
 
@@ -6048,13 +6056,6 @@ CREATE TABLE `stakeholders_macro` (
   `departamento` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `stakeholders_macro`
---
-
-INSERT INTO `stakeholders_macro` (`id_stakeholder_macro`, `id_macroprocesso`, `nome`, `email`, `cargo`, `departamento`) VALUES
-(1, 1, 'Maria Processo', 'maria@processo.com', 'Gestora', 'Compras');
-
 -- --------------------------------------------------------
 
 --
@@ -6063,11 +6064,11 @@ INSERT INTO `stakeholders_macro` (`id_stakeholder_macro`, `id_macroprocesso`, `n
 
 CREATE TABLE `stakeholders_sub` (
   `id_stakeholder_sub` int(11) NOT NULL,
-  `id_subprocesso` int(11) DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `cargo` varchar(255) DEFAULT NULL,
-  `departamento` varchar(255) DEFAULT NULL
+  `id_subprocesso` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `cargo` varchar(255) NOT NULL,
+  `departamento` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -6078,14 +6079,14 @@ CREATE TABLE `stakeholders_sub` (
 
 CREATE TABLE `subprocessos` (
   `id_subprocesso` int(11) NOT NULL,
-  `id_macroprocesso` int(11) DEFAULT NULL,
+  `id_macroprocesso` int(11) NOT NULL,
   `descricao` varchar(10000) DEFAULT NULL,
-  `n_subprocesso` varchar(10) DEFAULT NULL,
-  `t_subprocesso` varchar(50) DEFAULT NULL,
-  `qPessoas` int(11) DEFAULT NULL,
-  `id_classificacao` int(11) DEFAULT NULL,
-  `id_periodicidade` int(11) DEFAULT NULL,
-  `horas` int(11) DEFAULT NULL
+  `n_subprocesso` varchar(10) NOT NULL,
+  `t_subprocesso` varchar(50) NOT NULL,
+  `qPessoas` int(11) NOT NULL,
+  `id_classificacao` int(11) NOT NULL,
+  `id_periodicidade` int(11) NOT NULL,
+  `horas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -6093,8 +6094,7 @@ CREATE TABLE `subprocessos` (
 --
 
 INSERT INTO `subprocessos` (`id_subprocesso`, `id_macroprocesso`, `descricao`, `n_subprocesso`, `t_subprocesso`, `qPessoas`, `id_classificacao`, `id_periodicidade`, `horas`) VALUES
-(1, 1, 'para saber..................................', '5.1.1.', 'Verificar Gastos do funcionário do mês anterior', NULL, NULL, NULL, NULL),
-(2, 2, NULL, '5.2.3.', 'Faturamento de benefícios:', NULL, NULL, NULL, NULL);
+(7, 4, 'Para saber', '1', 'Verificar Gastos do funcionário do mês anterior', 100, 1, 1, 100);
 
 -- --------------------------------------------------------
 
@@ -6298,12 +6298,12 @@ ALTER TABLE `cliente_img`
 -- AUTO_INCREMENT for table `definicoes`
 --
 ALTER TABLE `definicoes`
-  MODIFY `id_definicao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_definicao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `departamentos`
 --
 ALTER TABLE `departamentos`
-  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `diretores`
 --
@@ -6313,17 +6313,17 @@ ALTER TABLE `diretores`
 -- AUTO_INCREMENT for table `gestor_dep`
 --
 ALTER TABLE `gestor_dep`
-  MODIFY `id_gestor_dep` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_gestor_dep` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `gestor_macro`
 --
 ALTER TABLE `gestor_macro`
-  MODIFY `id_gestor_macro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_gestor_macro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `gestor_sub`
 --
 ALTER TABLE `gestor_sub`
-  MODIFY `id_gestor_sub` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_gestor_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `informacoes`
 --
@@ -6333,7 +6333,7 @@ ALTER TABLE `informacoes`
 -- AUTO_INCREMENT for table `macroprocessos`
 --
 ALTER TABLE `macroprocessos`
-  MODIFY `id_macroprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_macroprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `microprocessos`
 --
@@ -6343,7 +6343,7 @@ ALTER TABLE `microprocessos`
 -- AUTO_INCREMENT for table `objetivos`
 --
 ALTER TABLE `objetivos`
-  MODIFY `id_objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `periodicidade`
 --
@@ -6373,7 +6373,7 @@ ALTER TABLE `stakeholders_sub`
 -- AUTO_INCREMENT for table `subprocessos`
 --
 ALTER TABLE `subprocessos`
-  MODIFY `id_subprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_subprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `usuarios`
 --

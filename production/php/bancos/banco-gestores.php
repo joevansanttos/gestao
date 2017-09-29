@@ -6,3 +6,11 @@ function  buscaGestoresDepartamentos($conexao , $id_departamento){
     return $departamento;
 
 }
+
+function  buscaGestorMacro($conexao , $id_macroprocesso){
+    $query = "select  * from gestor_macro where id_macroprocesso = $id_macroprocesso";
+    $resultado = mysqli_query($conexao, $query);
+    $departamento = mysqli_fetch_assoc($resultado);
+    return $departamento;
+
+}

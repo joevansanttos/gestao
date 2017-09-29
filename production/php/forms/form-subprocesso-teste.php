@@ -3,17 +3,13 @@
 <?php include "../bancos/banco-cliente.php";?>
 <?php include "../bancos/banco-pis.php";?>
 <?php include "../bancos/banco-macroprocesso.php";?>
-<?php include "../bancos/banco-periodicidade.php";?>
 <?php
 	$id_macroprocesso = $_GET['id_macroprocesso'];
 	$macroprocesso = buscaMacroprocessoId($conexao, $id_macroprocesso);
 	$pi = buscaPi($conexao, $macroprocesso['cod_pi']);
   $departamento = buscaDepartamento($conexao, $pi['id_departamento']);
   $cliente = buscaCliente($conexao, $departamento['id_cliente']);
-  $periodicidades = listaPeriodicidades($conexao);
-  $classificacoes = listaClassificacoes($conexao);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,16 +58,16 @@
 	                      <li><a href="../usuarios/consultores.php">Consultores</a></li>
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-building"></i> Clientes<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../clientes/clientes.php">Clientes</a></li>
-	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>
+	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>	                      
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
-	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
+	                      <li><a href="../clientes/pis.php">Pis</a></li>
 	                    </ul>
 	                  </li>           
 	                </ul>
@@ -129,7 +125,6 @@
 	        </div>
 	      </div>
 	      <!-- /top navigation -->
-
 	      <!-- page content -->
 	      <div class="right_col" role="main">
 	          <div class="">
@@ -149,13 +144,12 @@
 	              </div>
 	            </div>
 	            <div class="clearfix"></div>
-	            <div class="row">
-	              <div class="col-md-12 col-sm-12 col-xs-12">
-	                <div class="x_panel">
-	                	<div class="x_content">
-	                	<form action="../adiciona/adiciona-subprocesso.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">		            	  	
+	            <div class="x_content">
+	            	<div class="row">
+	            	  <div class="col-md-12 col-sm-12 col-xs-12">
+	            	  	<form action="../adiciona/adiciona-subprocesso.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">		            	  	
 		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do Processo<span class="required">*</span>
+		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do Macroprocesso<span class="required">*</span>
 		            	  	   </label>
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
 		            	  	     <input type="text"  id="t_processo" name="t_processo" placeholder="<?=$macroprocesso['t_processo']?>" readonly="readonly"  required="required" class="form-control col-md-7 col-xs-12">
@@ -224,7 +218,7 @@
 		            	  	    <label for="socio" class="control-label col-md-3 col-sm-3 col-xs-12">Responsável pelo Processo <span class="required">*</span></label>                      
 		            	  	    <div class=" col-sm-6 col-xs-12 col-md-6">
 		            	  	      <div class="form-group">
-		            	  	        <input type="text" placeholder="Nome" name="nome" required="required" class="form-control">
+		            	  	        <input type="text" placeholder="Nome" name="nome" class="form-control">
 		            	  	      </div>            	  	     
 		            	  	      <div class="form-group">
 		            	  	        <input type="text" placeholder="Cargo" id="profissao" name="cargo" required="required" class="form-control col-md-7 col-xs-12">
@@ -233,13 +227,13 @@
 		            	  	        <input type="email" placeholder="Email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
 		            	  	      </div>
 		            	  	      <div class="form-group">
-		            	  	        <input data-inputmask="'mask' : '(99) 9999[9]-9999'" type="text" placeholder="Telefone" id="tel" name="tel" required="required" class="form-control col-md-7 col-xs-12">
+		            	  	        <input data-inputmask="'mask' : '(99) 99999-9999'" type="text" placeholder="Telefone" id="tel" name="tel" required="required" class="form-control col-md-7 col-xs-12">
 		            	  	      </div>                      
 		            	  	    </div>
 		            	  	  </div>
 		            	  	</div>	  
 		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Descrição
+		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Descrição<span class="required">*</span>
 		            	  	  </label>
 		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
 		            	  	    <textarea  name="descricao" class="form-control" rows="6"></textarea> 
@@ -254,11 +248,9 @@
 	            	  	 		</div>
 	            	  	 	</div>
 	            	  	</form>
-	                	</div>
-	                </div>
-	              </div>
-	            </div>	
-	            <br />
+	            	  </div>
+	            	</div>  	
+	              <br />
 	           </div>
 	          </div>
 	      </div>
@@ -285,6 +277,5 @@
 		<script src="../../../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
 		<!-- Custom Theme Scripts -->
 		<script src="../../../build/js/custom.min.js"></script>
-		<script src="../../js/multiple.js"></script>
 	</body>
 </html>

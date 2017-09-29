@@ -174,7 +174,7 @@
 		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Nº do Processo<span class="required">*</span>
 		            	  	   </label>
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input  data-inputmask="'mask' : '*.*.'" type="text"  id="n_processo" name="n_processo" required="required" class="form-control col-md-6 col-xs-12">
+		            	  	     <input  data-inputmask="'mask' : '9{1,2}'" type="text"  id="n_processo" name="n_processo" required="required" class="form-control col-md-6 col-xs-12">
 		            	  	   </div>
 		            	  	</div>
 		            	  	<div class="form-group">
@@ -188,12 +188,12 @@
 		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qPessoas">Nº de Pessoas<span class="required">*</span>
 		            	  	  </label>
 		            	  	  <div class="col-md-3 col-sm-6 col-xs-12">
-		            	  	    <input type="text"  id="qPessoas" name="qPessoas" required="required" class="form-control">
+		            	  	    <input type="text" data-inputmask="'mask' : '9{1,5}'" id="qPessoas" name="qPessoas" required="required" class="form-control">
 		            	  	  </div>         
 		            	  	  <label for="horas" class="control-label col-md-1">Horas <span class="required">*</span>
 		            	  	  </label>
 		            	  	  <div class="col-md-2 col-sm-6 col-xs-12">
-		            	  	    <input type="text"  id="horas" name="horas" required="required" class="form-control">
+		            	  	    <input type="text" data-inputmask="'mask' : '9{1,5}'" id="horas" name="horas" required="required" class="form-control">
 		            	  	  </div>		            	  	  
 		            	  	</div>
 		            	  	<div class="form-group">
@@ -242,7 +242,7 @@
 		            	  	        <input type="email" placeholder="Email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
 		            	  	      </div>
 		            	  	      <div class="form-group">
-		            	  	        <input data-inputmask="'mask' : '(99) 99999-9999'" type="text" placeholder="Telefone" id="tel" name="tel" required="required" class="form-control col-md-7 col-xs-12">
+		            	  	        <input data-inputmask="'mask' : '(99) 9999[9]-9999'" type="text" placeholder="Telefone" id="tel" name="tel" required="required" class="form-control col-md-7 col-xs-12">
 		            	  	      </div>                      
 		            	  	    </div>
 		            	  	  </div>

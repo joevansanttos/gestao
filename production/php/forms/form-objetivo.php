@@ -56,18 +56,16 @@
 	                      <li><a href="../usuarios/consultores.php">Consultores</a></li>
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-building"></i> Clientes<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../clientes/clientes.php">Clientes</a></li>
 	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>
-	                      <li><a href="../clientes/pis.php">Pis</a></li>
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file"></i> Processos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
-	                      <li><a href="../processos/processos.php">Processos Finalizados</a></li>                    
 	                    </ul>
 	                  </li>           
 	                </ul>

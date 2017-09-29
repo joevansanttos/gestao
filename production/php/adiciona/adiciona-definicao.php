@@ -1,15 +1,13 @@
 <?php include "../bancos/conecta.php";?>
 <?php
 $cod_pi = $_GET['cod_pi'];
-$definicoes = $_GET['multiple'];
+$descricao = $_GET['descricao'];
 
-$i = 0;
-$size = count($definicoes);
-while ($i < $size) {
-	$query = "insert into definicoes (cod_pi, descricao) values ('{$cod_pi}', '{$definicoes[$i]}')";
-	mysqli_query($conexao, $query);
-	$i++;
-}	
+$query = "insert into definicoes (cod_pi, descricao) values ('{$cod_pi}', '{$descricao}')";
+if(mysqli_query($conexao, $query)){
+	mysqli_close($conexao);
+	header("Location: ../profiles/pi-profile.php?cod_pi=$cod_pi"); 
+}
 
 header("Location: ../profiles/pi-profile.php?cod_pi=$cod_pi"); 
 
