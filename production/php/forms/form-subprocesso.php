@@ -248,7 +248,7 @@
 		            	  	<div class="ln_solid"></div>
 		            	  	<div class=" form-group">
 	            	  	  	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-	            	  	    <button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
+	            	  	    <button type="reset" name="reset" class="btn btn-primary">Resetar</button>
 	            	  	    <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
 	            	  	    <input type="hidden" name="id_macroprocesso" value="<?=$macroprocesso['id_macroprocesso']?>">
 	            	  	 		</div>

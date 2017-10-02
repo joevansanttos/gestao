@@ -1,10 +1,10 @@
-<?php include "../bancos/conecta.php";?>
-<?php include "../bancos/banco-departamento.php";?>
-<?php include "../bancos/banco-cliente.php";?>
-<?php include "../bancos/banco-pis.php";?>
-<?php include "../bancos/banco-macroprocesso.php";?>
-<?php include "../bancos/banco-periodicidade.php";?>
-<?php
+<?php 
+	require_once "../bancos/conecta.php";
+	require_once "../bancos/banco-departamento.php";
+	require_once "../bancos/banco-cliente.php";
+	require_once "../bancos/banco-pis.php";
+	require_once "../bancos/banco-macroprocesso.php";
+	require_once "../bancos/banco-periodicidade.php";
 	$id_macroprocesso = $_GET['id_macroprocesso'];
 	$macroprocesso = buscaMacroprocessoId($conexao, $id_macroprocesso);
 	$pi = buscaPi($conexao, $macroprocesso['cod_pi']);
@@ -185,55 +185,11 @@
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
 		            	  	     <input type="text" value="<?=$macroprocesso['t_processo']?>" id="t_processo" name="t_processo" required="required" class="form-control col-md-7 col-xs-12">
 		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="item form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qPessoas">Nº de Pessoas<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-3 col-sm-6 col-xs-12">
-		            	  	    <input data-inputmask="'mask' : '9{1,5}'" type="text" value="<?=$macroprocesso['qPessoas']?>"  id="qPessoas" name="qPessoas" required="required" class="form-control">
-		            	  	  </div>         
-		            	  	  <label for="horas" class="control-label col-md-1">Horas <span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-2 col-sm-6 col-xs-12">
-		            	  	    <input data-inputmask="'mask' : '9{1,5}'" type="text" value="<?=$macroprocesso['horas']?>"  id="horas" name="horas" required="required" class="form-control">
-		            	  	  </div>		            	  	  
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_periodicidade">Periodicidade<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <select class="form-control col-md-3" id="id_periodicidade" name="id_periodicidade" required="required" >
-		            	  	    	<?php
-		            	  	    		foreach ($periodicidades as $p) {
-		            	  	    	?>
-		            	  	    		<option value="<?=$p['id_periodicidade']?>"><?=$p['descricao']?></option>
-
-		            	  	    	<?php		            	  	    			
-		            	  	    		}
-		            	  	    	?>
-		            	  	    </select>  
-		            	  	  </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_classificacao">Classificação<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <select class="form-control col-md-3"  id="id_classificacao" name="id_classificacao" required="required" >
-		            	  	    	<?php
-		            	  	    		foreach ($classificacoes as $c) {
-		            	  	    	?>
-		            	  	    		<option value="<?=$c['id_classificacao']?>"><?=$c['descricao']?></option>
-
-		            	  	    	<?php		            	  	    			
-		            	  	    		}
-		            	  	    	?>
-		            	  	    </select>  
-		            	  	  </div>
-		            	  	</div>		            	  	
+		            	  	</div>		            	  	 	
 		            	  	<div class="ln_solid"></div>
 		            	  	<div class=" form-group">
 	            	  	  	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-	            	  	    <button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
+	            	  	    <button type="reset" name="reset" class="btn btn-primary">Resetar</button>
 	            	  	    <button id="send" type="submit" name="enviar" class="btn btn-success">Alterar</button>
 	            	  	    <input type="hidden" name="id_macroprocesso" value="<?=$macroprocesso['id_macroprocesso']?>">
 	            	  	 		</div>

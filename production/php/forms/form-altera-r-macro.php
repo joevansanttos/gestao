@@ -1,14 +1,12 @@
-<?php include "../bancos/conecta.php";?>
-<?php include "../bancos/banco-departamento.php";?>
-<?php include "../bancos/banco-cliente.php";?>
-<?php include "../bancos/banco-pis.php";?>
-<?php include "../bancos/banco-macroprocesso.php";?>
 <?php
+	require_once "../bancos/conecta.php";
+	require_once "../bancos/banco-gestores.php";
+	require_once "../bancos/banco-macroprocesso.php";
+	require_once "../bancos/banco-pis.php";
 	$id_macroprocesso = $_GET['id_macroprocesso'];
+	$gestor = buscaGestorMacro($conexao , $id_macroprocesso);
 	$macroprocesso = buscaMacroprocessoId($conexao, $id_macroprocesso);
 	$pi = buscaPi($conexao, $macroprocesso['cod_pi']);
-  $departamento = buscaDepartamento($conexao, $pi['id_departamento']);
-  $cliente = buscaCliente($conexao, $departamento['id_cliente']);
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +16,7 @@
 	  <meta charset="utf-8">
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	 	<title>Projek | Novo Subprocesso</title>
+	 	<title>Projek | Alterar Responsável</title>
 
 	  <link rel="shortcut icon" type="image/x-icon" href="../../ico/favicon.ico"/>
 	  <link href="../../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -61,13 +59,15 @@
 	                  <li><a><i class="fa fa-building"></i> Clientes<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../clientes/clientes.php">Clientes</a></li>
-	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>	                      
+	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>
+	                      <li><a href="../clientes/pis.php">Pis</a></li>
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file"></i> Processos<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
-	                      <li><a href="../clientes/pis.php">Pis</a></li>
+	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
+	                      <li><a href="../processos/processos.php">Processos Finalizados</a></li>                    
 	                    </ul>
 	                  </li>           
 	                </ul>
@@ -130,7 +130,7 @@
 	          <div class="">
 	            <div class="page-title">
 	              <div class="title_left">
-	                <h3>Subprocesso</h3>
+	                <h3>Alterar Responsável do Processo</h3>
 	              </div>
 	              <div class="title_right">
 	                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -144,114 +144,56 @@
 	              </div>
 	            </div>
 	            <div class="clearfix"></div>
-	            <div class="x_content">
 	            	<div class="row">
 	            	  <div class="col-md-12 col-sm-12 col-xs-12">
-	            	  	<form action="../adiciona/adiciona-subprocesso.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">		            	  	
+	            	  	<div class="x_panel">
+	            	  		<div class="x_content">
+	            	  		<form action="../altera/altera-r-macro.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+	            	  		<div class="form-group">
+	            	  		   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Código PI<span class="required">*</span>
+	            	  		   </label>
+	            	  		   <div class="col-md-6 col-sm-6 col-xs-12">
+	            	  		     <input type="text" placeholder="<?=$pi['cod_pi']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
+	            	  		   </div>
+	            	  		</div>
+	            	  		<div class="form-group">
+	            	  		   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do Processo<span class="required">*</span>
+	            	  		   </label>
+	            	  		   <div class="col-md-6 col-sm-6 col-xs-12">
+	            	  		     <input type="text" placeholder="<?=$macroprocesso['t_processo']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
+	            	  		   </div>
+	            	  		</div>		            	  	
 		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do Macroprocesso<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text"  id="t_processo" name="t_processo" placeholder="<?=$macroprocesso['t_processo']?>" readonly="readonly"  required="required" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t_subprocesso">Título do Subprocesso<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text"  id="t_subprocesso" name="t_subprocesso" required="required" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t_subprocesso">Nº do Subprocesso<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text" data-inputmask="'mask' : '9{1,2}'" id="n_subprocesso" name="n_subprocesso" required="required" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="item form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qPessoas">Nº de Pessoas<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-3 col-sm-6 col-xs-12">
-		            	  	    <input type="text" data-inputmask="'mask' : '9{1,5}'" id="qPessoas" name="qPessoas" required="required" class="form-control">
-		            	  	  </div>         
-		            	  	  <label for="horas" class="control-label col-md-1">Horas <span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-2 col-sm-6 col-xs-12">
-		            	  	    <input type="text" data-inputmask="'mask' : '9{1,5}'" id="horas" name="horas" required="required" class="form-control">
-		            	  	  </div>		            	  	  
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_periodicidade">Periodicidade<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <select class="form-control col-md-3"  id="id_periodicidade" name="id_periodicidade" required="required" >
-		            	  	    	<?php
-		            	  	    		foreach ($periodicidades as $p) {
-		            	  	    	?>
-		            	  	    		<option value="<?=$p['id_periodicidade']?>"><?=$p['descricao']?></option>
-
-		            	  	    	<?php		            	  	    			
-		            	  	    		}
-		            	  	    	?>
-		            	  	    </select>  
-		            	  	  </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_classificacao">Classificação<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <select class="form-control col-md-3"  id="id_classificacao" name="id_classificacao" required="required" >
-		            	  	    	<?php
-		            	  	    		foreach ($classificacoes as $c) {
-		            	  	    	?>
-		            	  	    		<option value="<?=$c['id_classificacao']?>"><?=$c['descricao']?></option>
-
-		            	  	    	<?php		            	  	    			
-		            	  	    		}
-		            	  	    	?>
-		            	  	    </select>  
-		            	  	  </div>
-		            	  	</div>        
-		            	  	<div class="item form-group ">
-		            	  	  <div class="form-group">
 		            	  	    <label for="socio" class="control-label col-md-3 col-sm-3 col-xs-12">Responsável pelo Processo <span class="required">*</span></label>                      
 		            	  	    <div class=" col-sm-6 col-xs-12 col-md-6">
 		            	  	      <div class="form-group">
-		            	  	        <input type="text" placeholder="Nome" name="nome" class="form-control">
+		            	  	        <input type="text" value="<?=$gestor['nome']?>" name="nome" placeholder="Nome" class="form-control">
 		            	  	      </div>            	  	     
 		            	  	      <div class="form-group">
-		            	  	        <input type="text" placeholder="Cargo" id="profissao" name="cargo" required="required" class="form-control col-md-7 col-xs-12">
+		            	  	        <input type="text" value="<?=$gestor['cargo']?>" id="profissao" name="cargo" required="required" placeholder="Cargo" class="form-control col-md-7 col-xs-12">
 		            	  	      </div>
 		            	  	      <div class="form-group">
-		            	  	        <input type="email" placeholder="Email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
+		            	  	        <input type="email" value="<?=$gestor['email']?>" placeholder="Email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
 		            	  	      </div>
 		            	  	      <div class="form-group">
-		            	  	        <input data-inputmask="'mask' : '(99) 99999-9999'" type="text" placeholder="Telefone" id="tel" name="tel" required="required" class="form-control col-md-7 col-xs-12">
+		            	  	        <input data-inputmask="'mask' : '(99) 9999[9]-9999'" type="text" value="<?=$gestor['tel']?>" id="tel" name="tel" placeholder="Telefone" required="required" class="form-control col-md-7 col-xs-12">
 		            	  	      </div>                      
 		            	  	    </div>
-		            	  	  </div>
-		            	  	</div>	  
-		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Descrição<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <textarea  name="descricao" class="form-control" rows="6"></textarea> 
-		            	  	  </div>
-		            	  	</div>  	             
+		            	  	 </div>      
 		            	  	<div class="ln_solid"></div>
 		            	  	<div class=" form-group">
 	            	  	  	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-	            	  	    <button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
+	            	  	    <button type="reset" name="reset" class="btn btn-primary">Resetar</button>
 	            	  	    <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
-	            	  	    <input type="hidden" name="id_macroprocesso" value="<?=$macroprocesso['id_macroprocesso']?>">
-	            	  	 		</div>
+	            	  	    <input type="hidden" name="id_macroprocesso" value="<?=$id_macroprocesso?>" >
+	            	  	    </div>
 	            	  	 	</div>
-	            	  	</form>
+	            	  		</form>
+	            	  	</div>	  
+	            	  	</div>	            	  	          	  	
 	            	  </div>
 	            	</div>  	
 	              <br />
-	           </div>
 	          </div>
 	      </div>
 	       <!-- /page content -->

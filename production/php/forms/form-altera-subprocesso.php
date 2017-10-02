@@ -1,18 +1,14 @@
-<?php include "../bancos/conecta.php";?>
-<?php include "../bancos/banco-departamento.php";?>
-<?php include "../bancos/banco-cliente.php";?>
-<?php include "../bancos/banco-pis.php";?>
-<?php include "../bancos/banco-macroprocesso.php";?>
-<?php include "../bancos/banco-periodicidade.php";?>
-<?php
+<?php 
+	require_once "../bancos/conecta.php";
+	require_once "../bancos/banco-departamento.php";
+	require_once "../bancos/banco-cliente.php";
+	require_once "../bancos/banco-pis.php";
+	require_once "../bancos/banco-macroprocesso.php";
+	require_once "../bancos/banco-subprocesso.php";
 	$id_subprocesso = $_GET['id_subprocesso'];
-	$subprocesso = buscaSubprocessoId($conexao, $subprocesso);
-	$macroprocesso = buscaMacroprocessoId($conexao, $id_macroprocesso);
+	$subprocesso = buscaSubprocessoId($conexao, $id_subprocesso);
+	$macroprocesso = buscaMacroprocessoId($conexao, $subprocesso['id_macroprocesso']);
 	$pi = buscaPi($conexao, $macroprocesso['cod_pi']);
-  $departamento = buscaDepartamento($conexao, $pi['id_departamento']);
-  $cliente = buscaCliente($conexao, $departamento['id_cliente']);
-  $periodicidades = listaPeriodicidades($conexao);
-  $classificacoes = listaClassificacoes($conexao);
 ?>
 
 <!DOCTYPE html>
@@ -134,7 +130,7 @@
 	          <div class="">
 	            <div class="page-title">
 	              <div class="title_left">
-	                <h3>Macroprocesso</h3>
+	                <h3>Altera Subprocesso</h3>
 	              </div>
 	              <div class="title_right">
 	                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -148,10 +144,11 @@
 	              </div>
 	            </div>
 	            <div class="clearfix"></div>
-	            <div class="x_content">
-	            	<div class="row">
-	            	  <div class="col-md-12 col-sm-12 col-xs-12">
-	            	  	<form action="../adiciona/adiciona-subprocesso.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">		            	  	
+	            <div class="row">
+	            	<div class="col-md-12 col-sm-12 col-xs-12">
+	            	  <div class="x_panel">
+	            	  	<div class="x_content">
+	            	  		<form action="../altera/altera-subprocesso.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">		            	  	
 		            	  	<div class="form-group">
 		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do Processo<span class="required">*</span>
 		            	  	   </label>
@@ -163,80 +160,31 @@
 		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t_subprocesso">Título do Subprocesso<span class="required">*</span>
 		            	  	   </label>
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text"  id="t_subprocesso" name="t_subprocesso" required="required" class="form-control col-md-7 col-xs-12">
+		            	  	     <input type="text" value="<?=$subprocesso['t_subprocesso']?>"  id="t_subprocesso" name="t_subprocesso" required="required" class="form-control col-md-7 col-xs-12">
 		            	  	   </div>
 		            	  	</div>
 		            	  	<div class="form-group">
 		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t_subprocesso">Nº do Subprocesso<span class="required">*</span>
 		            	  	   </label>
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text" data-inputmask="'mask' : '9{1,2}'" id="n_subprocesso" name="n_subprocesso" required="required" class="form-control col-md-7 col-xs-12">
+		            	  	     <input type="text" value="<?=$subprocesso['n_subprocesso']?>"data-inputmask="'mask' : '9{1,2}'" id="n_subprocesso" name="n_subprocesso" required="required" class="form-control col-md-7 col-xs-12">
 		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="item form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qPessoas">Nº de Pessoas<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-3 col-sm-6 col-xs-12">
-		            	  	    <input type="text" data-inputmask="'mask' : '9{1,5}'" id="qPessoas" name="qPessoas" required="required" class="form-control">
-		            	  	  </div>         
-		            	  	  <label for="horas" class="control-label col-md-1">Horas <span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-2 col-sm-6 col-xs-12">
-		            	  	    <input type="text" data-inputmask="'mask' : '9{1,5}'" id="horas" name="horas" required="required" class="form-control">
-		            	  	  </div>		            	  	  
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_periodicidade">Periodicidade<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <select class="form-control col-md-3"  id="id_periodicidade" name="id_periodicidade" required="required" >
-		            	  	    	<?php
-		            	  	    		foreach ($periodicidades as $p) {
-		            	  	    	?>
-		            	  	    		<option value="<?=$p['id_periodicidade']?>"><?=$p['descricao']?></option>
-
-		            	  	    	<?php		            	  	    			
-		            	  	    		}
-		            	  	    	?>
-		            	  	    </select>  
-		            	  	  </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_classificacao">Classificação<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <select class="form-control col-md-3"  id="id_classificacao" name="id_classificacao" required="required" >
-		            	  	    	<?php
-		            	  	    		foreach ($classificacoes as $c) {
-		            	  	    	?>
-		            	  	    		<option value="<?=$c['id_classificacao']?>"><?=$c['descricao']?></option>
-
-		            	  	    	<?php		            	  	    			
-		            	  	    		}
-		            	  	    	?>
-		            	  	    </select>  
-		            	  	  </div>
-		            	  	</div>      
-		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Descrição
-		            	  	  </label>
-		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <textarea  name="descricao" class="form-control" rows="6"></textarea> 
-		            	  	  </div>
-		            	  	</div>  	             
+		            	  	</div>		            	  	
 		            	  	<div class="ln_solid"></div>
 		            	  	<div class=" form-group">
 	            	  	  	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-	            	  	    <button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
-	            	  	    <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
-	            	  	    <input type="hidden" name="id_macroprocesso" value="<?=$macroprocesso['id_macroprocesso']?>">
+	            	  	    <button type="reset" name="reset" class="btn btn-primary">Resetar</button>
+	            	  	    <button id="send" type="submit" name="enviar" class="btn btn-success">Alterar</button>
+	            	  	    <input type="hidden" name="id_subprocesso" value="<?=$subprocesso['id_subprocesso']?>">
 	            	  	 		</div>
 	            	  	 	</div>
 	            	  	</form>
+	            	  	</div>
+	            	  	
 	            	  </div>
 	            	</div>  	
 	              <br />
-	           </div>
+	           	</div>
 	          </div>
 	      </div>
 	       <!-- /page content -->

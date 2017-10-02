@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 29-Set-2017 às 18:34
+-- Generation Time: 02-Out-2017 às 18:43
 -- Versão do servidor: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -5849,8 +5849,7 @@ CREATE TABLE `gestor_macro` (
 --
 
 INSERT INTO `gestor_macro` (`id_gestor_macro`, `nome`, `tel`, `email`, `cargo`, `id_macroprocesso`) VALUES
-(4, 'Maria Gevan', '(71) 9876-4567', 'maria@gevan.com', 'Coordenador do setor da Folha de Pagamento', 4),
-(5, 'José Folha', '(71) 98998-8888', 'jose@gevan.com', 'Coordenador do setor da Folha de Pagamento', 4);
+(5, 'José Folha', '(71) 98998-8888', 'jose@gevan.com.br', 'Coordenador do setor da Folha de Pagamento', 4);
 
 -- --------------------------------------------------------
 
@@ -5872,7 +5871,8 @@ CREATE TABLE `gestor_sub` (
 --
 
 INSERT INTO `gestor_sub` (`id_gestor_sub`, `id_subprocesso`, `nome`, `email`, `tel`, `cargo`) VALUES
-(1, 7, 'José Gevan', 'jose@gevan.com', '(71) 98888-8888', 'Gestor');
+(1, 7, 'José Gevan', 'jose@gevan.com', '(71) 98888-8888', 'Gestor'),
+(2, 8, 'Maria Faturamento', 'maria@faturamento.com', '(71) 98766-6666', 'Contadora');
 
 -- --------------------------------------------------------
 
@@ -5911,8 +5911,8 @@ CREATE TABLE `macroprocessos` (
 --
 
 INSERT INTO `macroprocessos` (`id_macroprocesso`, `cod_pi`, `data_ultima`, `data_proxima`, `id_classificacao`, `t_processo`, `n_processo`, `qPessoas`, `id_periodicidade`, `horas`, `descricao`) VALUES
-(4, 'FOL01', NULL, NULL, 1, 'Adiantamento Salarial', '1', 100, 1, 100, NULL),
-(5, 'FOL01', NULL, NULL, 3, 'Faturamento de Benefícios', '2', 100, 2, 20, '');
+(4, 'FOL01', NULL, NULL, 3, 'Adiantamento Salarial ', '1', 100, 4, 100, ''),
+(5, 'FOL01', NULL, NULL, 3, 'Faturamento de Benefícios', '2', 100, 2, 20, 'Uma parte dos faturamentos é feito');
 
 -- --------------------------------------------------------
 
@@ -5931,6 +5931,13 @@ CREATE TABLE `microprocessos` (
   `id_periodicidade` int(11) NOT NULL,
   `horas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `microprocessos`
+--
+
+INSERT INTO `microprocessos` (`id_microprocesso`, `id_subprocesso`, `descricao`, `n_microprocesso`, `t_microprocesso`, `qPessoas`, `id_classificacao`, `id_periodicidade`, `horas`) VALUES
+(1, 8, 'O beneficio odontologico', '1', 'Benefício ', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -6094,7 +6101,8 @@ CREATE TABLE `subprocessos` (
 --
 
 INSERT INTO `subprocessos` (`id_subprocesso`, `id_macroprocesso`, `descricao`, `n_subprocesso`, `t_subprocesso`, `qPessoas`, `id_classificacao`, `id_periodicidade`, `horas`) VALUES
-(7, 4, 'Para saber', '1', 'Verificar Gastos do funcionário do mês anterior', 100, 1, 1, 100);
+(7, 4, 'Para saber', '1', 'Verificar Gastos do funcionário do mês anterior', 100, 1, 1, 100),
+(8, 5, '', '3', 'Faturamento de beneficios', 15, 2, 2, 24);
 
 -- --------------------------------------------------------
 
@@ -6323,7 +6331,7 @@ ALTER TABLE `gestor_macro`
 -- AUTO_INCREMENT for table `gestor_sub`
 --
 ALTER TABLE `gestor_sub`
-  MODIFY `id_gestor_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_gestor_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `informacoes`
 --
@@ -6338,12 +6346,12 @@ ALTER TABLE `macroprocessos`
 -- AUTO_INCREMENT for table `microprocessos`
 --
 ALTER TABLE `microprocessos`
-  MODIFY `id_microprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_microprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `objetivos`
 --
 ALTER TABLE `objetivos`
-  MODIFY `id_objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `periodicidade`
 --
@@ -6358,12 +6366,12 @@ ALTER TABLE `profileimg`
 -- AUTO_INCREMENT for table `stakeholders`
 --
 ALTER TABLE `stakeholders`
-  MODIFY `id_stakeholder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_stakeholder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `stakeholders_macro`
 --
 ALTER TABLE `stakeholders_macro`
-  MODIFY `id_stakeholder_macro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_stakeholder_macro` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `stakeholders_sub`
 --
@@ -6373,7 +6381,7 @@ ALTER TABLE `stakeholders_sub`
 -- AUTO_INCREMENT for table `subprocessos`
 --
 ALTER TABLE `subprocessos`
-  MODIFY `id_subprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_subprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `usuarios`
 --

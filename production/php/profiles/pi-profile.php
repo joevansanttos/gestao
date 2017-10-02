@@ -1,10 +1,10 @@
-<?php require_once "../bancos/conecta.php";?>
-<?php require_once "../bancos/banco-pis.php";?>
-<?php require_once "../bancos/banco-macroprocesso.php";?>
-<?php require_once "../bancos/banco-subprocesso.php";?>
-<?php require_once "../bancos/banco-microprocesso.php";?>
-<?php require_once "../bancos/banco-gestores.php";?>
-<?php
+<?php 
+  require_once "../bancos/conecta.php";
+  require_once "../bancos/banco-pis.php";
+  require_once "../bancos/banco-macroprocesso.php";
+  require_once "../bancos/banco-subprocesso.php";
+  require_once "../bancos/banco-microprocesso.php";
+  require_once "../bancos/banco-gestores.php";
   $cod_pi = $_GET['cod_pi'];
   $pi = buscaPi($conexao , $cod_pi);
   $macroprocessos = listaPiMacroprocessos($conexao, $cod_pi);
@@ -74,7 +74,7 @@
                       <li><a href="../clientes/gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i> Mapeamento<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
                     </ul>
@@ -139,7 +139,7 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              <div class="title_left"><h3>Manual de Processos</h3></div>
+              <div class="title_left"><h3>Mapeamento de Processos</h3></div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
@@ -379,7 +379,7 @@
                                                             <a data-toggle="collapse" href="<?=$idpanel3?>">
                                                               <?=$micro['n_microprocesso']?> <?=$micro['t_microprocesso']?>
                                                             </a>
-                                                            <a href="../forms/form-stakeholder_macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i></button></a>
+                                                            <a href="../forms/form-altera-microprocesso.php?id_microprocesso=<?=$micro['id_microprocesso']?>"><button class="btn btn-danger btn-xs pull-right"><i class="fa fa-pencil"></i></button></a>
                                                             <div class="clearfix"></div>
                                                           </h4>
                                                         </div>
@@ -463,7 +463,9 @@
                                               <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                   <a data-toggle="collapse" href="<?=$idpanel_d?>">Descrição</a>            
-                                                                        
+                                                  <a href="../forms/form-altera-d-macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>">
+                                                    <button data-toggle="tooltip" data-placement="top" title="Editar Descrição do Processo" class="btn btn-warning btn-xs pull-right"><i class="fa fa-pencil"></i></button>
+                                                  </a>                       
                                                   <div class="clearfix"></div>
                                                 </h4>
                                               </div>
@@ -481,7 +483,10 @@
                                               <div class="panel panel-warning">
                                                   <div class="panel-heading">
                                                     <h4 class="panel-title">
-                                                      <a data-toggle="collapse" href="<?=$idpanel_c?>">Características</a>                                                  
+                                                      <a data-toggle="collapse" href="<?=$idpanel_c?>">Características</a>
+                                                      <a href="../forms/form-altera-c-macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>">
+                                                        <button data-toggle="tooltip" data-placement="top" title="Editar Características do Processo" class="btn btn-warning btn-xs pull-right"><i class="fa fa-pencil"></i></button>
+                                                      </a>                                                         
                                                                
                                                       <div class="clearfix"></div>
                                                     </h4>
@@ -492,19 +497,24 @@
                                                       $classificacao = buscaClassificacaoId($conexao, $macroprocesso['id_classificacao']);
                                                       $periodicidade = buscaPeriodicidadeId($conexao, $macroprocesso['id_periodicidade']);
                                                     ?>
-                                                    <table class="table table-bordered">
-                                                      <tr>
-                                                        <th>Nº de Pessoas</th>
-                                                        <th>Horas</th>
-                                                        <th>Classificação</th>
-                                                        <th>Periodicidade</th>
-                                                      </tr>                                                    
-                                                      <tr>
-                                                        <td><?=$macroprocesso['qPessoas']?></td>
-                                                        <td><?=$macroprocesso['horas']?></td>                              
-                                                        <td><?=$classificacao['descricao']?></td>                     
-                                                        <td><?=$periodicidade['descricao']?></td>
-                                                                                                                                     
+                                                    <table class="table">
+                                                      <thead>
+                                                        <tr>
+                                                          <th>Nº de Pessoas</th>
+                                                          <th>Horas</th>
+                                                          <th>Classificação</th>
+                                                          <th>Periodicidade</th>
+                                                        </tr>     
+                                                      </thead>
+                                                      <tbody>
+                                                        <tr>
+                                                          <td><?=$macroprocesso['qPessoas']?></td>
+                                                          <td><?=$macroprocesso['horas']?></td>                              
+                                                          <td><?=$classificacao['descricao']?></td>                     
+                                                          <td><?=$periodicidade['descricao']?></td>
+                                                        </tr>       
+                                                      </tbody>                                               
+                                                                                                                              
                                                     </table>                                                  
                                                    </div>
                                                   </div>
@@ -518,7 +528,9 @@
                                                   <div class="panel-heading">
                                                     <h4 class="panel-title">
                                                       <a data-toggle="collapse" href="<?=$idpanel_g?>">Responsável</a>   
-                                                               
+                                                      <a href="../forms/form-altera-r-macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>">
+                                                        <button data-toggle="tooltip" data-placement="top" title="Editar Responsável do Processo" class="btn btn-warning btn-xs pull-right"><i class="fa fa-pencil"></i></button>
+                                                      </a>                
                                                       <div class="clearfix"></div>
                                                     </h4>
                                                   </div>
@@ -527,20 +539,21 @@
                                                     <?php
                                                       $gestor_macro = buscaGestorMacro($conexao, $macroprocesso['id_macroprocesso']);                                                 
                                                     ?>
-                                                     <table class="table table-bordered">
-                                                        <tr>
-                                                          <th>Nome</th>
-                                                          <th>Email</th>
-                                                          <th>Telefone</th>
-                                                          <th>Cargo</th>
-                                                          <th>Ações</th>
-                                                        </tr>
+                                                     <table class="table">
+                                                        <thead>
+                                                          <tr>
+                                                            <th>Nome</th>
+                                                            <th>Email</th>
+                                                            <th>Telefone</th>
+                                                            <th>Cargo</th>
+                                                          </tr>
+                                                        </thead>
+                                                        
                                                         <tr>
                                                           <td><?=$gestor_macro['nome']?></td>
                                                           <td><?=$gestor_macro['email']?></td>
                                                           <td><?=$gestor_macro['tel']?></td>
                                                           <td><?=$gestor_macro['cargo']?></td>
-                                                          <td></td>
                                                         </tr>
                                                        
                                                      </table>                          
@@ -556,20 +569,23 @@
                                                   <div class="panel-heading">
                                                     <h4 class="panel-title">
                                                       <a data-toggle="collapse" href="<?=$idpanel_s?>">Partes interessadas</a>   
-                                                      <a href="../forms/form-stakeholder_macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button class="btn btn-warning btn-xs pull-right"><i class="fa fa-plus"></i></button></a> </a>                      
+                                                      <a href="../forms/form-stakeholder_macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button data-toggle="tooltip" data-placement="top" title="Adicionar Parte Interessada" class="btn btn-warning btn-xs pull-right"><i class="fa fa-plus"></i></button></a> </a>                      
                                                       <div class="clearfix"></div>
                                                     </h4>
                                                   </div>
                                                   <div id="<?=$panel_s?>" class="panel-collapse collapse">                               
                                                    <div class="panel-body">
-                                                    <table class="table table-bordered">
-                                                      <tr>
-                                                        <th>Nome</th>
-                                                        <th>Email</th>
-                                                        <th>Departamento</th>
-                                                        <th>Cargo</th>
-                                                        <th>Ações</th>
-                                                      </tr>
+                                                    <table class="table">
+                                                      <thead>
+                                                        <tr>
+                                                          <th>Nome</th>
+                                                          <th>Email</th>
+                                                          <th>Departamento</th>
+                                                          <th>Cargo</th>
+                                                          <th>Ações</th>
+                                                        </tr>
+                                                      </thead>
+                                                      
                                                       <?php
                                                         foreach ($stakeholders_macro as $stakeholder_macro) {
                                                       ?>
@@ -579,7 +595,8 @@
                                                         <td><?=$stakeholder_macro['departamento']?></td>
                                                         <td><?=$stakeholder_macro['cargo']?></td>
                                                         <td align="center">
-                                                          <a href="../forms/form-altera-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></a>
+                                                          <a href="../forms/form-altera-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>
+                                                          <a href="../forms/form-altera-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>                                                          
                                                         </td>
                                                       </tr>
                                                       <?php
@@ -619,14 +636,17 @@
                               </div>
                               <div id="stakeholder" class="panel-collapse collapse">                               
                                <div class="panel-body">
-                                <table class="table table-bordered">
-                                  <tr>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Departamento</th>
-                                    <th>Cargo</th>
-                                    <th>Ações</th>
-                                  </tr>
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Nome</th>
+                                      <th>Email</th>
+                                      <th>Departamento</th>
+                                      <th>Cargo</th>
+                                      <th>Ações</th>
+                                    </tr>
+                                  </thead>
+                                  
                                   <?php
                                     foreach ($stakeholders as $stakeholder) {
                                   ?>
@@ -636,7 +656,8 @@
                                     <td><?=$stakeholder['departamento']?></td>
                                     <td><?=$stakeholder['cargo']?></td>
                                     <td align="center">
-                                      <a href="../forms/form-altera-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></a>
+                                      <a href="../forms/form-altera-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button data-toggle="tooltip" data-placement="top" title="Editar Parte Interessada" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></button></a>
+                                      <a href="../remove/remove-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button data-toggle="tooltip" data-placement="top" title="Remover Parte Interessada" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button></a>
                                     </td>
                                   </tr>
                                   <?php

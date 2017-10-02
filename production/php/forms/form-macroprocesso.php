@@ -1,9 +1,9 @@
-<?php include "../bancos/conecta.php";?>
-<?php include "../bancos/banco-departamento.php";?>
-<?php include "../bancos/banco-cliente.php";?>
-<?php include "../bancos/banco-pis.php";?>
-<?php include "../bancos/banco-periodicidade.php";?>
-<?php
+<?php 
+	require_once "../bancos/conecta.php";
+	require_once "../bancos/banco-departamento.php";
+	require_once "../bancos/banco-cliente.php";
+	require_once "../bancos/banco-pis.php";
+	require_once "../bancos/banco-periodicidade.php";
 	$cod_pi = $_GET['cod_pi'];
 	$pi = buscaPi($conexao, $cod_pi);
   $departamento = buscaDepartamento($conexao, $pi['id_departamento']);
@@ -11,6 +11,7 @@
   $periodicidades = listaPeriodicidades($conexao);
   $classificacoes = listaClassificacoes($conexao);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +67,7 @@
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file-text"></i> Mapeamentos<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
 	                    </ul>
@@ -126,12 +127,13 @@
 	        </div>
 	      </div>
 	      <!-- /top navigation -->
+
 	      <!-- page content -->
 	      <div class="right_col" role="main">
 	          <div class="">
 	            <div class="page-title">
 	              <div class="title_left">
-	                <h3>Macroprocesso</h3>
+	                <h3>Novo Processo</h3>
 	              </div>
 	              <div class="title_right">
 	                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -145,46 +147,47 @@
 	              </div>
 	            </div>
 	            <div class="clearfix"></div>
-	            <div class="x_content">
-	            	<div class="row">
-	            	  <div class="col-md-12 col-sm-12 col-xs-12">
-	            	  	<form action="../adiciona/adiciona-macroprocesso.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-		            	  	<div class="form-group">
+	            <div class="row">
+	              <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                	<div class="x_content">
+	                		<form action="../adiciona/adiciona-macroprocesso.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+		            	  		<div class="form-group">
 		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="nome">Empresa<span class="required">*</span>
 		            	  	   </label>
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
 		            	  	     <input type="text" placeholder="<?=$cliente['nome']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
 		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
+		            	  		</div>
+		            	  		<div class="form-group">
 		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Departamento<span class="required">*</span>
 		            	  	   </label>
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
 		            	  	     <input type="text" placeholder="<?=$departamento['nome']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
 		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
+		            	  		</div>
+		            	  		<div class="form-group">
 		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Código PI<span class="required">*</span>
 		            	  	   </label>
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
 		            	  	     <input type="text" placeholder="<?=$pi['cod_pi']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
 		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
+		            	  		</div>
+		            	  		<div class="form-group">
 		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Nº do Processo<span class="required">*</span>
 		            	  	   </label>
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
 		            	  	     <input  data-inputmask="'mask' : '9{1,2}'" type="text"  id="n_processo" name="n_processo" required="required" class="form-control col-md-6 col-xs-12">
 		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
+		            	  		</div>
+		            	  		<div class="form-group">
 		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do Processo<span class="required">*</span>
 		            	  	   </label>
 		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
 		            	  	     <input type="text"  id="t_processo" name="t_processo" required="required" class="form-control col-md-7 col-xs-12">
 		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="item form-group">
+		            	  		</div>
+		            	  		<div class="item form-group">
 		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qPessoas">Nº de Pessoas<span class="required">*</span>
 		            	  	  </label>
 		            	  	  <div class="col-md-3 col-sm-6 col-xs-12">
@@ -195,12 +198,12 @@
 		            	  	  <div class="col-md-2 col-sm-6 col-xs-12">
 		            	  	    <input type="text" data-inputmask="'mask' : '9{1,5}'" id="horas" name="horas" required="required" class="form-control">
 		            	  	  </div>		            	  	  
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_periodicidade">Periodicidade<span class="required">*</span>
-		            	  	  </label>
-		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	    <select class="form-control col-md-3"  id="id_periodicidade" name="id_periodicidade" required="required" >
+		            	  		</div>
+		            	  		<div class="form-group">
+		            	  	  	<label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_periodicidade">Periodicidade<span class="required">*</span>
+		            	  	  	</label>
+		            	  	  	<div class="col-md-6 col-sm-6 col-xs-12">
+		            	  	    	<select class="form-control col-md-3"  id="id_periodicidade" name="id_periodicidade" required="required" >
 		            	  	    	<?php
 		            	  	    		foreach ($periodicidades as $p) {
 		            	  	    	?>
@@ -210,9 +213,9 @@
 		            	  	    		}
 		            	  	    	?>
 		            	  	    </select>  
-		            	  	  </div>
-		            	  	</div>
-		            	  	<div class="form-group">
+		            	  	  	</div>
+		            	  		</div>
+		            	  		<div class="form-group">
 		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_classificacao">Classificação<span class="required">*</span>
 		            	  	  </label>
 		            	  	  <div class="col-md-6 col-sm-6 col-xs-12">
@@ -227,8 +230,8 @@
 		            	  	    	?>
 		            	  	    </select>  
 		            	  	  </div>
-		            	  	</div>        
-		            	  	<div class="item form-group ">
+		            	  		</div>        
+		            	  		<div class="item form-group ">
 		            	  	  <div class="form-group">
 		            	  	    <label for="socio" class="control-label col-md-3 col-sm-3 col-xs-12">Responsável pelo Processo <span class="required">*</span></label>                      
 		            	  	    <div class=" col-sm-6 col-xs-12 col-md-6">
@@ -246,19 +249,28 @@
 		            	  	      </div>                      
 		            	  	    </div>
 		            	  	  </div>
-		            	  	</div>	  	             
-		            	  	<div class="ln_solid"></div>
-		            	  	<div class=" form-group">
+		            	  		</div>
+		            	  		<div class="form-group">
+		            	  		  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Descrição
+		            	  		  </label>
+		            	  		  <div class="col-md-6 col-sm-6 col-xs-12">
+		            	  		    <textarea  name="descricao" class="form-control col-md-12 col-xs-12" rows="6"></textarea> 
+		            	  		  </div>
+		            	  		</div>  		  	             
+		            	  		<div class="ln_solid"></div>
+		            	  		<div class=" form-group">
 	            	  	  	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-	            	  	    <button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
+	            	  	    <button type="reset" name="reset" class="btn btn-primary">Resetar</button>
 	            	  	    <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
 	            	  	    <input type="hidden" name="cod_pi" value="<?=$pi['cod_pi']?>">
 	            	  	 		</div>
-	            	  	 	</div>
-	            	  	</form>
-	            	  </div>
-	            	</div>  	
-	              <br />
+	            	  	 		</div>
+	            	  		</form>
+	                	</div>
+	                </div>
+	              </div>
+	            </div>	
+	            <br />
 	           </div>
 	          </div>
 	      </div>
@@ -285,5 +297,6 @@
 		<script src="../../../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
 		<!-- Custom Theme Scripts -->
 		<script src="../../../build/js/custom.min.js"></script>
+		<script src="../../js/multiple.js"></script>
 	</body>
 </html>

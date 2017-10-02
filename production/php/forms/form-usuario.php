@@ -60,7 +60,7 @@
                       <li><a href="../clientes/gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i> Mapeamento de Processos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../processos/processos.php">Pis</a></li>
                     </ul>
@@ -191,7 +191,7 @@
                 <div class="ln_solid"></div>
                 <div class=" form-group">
                   <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                    <button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
+                    <button type="reset" name="reset" class="btn btn-primary">Resetar</button>
                     <button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
                   </div>
                 </div>

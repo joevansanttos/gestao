@@ -1,8 +1,8 @@
-<?php include "../bancos/conecta.php";?>
-<?php include "../bancos/banco-departamento.php";?>
-<?php include "../bancos/banco-cliente.php";?>
-<?php include "../bancos/banco-pis.php";?>
-<?php
+<?php 
+	require_once "../bancos/conecta.php";
+  require_once "../bancos/banco-departamento.php";
+	require_once "../bancos/banco-cliente.php";
+	require_once "../bancos/banco-pis.php";
 	$cod_pi = $_GET['cod_pi'];
 	$pi = buscaPi($conexao, $cod_pi);
 ?>
@@ -14,7 +14,7 @@
 	  <meta charset="utf-8">
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	 	<title>Projek | Novo Subprocesso</title>
+	 	<title>Projek | Nova Parte Interessada</title>
 
 	  <link rel="shortcut icon" type="image/x-icon" href="../../ico/favicon.ico"/>
 	  <link href="../../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -61,7 +61,7 @@
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file-text"></i> Mapeamento<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
 	                    </ul>
@@ -151,7 +151,7 @@
 	                					<label for="socio" class="control-label col-md-3 col-sm-3 col-xs-12">Stakeholder <span class="required">*</span></label>                      
 	                					<div class=" col-sm-6 col-xs-12 col-md-6">
 	                						<div class="form-group">
-	                							<input type="text" placeholder="Nome" name=nomes[]" class="form-control">
+	                							<input type="text" required="required"  placeholder="Nome" name=nomes[]" class="form-control">
 	                						</div>	            				      
 	                						<div class="form-group">
 	                							<input type="email" placeholder="@email.com" id="email" name="emails[]" required="required" class="form-control col-md-7 col-xs-12">
@@ -170,7 +170,7 @@
 	                			<div class="ln_solid"></div>
 	                			<div class=" form-group">
 	                				<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-	                					<button type="submit" name="cancelar" class="btn btn-primary">Cancelar</button>
+	                					<button type="reset" name="reset" class="btn btn-primary">Resetar</button>
 	                					<button id="send" type="submit" name="enviar" class="btn btn-success">Cadastrar</button>
 	                					<input type="hidden" name="cod_pi" value="<?=$pi['cod_pi']?>">
 	                				</div>
