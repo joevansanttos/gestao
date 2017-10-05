@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 02-Out-2017 às 18:43
+-- Generation Time: 05-Out-2017 às 16:29
 -- Versão do servidor: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -5854,6 +5854,21 @@ INSERT INTO `gestor_macro` (`id_gestor_macro`, `nome`, `tel`, `email`, `cargo`, 
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `gestor_micro`
+--
+
+CREATE TABLE `gestor_micro` (
+  `id_gestor_micro` int(11) NOT NULL,
+  `id_microprocesso` int(11) DEFAULT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `tel` varchar(50) DEFAULT NULL,
+  `cargo` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `gestor_sub`
 --
 
@@ -5925,7 +5940,7 @@ CREATE TABLE `microprocessos` (
   `id_subprocesso` int(11) NOT NULL,
   `descricao` varchar(2000) DEFAULT NULL,
   `n_microprocesso` varchar(10) NOT NULL,
-  `t_microprocesso` varchar(10) NOT NULL,
+  `t_microprocesso` varchar(50) NOT NULL,
   `qPessoas` int(11) NOT NULL,
   `id_classificacao` int(11) NOT NULL,
   `id_periodicidade` int(11) NOT NULL,
@@ -5937,7 +5952,8 @@ CREATE TABLE `microprocessos` (
 --
 
 INSERT INTO `microprocessos` (`id_microprocesso`, `id_subprocesso`, `descricao`, `n_microprocesso`, `t_microprocesso`, `qPessoas`, `id_classificacao`, `id_periodicidade`, `horas`) VALUES
-(1, 8, 'O beneficio odontologico', '1', 'Benefício ', 0, 0, 0, 0);
+(1, 8, 'O beneficio odontologico', '1', 'Benefícios Odontológicos', 40, 2, 2, 100),
+(4, 8, 'o cartão', '2', 'Cartão Multi Benefício', 23, 1, 1, 23);
 
 -- --------------------------------------------------------
 
@@ -6102,7 +6118,7 @@ CREATE TABLE `subprocessos` (
 
 INSERT INTO `subprocessos` (`id_subprocesso`, `id_macroprocesso`, `descricao`, `n_subprocesso`, `t_subprocesso`, `qPessoas`, `id_classificacao`, `id_periodicidade`, `horas`) VALUES
 (7, 4, 'Para saber', '1', 'Verificar Gastos do funcionário do mês anterior', 100, 1, 1, 100),
-(8, 5, '', '3', 'Faturamento de beneficios', 15, 2, 2, 24);
+(8, 5, 'okok', '3', 'Faturamento de beneficios', 15, 2, 3, 24);
 
 -- --------------------------------------------------------
 
@@ -6194,6 +6210,12 @@ ALTER TABLE `gestor_dep`
 --
 ALTER TABLE `gestor_macro`
   ADD PRIMARY KEY (`id_gestor_macro`);
+
+--
+-- Indexes for table `gestor_micro`
+--
+ALTER TABLE `gestor_micro`
+  ADD PRIMARY KEY (`id_gestor_micro`);
 
 --
 -- Indexes for table `gestor_sub`
@@ -6328,6 +6350,11 @@ ALTER TABLE `gestor_dep`
 ALTER TABLE `gestor_macro`
   MODIFY `id_gestor_macro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
+-- AUTO_INCREMENT for table `gestor_micro`
+--
+ALTER TABLE `gestor_micro`
+  MODIFY `id_gestor_micro` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `gestor_sub`
 --
 ALTER TABLE `gestor_sub`
@@ -6346,12 +6373,12 @@ ALTER TABLE `macroprocessos`
 -- AUTO_INCREMENT for table `microprocessos`
 --
 ALTER TABLE `microprocessos`
-  MODIFY `id_microprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_microprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `objetivos`
 --
 ALTER TABLE `objetivos`
-  MODIFY `id_objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `periodicidade`
 --
@@ -6366,7 +6393,7 @@ ALTER TABLE `profileimg`
 -- AUTO_INCREMENT for table `stakeholders`
 --
 ALTER TABLE `stakeholders`
-  MODIFY `id_stakeholder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_stakeholder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `stakeholders_macro`
 --

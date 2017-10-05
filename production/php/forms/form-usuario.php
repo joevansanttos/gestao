@@ -1,5 +1,7 @@
-<?php include "../bancos/conecta.php";?>
-<?php include "../bancos/banco-usuario.php";?>
+<?php 
+  require_once "../bancos/conecta.php";
+  require_once "../bancos/banco-usuario.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,9 +62,9 @@
                       <li><a href="../clientes/gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file-text"></i> Mapeamento de Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i> Mapeamentos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../processos/processos.php">Pis</a></li>
+                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
                     </ul>
                   </li>           
                 </ul>

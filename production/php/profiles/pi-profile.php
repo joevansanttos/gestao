@@ -74,7 +74,7 @@
                       <li><a href="../clientes/gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file-text"></i> Mapeamento<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i> Mapeamentos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
                     </ul>
@@ -139,7 +139,7 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              <div class="title_left"><h3>Mapeamento de Processos</h3></div>
+              <div class="title_left"><h3><?=$pi['cod_pi']?> </h3></div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
@@ -384,12 +384,13 @@
                                                           </h4>
                                                         </div>
                                                         <div id="<?=$panel3?>" class="panel-collapse collapse">        
-                                                          <div class="panel-body"><?=$micro['descricao']?></div>
+                                                          <div class="panel-body">
+                                                            
+                                                              
+                                                          </div>
                                                         </div>
                                                     </div>   
                                                   </div>
-
-
                                                    <!-- End Microprocessos Panel -->      
                                                   <?php
                                                    }
@@ -401,7 +402,7 @@
                                                       <div class="panel-heading">
                                                         <h4 class="panel-title">
                                                           <a data-toggle="collapse" href="<?=$idpanel2_d?>">Descrição</a>
-                                                          <a href="../forms/form-stakeholder_macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i></button></a> </a>                   
+                                                          <a href="../forms/form-altera-d-sub.php?id_subprocesso=<?=$sub['id_subprocesso']?>"><button class="btn btn-danger btn-xs pull-right"><i class="fa fa-pencil"></i></button></a> </a>                   
                                                           <div class="clearfix"></div>
                                                         </h4>
                                                       </div>
@@ -419,8 +420,8 @@
                                                       <div class="panel panel-danger">
                                                           <div class="panel-heading">
                                                             <h4 class="panel-title">
-                                                              <a data-toggle="collapse" href="<?=$idpanel2_c?>">Características</a>                                                  
-                                                                       
+                                                              <a data-toggle="collapse" href="<?=$idpanel2_c?>">Características</a>
+                                                              <a href="../forms/form-altera-c-sub.php?id_subprocesso=<?=$sub['id_subprocesso']?>"><button class="btn btn-danger btn-xs pull-right"><i class="fa fa-pencil"></i></button></a> </a>   
                                                               <div class="clearfix"></div>
                                                             </h4>
                                                           </div>
@@ -430,7 +431,7 @@
                                                               $classificacao_sub = buscaClassificacaoId($conexao, $sub['id_classificacao']);
                                                               $periodicidade_sub = buscaPeriodicidadeId($conexao, $sub['id_periodicidade']);
                                                             ?>
-                                                            <table class="table table-bordered">
+                                                            <table class="table">
                                                               <tr>
                                                                 <th>Nº de Pessoas</th>
                                                                 <th>Horas</th>
@@ -442,7 +443,7 @@
                                                                 <td><?=$sub['horas']?></td>                              
                                                                 <td><?=$classificacao_sub['descricao']?></td>                     
                                                                 <td><?=$periodicidade_sub['descricao']?></td>
-                                                                                                                                             
+
                                                             </table>                                                  
                                                            </div>
                                                           </div>

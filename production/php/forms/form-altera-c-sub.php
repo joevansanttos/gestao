@@ -1,20 +1,17 @@
-<?php 
-		require_once  "../bancos/conecta.php";
-	 	require_once  "../bancos/banco-departamento.php";
-		require_once  "../bancos/banco-cliente.php";
-		require_once  "../bancos/banco-pis.php";
-		require_once  "../bancos/banco-macroprocesso.php";
-		require_once  "../bancos/banco-microprocesso.php";
-		require_once  "../bancos/banco-subprocesso.php";		
-		$id_microprocesso = $_GET['id_microprocesso'];
-		$microprocesso = buscaMicroprocessoId($conexao, $id_microprocesso);
-		$subprocesso = buscaSubprocessoId($conexao, $microprocesso['id_subprocesso']);
-		$macroprocesso = buscaMacroprocessoId($conexao, $subprocesso['id_macroprocesso']);
-		$pi = buscaPi($conexao, $macroprocesso['cod_pi']);
-	  $departamento = buscaDepartamento($conexao, $pi['id_departamento']);
-	  $cliente = buscaCliente($conexao, $departamento['id_cliente']);
+<?php
+	require_once "../bancos/conecta.php";
+	require_once "../bancos/banco-subprocesso.php";
+	require_once "../bancos/banco-stakeholders.php";
+	require_once "../bancos/banco-macroprocesso.php";
+	require_once "../bancos/banco-pis.php";
+	require_once "../bancos/banco-periodicidade.php";
+	$id_subprocesso = $_GET['id_subprocesso'];
+	$subprocesso = buscaSubprocessoId($conexao, $id_subprocesso);
+	$macroprocesso = buscaMacroprocessoId($conexao, $subprocesso['id_macroprocesso']);
+	$pi = buscaPi($conexao, $macroprocesso['cod_pi']);
+	$periodicidades = listaPeriodicidades($conexao);
+	$classificacoes = listaClassificacoes($conexao);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +20,7 @@
 	  <meta charset="utf-8">
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	 	<title>Projek | Novo Subprocesso</title>
+	 	<title>Projek | Alterar Características do Subrocesso</title>
 
 	  <link rel="shortcut icon" type="image/x-icon" href="../../ico/favicon.ico"/>
 	  <link href="../../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -63,14 +60,15 @@
 	                      <li><a href="../usuarios/consultores.php">Consultores</a></li>
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-briefcase"></i> Clientes<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-building"></i> Clientes<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../clientes/clientes.php">Clientes</a></li>
 	                      <li><a href="../clientes/departamentos.php">Departamentos</a></li>
+	                      <li><a href="../clientes/pis.php">Pis</a></li>
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file-text"></i> Mapeamentos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file"></i> Mapeamentos<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
 	                    </ul>
@@ -130,13 +128,12 @@
 	        </div>
 	      </div>
 	      <!-- /top navigation -->
-
 	      <!-- page content -->
 	      <div class="right_col" role="main">
 	          <div class="">
 	            <div class="page-title">
 	              <div class="title_left">
-	                <h3>Subprocesso</h3>
+	                <h3>Características do Subprocesso</h3>
 	              </div>
 	              <div class="title_right">
 	                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -150,55 +147,90 @@
 	              </div>
 	            </div>
 	            <div class="clearfix"></div>
-	            <div class="row">
-	              <div class="col-md-12 col-sm-12 col-xs-12">
-	                <div class="x_panel">
-	                	<div class="x_content">
-	                		<form action="../altera/altera-microprocesso.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">		            	  	
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do Macroprocesso<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text"  id="t_processo" name="t_processo" placeholder="<?=$macroprocesso['t_processo']?>" readonly="readonly"  required="required" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do Subprocesso<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text"  id="t_subprocesso" name="t_subprocesso" placeholder="<?=$subprocesso['t_subprocesso']?>" readonly="readonly"  required="required" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t_microprocesso">Título do Subprocesso<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text"  value="<?=$microprocesso['t_microprocesso']?>" id="t_microprocesso" name="t_microprocesso" required="required" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>
-		            	  	<div class="form-group">
-		            	  	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="n_microprocesso">Nº do Subprocesso<span class="required">*</span>
-		            	  	   </label>
-		            	  	   <div class="col-md-6 col-sm-6 col-xs-12">
-		            	  	     <input type="text" value="<?=$microprocesso['n_microprocesso']?>" data-inputmask="'mask' : '9{1,2}'" id="n_microprocesso" name="n_microprocesso" required="required" class="form-control col-md-7 col-xs-12">
-		            	  	   </div>
-		            	  	</div>  
-		            	  			            	  	         
-		            	  	<div class="ln_solid"></div>
-		            	  	<div class=" form-group">
-	            	  	  	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-	            	  	    <button type="reset" name="reset" class="btn btn-primary">Resetar</button>
-	            	  	    <button id="send" type="submit" name="enviar" class="btn btn-success">Alterar</button>
-	            	  	    <input type="hidden" name="id_microprocesso" value="<?=$microprocesso['id_microprocesso']?>">
-	            	  	 		</div>
-	            	  	 	</div>
-	            	  	</form>
-	                	</div>
-	                </div>
-	              </div>
-	            </div>	
-	            <br />
-	           </div>
+	            	<div class="row">
+	            	  <div class="col-md-12 col-sm-12 col-xs-12">
+	            	  	<div class="x_panel">
+	            	  		<div class="x_content">
+	            	  			<form action="../altera/altera-c-sub.php" method="get" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">		            	  		
+		            	  			<div class="form-group">
+		            	  	   		<label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Código PI<span class="required">*</span>
+		            	  	   		</label>
+		            	  	   		<div class="col-md-6 col-sm-6 col-xs-12">
+		            	  	     		<input type="text" placeholder="<?=$pi['cod_pi']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
+		            	  	   		</div>
+		            	  			</div>		            	  		
+		            	  			<div class="form-group">
+		            	  	   		<label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do Processo<span class="required">*</span>
+		            	  	   		</label>
+		            	  	   		<div class="col-md-6 col-sm-6 col-xs-12">
+		            	  	     		<input type="text"  placeholder="<?=$macroprocesso['t_processo']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
+		            	  	   		</div>
+		            	  			</div>
+		            	  			<div class="form-group">
+		            	  			   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Título do SubProcesso<span class="required">*</span>
+		            	  			   </label>
+		            	  			   <div class="col-md-6 col-sm-6 col-xs-12">
+		            	  			     <input type="text" placeholder="<?=$subprocesso['t_subprocesso']?>" readonly="readonly" class="form-control col-md-7 col-xs-12">
+		            	  			   </div>
+		            	  			</div>			
+		            	  			<div class="item form-group">
+		            	  	  		<label class="control-label col-md-3 col-sm-3 col-xs-12" for="qPessoas">Nº de Pessoas<span class="required">*</span>
+		            	  	  		</label>
+		            	  	  		<div class="col-md-3 col-sm-6 col-xs-12">
+		            	  	    		<input type="text" data-inputmask="'mask' : '9{1,5}'" id="qPessoas" name="qPessoas" required="required" value="<?=$subprocesso['qPessoas']?>" class="form-control">
+		            	  	  		</div>         
+		            	  	  		<label for="horas" class="control-label col-md-1">Horas <span class="required">*</span>
+		            	  	 		 	</label>
+		            	  	  		<div class="col-md-2 col-sm-6 col-xs-12">
+		            	  	   			 <input type="text" data-inputmask="'mask' : '9{1,5}'" id="horas" name="horas" required="required" value="<?=$subprocesso['horas']?>" class="form-control">
+		            	  	  		</div>		            	  	  
+		            	  			</div>
+		            	  	   	<div class="form-group">
+		            	  	  		<label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_periodicidade">Periodicidade<span class="required">*</span>
+		            	  	  		</label>
+		            	  	  		<div class="col-md-6 col-sm-6 col-xs-12">
+		            	  	    		<select class="form-control col-md-3"  id="id_periodicidade" name="id_periodicidade" required="required" >
+		            	  	    		<?php
+		            	  	    			foreach ($periodicidades as $p) {
+		            	  	    		?>
+		            	  	    			<option  value="<?=$p['id_periodicidade']?>"><?=$p['descricao']?></option>
+
+		            	  	    		<?php		            	  	    			
+		            	  	    			}
+		            	  	    		?>
+		            	  	    		</select>  
+		            	  	  		</div>
+		            	  			</div>
+		            	  			<div class="form-group">
+		            	  	  		<label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_classificacao">Classificação<span class="required">*</span>
+		            	  	  		</label>
+		            	  	  		<div class="col-md-6 col-sm-6 col-xs-12">
+		            	  	    		<select class="form-control col-md-3"  id="id_classificacao" name="id_classificacao" required="required" >
+		            	  	    			<?php
+		            	  	    				foreach ($classificacoes as $c) {
+		            	  	    			?>
+		            	  	    			<option value="<?=$c['id_classificacao']?>"><?=$c['descricao']?></option>
+
+		            	  	    			<?php		            	  	    			
+		            	  	    				}
+		            	  	    			?>
+		            	  	    		</select>  
+		            	  	 			 </div>
+		            	  			</div> 
+		            	  			<div class="ln_solid"></div>
+		            	  			<div class=" form-group">
+	            	  	  			<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+	            	  	    			<button type="reset" name="reset" class="btn btn-primary">Resetar</button>
+	            	  	    			<button id="send" type="submit" name="enviar" class="btn btn-success">Alterar</button>
+	            	  	    			<input type="hidden" name="id_subprocesso" value="<?=$id_subprocesso?>" >
+	            	  	 				</div>
+	            	  	 			</div>
+	            	  			</form>
+	            	  		</div>	  
+	            	  	</div>	            	  	          	  	
+	            	  </div>
+	            	</div>  	
+	              <br />
 	          </div>
 	      </div>
 	       <!-- /page content -->
@@ -224,6 +256,11 @@
 		<script src="../../../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
 		<!-- Custom Theme Scripts -->
 		<script src="../../../build/js/custom.min.js"></script>
-		<script src="../../js/multiple.js"></script>
+		<script type="text/javascript">
+		</script>
+		<script type="text/javascript">
+		  document.getElementById('id_periodicidade').value = '<?=$subprocesso['id_periodicidade']?>';
+		  document.getElementById('id_classificacao').value = '<?=$subprocesso['id_classificacao']?>';
+		</script>
 	</body>
 </html>

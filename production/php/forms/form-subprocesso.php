@@ -1,10 +1,10 @@
-<?php include "../bancos/conecta.php";?>
-<?php include "../bancos/banco-departamento.php";?>
-<?php include "../bancos/banco-cliente.php";?>
-<?php include "../bancos/banco-pis.php";?>
-<?php include "../bancos/banco-macroprocesso.php";?>
-<?php include "../bancos/banco-periodicidade.php";?>
-<?php
+<?php 
+	require_once "../bancos/conecta.php";
+	require_once "../bancos/banco-departamento.php";
+	require_once "../bancos/banco-cliente.php";
+	require_once "../bancos/banco-pis.php";
+	require_once "../bancos/banco-macroprocesso.php";
+	require_once "../bancos/banco-periodicidade.php";
 	$id_macroprocesso = $_GET['id_macroprocesso'];
 	$macroprocesso = buscaMacroprocessoId($conexao, $id_macroprocesso);
 	$pi = buscaPi($conexao, $macroprocesso['cod_pi']);
@@ -69,7 +69,7 @@
 	                      <li><a href="../clientes/gestores.php">Gestores</a></li>                          
 	                    </ul>
 	                  </li>
-	                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+	                  <li><a><i class="fa fa-file-text"></i> Mapeamentos<span class="fa fa-chevron-down"></span></a>
 	                    <ul class="nav child_menu">
 	                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
 	                    </ul>

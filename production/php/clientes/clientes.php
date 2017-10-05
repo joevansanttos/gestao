@@ -1,7 +1,6 @@
-<?php include "../bancos/conecta.php";?>
-<?php include "../bancos/banco-cliente.php";?>
-
-<?php
+<?php 
+  require_once "../bancos/conecta.php";
+  require_once "../bancos/banco-cliente.php";
   $clientes = listaClientes($conexao);
 ?>
 
@@ -73,9 +72,9 @@
                       <li><a href="gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i> Mapeamentos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                     <li><a href="../processos/pis.php">Processos em Andamento</a></li>
+                     <li><a href="../processos/processos.php">Processos em Andamento</a></li> 
                     </ul>
                   </li>           
                 </ul>
@@ -157,7 +156,7 @@
                   <div class="x_content">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
-                        <table id="tabela" class="table table-hover table-responsive">
+                        <table id="tabela" class="table">
                           <thead>
                             <tr>
                               <th>Imagem</th>

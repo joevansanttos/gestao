@@ -1,5 +1,7 @@
-<?php include "../bancos/conecta.php";?>
-<?php include "../bancos/banco-usuario.php";?>
+<?php 
+  require_once "../bancos/conecta.php";
+  require_once "../bancos/banco-usuario.php";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,9 +70,9 @@
                       <li><a href="../clientes/gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file-text"></i> Manual de Processos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i> Mapeamentos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../clientes/pis.php">Processos</a></li>  
+                      <li><a href="../processos/processos.php">Processos em Andamento</a></li> 
                     </ul>
                   </li>           
                 </ul>
@@ -152,7 +154,7 @@
                   <div class="x_content">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
-                        <table id="tabela" class="table table-hover">
+                        <table id="tabela" class="table">
                           <thead>
                             <tr>
                               <th>Nome</th>
@@ -173,8 +175,7 @@
                                 <td><?=$usuario['estado']?></td>
                                 <td><?=$usuario['telefone']?></td>
                                 <td align="center">
-                                  <a href="../profiles/usuario-profile.php?id=<?=$usuario['id_usuario']?>"><button class="btn btn-success btn-xs"><i class="fa fa-search"></i></button></a>
-                                  <a href="../forms/form-altera-usuario.php?id=<?=$usuario['id_usuario']?>"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>    
+                                  <a href="../profiles/usuario-profile.php?id=<?=$usuario['id_usuario']?>"><button class="btn btn-success btn-xs"><i class="fa fa-search"></i></button></a>                                  
                                   <a href="../remove/remove-usuario.php?id=<?=$usuario['id_usuario']?>"><button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button></a>
                                 </td>
                               </tr>
