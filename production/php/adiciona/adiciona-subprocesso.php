@@ -9,6 +9,7 @@
 	$descricao = $_GET['descricao'];
 	$id_periodicidade = $_GET['id_periodicidade'];
 	$id_classificacao = $_GET['id_classificacao'];
+	$id_maturidade = $_GET['id_maturidade'];
 	$qPessoas = $_GET['qPessoas'];
 	$horas = $_GET['horas'];
 	$nome = $_GET['nome'];
@@ -18,7 +19,7 @@
 	$macro = buscaMacroprocessoId($conexao, $id_macroprocesso);
 	$pi = buscaPi($conexao , $macro['cod_pi']);
 
-	$query = "insert into subprocessos (id_macroprocesso, n_subprocesso, t_subprocesso, id_periodicidade, id_classificacao, qPessoas, horas, descricao) values ({$id_macroprocesso}, '{$n_subprocesso}', '{$t_subprocesso}', $id_periodicidade, $id_classificacao, $qPessoas,$horas, '{$descricao}')";
+	$query = "insert into subprocessos (id_macroprocesso, n_subprocesso, t_subprocesso, id_periodicidade, id_classificacao, id_maturidade, qPessoas, horas, descricao) values ({$id_macroprocesso}, '{$n_subprocesso}', '{$t_subprocesso}', $id_periodicidade, $id_classificacao, $id_maturidade, $qPessoas,$horas, '{$descricao}')";
 
 	if(mysqli_query($conexao, $query)){
 		$subprocesso = buscaSubprocessoValues($conexao, $id_macroprocesso, $n_subprocesso, $t_subprocesso );

@@ -109,3 +109,11 @@ function buscaPeriodicidadeId($conexao, $id_periodicidade){
     $cliente = mysqli_fetch_assoc($resultado);    
     return $cliente;
 }
+
+
+function buscaMaturidadeId($conexao, $id_maturidade){
+    $query = "select  * from maturidade where id_maturidade={$id_maturidade}";
+    $resultado = mysqli_query($conexao, $query);
+    $cliente = mysqli_fetch_assoc($resultado);    
+    return $cliente;
+}

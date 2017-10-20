@@ -12,6 +12,7 @@
   $cliente = buscaCliente($conexao, $departamento['id_cliente']);
   $periodicidades = listaPeriodicidades($conexao);
   $classificacoes = listaClassificacoes($conexao);
+  $maturidades = listaMaturidades($conexao);
 ?>
 
 
@@ -237,7 +238,23 @@
 		            	  	      </div>                      
 		            	  	    </div>
 		            	  	  </div>
-		            	  	</div>	  
+		            	  	</div>
+		            	  	<div class="form-group">
+		            	  	  	<label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_periodicidade">Maturidade<span class="required">*</span>
+		            	  	  	</label>
+		            	  	  	<div class="col-md-6 col-sm-6 col-xs-12">
+		            	  	    	<select class="form-control col-md-3"  id="id_periodicidade" name="id_maturidade" required="required" >
+		            	  	    	<?php
+		            	  	    		foreach ($maturidades as $m) {
+		            	  	    	?>
+		            	  	    		<option value="<?=$m['id_maturidade']?>"><?=$m['descricao']?></option>
+
+		            	  	    	<?php		            	  	    			
+		            	  	    		}
+		            	  	    	?>
+		            	  	    </select>  
+		            	  	  	</div>
+		            	  		</div>  	  
 		            	  	<div class="form-group">
 		            	  	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Descrição
 		            	  	  </label>

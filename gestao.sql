@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 05-Out-2017 às 16:29
--- Versão do servidor: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Host: localhost
+-- Generation Time: 20-Out-2017 às 21:06
+-- Versão do servidor: 10.1.26-MariaDB
+-- PHP Version: 7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -5849,7 +5849,8 @@ CREATE TABLE `gestor_macro` (
 --
 
 INSERT INTO `gestor_macro` (`id_gestor_macro`, `nome`, `tel`, `email`, `cargo`, `id_macroprocesso`) VALUES
-(5, 'José Folha', '(71) 98998-8888', 'jose@gevan.com.br', 'Coordenador do setor da Folha de Pagamento', 4);
+(5, 'José Folha', '(71) 98998-8888', 'jose@gevan.com.br', 'Coordenador do setor da Folha de Pagamento', 4),
+(6, 'José', '(71) 98444-4444', 'jose@gevan.com', 'Adm', 6);
 
 -- --------------------------------------------------------
 
@@ -5887,7 +5888,8 @@ CREATE TABLE `gestor_sub` (
 
 INSERT INTO `gestor_sub` (`id_gestor_sub`, `id_subprocesso`, `nome`, `email`, `tel`, `cargo`) VALUES
 (1, 7, 'José Gevan', 'jose@gevan.com', '(71) 98888-8888', 'Gestor'),
-(2, 8, 'Maria Faturamento', 'maria@faturamento.com', '(71) 98766-6666', 'Contadora');
+(2, 8, 'Maria Faturamento', 'maria@faturamento.com', '(71) 98766-6666', 'Contadora'),
+(3, 9, 'Maria', 'maria@ford.com', '(71) 98333-3333', 'Subprocessadora');
 
 -- --------------------------------------------------------
 
@@ -5918,16 +5920,40 @@ CREATE TABLE `macroprocessos` (
   `qPessoas` int(11) NOT NULL,
   `id_periodicidade` int(11) NOT NULL,
   `horas` int(11) NOT NULL,
-  `descricao` varchar(2000) DEFAULT NULL
+  `descricao` varchar(2000) DEFAULT NULL,
+  `id_maturidade` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `macroprocessos`
 --
 
-INSERT INTO `macroprocessos` (`id_macroprocesso`, `cod_pi`, `data_ultima`, `data_proxima`, `id_classificacao`, `t_processo`, `n_processo`, `qPessoas`, `id_periodicidade`, `horas`, `descricao`) VALUES
-(4, 'FOL01', NULL, NULL, 3, 'Adiantamento Salarial ', '1', 100, 4, 100, ''),
-(5, 'FOL01', NULL, NULL, 3, 'Faturamento de Benefícios', '2', 100, 2, 20, 'Uma parte dos faturamentos é feito');
+INSERT INTO `macroprocessos` (`id_macroprocesso`, `cod_pi`, `data_ultima`, `data_proxima`, `id_classificacao`, `t_processo`, `n_processo`, `qPessoas`, `id_periodicidade`, `horas`, `descricao`, `id_maturidade`) VALUES
+(4, 'FOL01', NULL, NULL, 3, 'Adiantamento Salarial ', '1', 100, 4, 100, '', NULL),
+(5, 'FOL01', NULL, NULL, 3, 'Faturamento de Benefícios', '2', 100, 2, 20, 'Uma parte dos faturamentos é feito', NULL),
+(6, 'DIS00', NULL, NULL, 1, 'Teste', '1', 12, 1, 123, '', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `maturidade`
+--
+
+CREATE TABLE `maturidade` (
+  `descricao` varchar(200) DEFAULT NULL,
+  `id_maturidade` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `maturidade`
+--
+
+INSERT INTO `maturidade` (`descricao`, `id_maturidade`) VALUES
+('Estado inicial', 1),
+('Repetitivo', 2),
+('Definido', 3),
+('Gerenciado', 4),
+('Otimizado', 5);
 
 -- --------------------------------------------------------
 
@@ -6079,6 +6105,15 @@ CREATE TABLE `stakeholders_macro` (
   `departamento` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `stakeholders_macro`
+--
+
+INSERT INTO `stakeholders_macro` (`id_stakeholder_macro`, `id_macroprocesso`, `nome`, `email`, `cargo`, `departamento`) VALUES
+(1, 6, 'Joevan Santos', 'joevansanttos@gmail.com', 'Desenvolvedor', 'TI'),
+(2, 6, 'Catharina ', 'catharina.ramos@projek.com.br', 'Consultor', 'Compras'),
+(3, 6, 'Fabio', 'fabio.martins@projek.com.br', 'Consultor', 'Consultoria');
+
 -- --------------------------------------------------------
 
 --
@@ -6109,16 +6144,18 @@ CREATE TABLE `subprocessos` (
   `qPessoas` int(11) NOT NULL,
   `id_classificacao` int(11) NOT NULL,
   `id_periodicidade` int(11) NOT NULL,
-  `horas` int(11) NOT NULL
+  `horas` int(11) NOT NULL,
+  `id_maturidade` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `subprocessos`
 --
 
-INSERT INTO `subprocessos` (`id_subprocesso`, `id_macroprocesso`, `descricao`, `n_subprocesso`, `t_subprocesso`, `qPessoas`, `id_classificacao`, `id_periodicidade`, `horas`) VALUES
-(7, 4, 'Para saber', '1', 'Verificar Gastos do funcionário do mês anterior', 100, 1, 1, 100),
-(8, 5, 'okok', '3', 'Faturamento de beneficios', 15, 2, 3, 24);
+INSERT INTO `subprocessos` (`id_subprocesso`, `id_macroprocesso`, `descricao`, `n_subprocesso`, `t_subprocesso`, `qPessoas`, `id_classificacao`, `id_periodicidade`, `horas`, `id_maturidade`) VALUES
+(7, 4, 'Para saber', '1', 'Verificar Gastos do funcionário do mês anterior', 100, 1, 1, 100, NULL),
+(8, 5, 'okok', '3', 'Faturamento de beneficios', 15, 2, 3, 24, NULL),
+(9, 6, 'dsdsd', '1', 'Teste Subprocesso', 12, 3, 2, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -6236,6 +6273,12 @@ ALTER TABLE `macroprocessos`
   ADD PRIMARY KEY (`id_macroprocesso`);
 
 --
+-- Indexes for table `maturidade`
+--
+ALTER TABLE `maturidade`
+  ADD PRIMARY KEY (`id_maturidade`);
+
+--
 -- Indexes for table `microprocessos`
 --
 ALTER TABLE `microprocessos`
@@ -6348,7 +6391,7 @@ ALTER TABLE `gestor_dep`
 -- AUTO_INCREMENT for table `gestor_macro`
 --
 ALTER TABLE `gestor_macro`
-  MODIFY `id_gestor_macro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_gestor_macro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `gestor_micro`
 --
@@ -6358,7 +6401,7 @@ ALTER TABLE `gestor_micro`
 -- AUTO_INCREMENT for table `gestor_sub`
 --
 ALTER TABLE `gestor_sub`
-  MODIFY `id_gestor_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_gestor_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `informacoes`
 --
@@ -6368,7 +6411,12 @@ ALTER TABLE `informacoes`
 -- AUTO_INCREMENT for table `macroprocessos`
 --
 ALTER TABLE `macroprocessos`
-  MODIFY `id_macroprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_macroprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `maturidade`
+--
+ALTER TABLE `maturidade`
+  MODIFY `id_maturidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `microprocessos`
 --
@@ -6398,7 +6446,7 @@ ALTER TABLE `stakeholders`
 -- AUTO_INCREMENT for table `stakeholders_macro`
 --
 ALTER TABLE `stakeholders_macro`
-  MODIFY `id_stakeholder_macro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_stakeholder_macro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `stakeholders_sub`
 --
@@ -6408,7 +6456,7 @@ ALTER TABLE `stakeholders_sub`
 -- AUTO_INCREMENT for table `subprocessos`
 --
 ALTER TABLE `subprocessos`
-  MODIFY `id_subprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_subprocesso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `usuarios`
 --

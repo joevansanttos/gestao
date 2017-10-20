@@ -7,6 +7,7 @@ $t_processo = $_GET['t_processo'];
 $descricao = $_GET['descricao'];
 $id_periodicidade = $_GET['id_periodicidade'];
 $id_classificacao = $_GET['id_classificacao'];
+$id_maturidade = $_GET['id_maturidade'];
 $qPessoas = $_GET['qPessoas'];
 $horas = $_GET['horas'];
 $nome = $_GET['nome'];
@@ -14,7 +15,7 @@ $email = $_GET['email'];
 $cargo = $_GET['cargo'];
 $tel = $_GET['tel'];
 
- $query = "insert into macroprocessos (cod_pi, n_processo, t_processo, id_periodicidade, id_classificacao, qPessoas, horas, descricao) values ('{$cod_pi}', '{$n_processo}', '{$t_processo}', $id_periodicidade, $id_classificacao, $qPessoas,$horas, '{$descricao}' )";
+ $query = "insert into macroprocessos (cod_pi, n_processo, t_processo, id_periodicidade, id_classificacao, id_maturidade, qPessoas, horas, descricao) values ('{$cod_pi}', '{$n_processo}', '{$t_processo}', $id_periodicidade, $id_classificacao,$id_maturidade, $qPessoas,$horas, '{$descricao}' )";
 
   if(mysqli_query($conexao, $query)){
   	$macroprocesso = buscaMacroprocesso($conexao, $cod_pi);

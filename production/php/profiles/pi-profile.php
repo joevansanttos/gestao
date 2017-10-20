@@ -74,7 +74,7 @@
                       <li><a href="../clientes/gestores.php">Gestores</a></li>                          
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file-text"></i> Mapeamentos<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i> Mapeamento<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                      <li><a href="../processos/processos.php">Processos em Andamento</a></li>
                     </ul>
@@ -430,6 +430,7 @@
                                                             <?php
                                                               $classificacao_sub = buscaClassificacaoId($conexao, $sub['id_classificacao']);
                                                               $periodicidade_sub = buscaPeriodicidadeId($conexao, $sub['id_periodicidade']);
+                                                              $maturidade_sub = buscaMaturidadeId($conexao, $sub['id_maturidade']);
                                                             ?>
                                                             <table class="table">
                                                               <tr>
@@ -437,12 +438,15 @@
                                                                 <th>Horas</th>
                                                                 <th>Classificação</th>
                                                                 <th>Periodicidade</th>
+                                                                <th>Maturidade</th>
                                                               </tr>                                                    
                                                               <tr>
                                                                 <td><?=$sub['qPessoas']?></td>
                                                                 <td><?=$sub['horas']?></td>                              
                                                                 <td><?=$classificacao_sub['descricao']?></td>                     
                                                                 <td><?=$periodicidade_sub['descricao']?></td>
+                                                                <td><?=$maturidade_sub['descricao']?></td>
+
 
                                                             </table>                                                  
                                                            </div>
@@ -497,6 +501,7 @@
                                                     <?php
                                                       $classificacao = buscaClassificacaoId($conexao, $macroprocesso['id_classificacao']);
                                                       $periodicidade = buscaPeriodicidadeId($conexao, $macroprocesso['id_periodicidade']);
+                                                      $maturidade = buscaMaturidadeId($conexao, $macroprocesso['id_maturidade']);
                                                     ?>
                                                     <table class="table">
                                                       <thead>
@@ -505,6 +510,7 @@
                                                           <th>Horas</th>
                                                           <th>Classificação</th>
                                                           <th>Periodicidade</th>
+                                                          <th>Maturidade</th>
                                                         </tr>     
                                                       </thead>
                                                       <tbody>
@@ -513,6 +519,7 @@
                                                           <td><?=$macroprocesso['horas']?></td>                              
                                                           <td><?=$classificacao['descricao']?></td>                     
                                                           <td><?=$periodicidade['descricao']?></td>
+                                                          <td><?=$maturidade['descricao']?></td>
                                                         </tr>       
                                                       </tbody>                                               
                                                                                                                               
@@ -570,7 +577,8 @@
                                                   <div class="panel-heading">
                                                     <h4 class="panel-title">
                                                       <a data-toggle="collapse" href="<?=$idpanel_s?>">Partes interessadas</a>   
-                                                      <a href="../forms/form-stakeholder_macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button data-toggle="tooltip" data-placement="top" title="Adicionar Parte Interessada" class="btn btn-warning btn-xs pull-right"><i class="fa fa-plus"></i></button></a> </a>                      
+                                                      <a href="../forms/form-stakeholder_macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button data-toggle="tooltip" data-placement="top" title="Adicionar Parte Interessada" class="btn btn-warning btn-xs pull-right"><i class="fa fa-plus"></i></button></a> </a>
+                                                      <a href="../forms/form-email-macro.php?id_macroprocesso=<?=$macroprocesso['id_macroprocesso']?>"><button data-toggle="tooltip" data-placement="top" title="Enviar email a partes interessadas" class="btn btn-warning btn-xs  pull-right"><i class="fa fa-envelope"></i></button></a> </a>                                     
                                                       <div class="clearfix"></div>
                                                     </h4>
                                                   </div>
@@ -596,8 +604,8 @@
                                                         <td><?=$stakeholder_macro['departamento']?></td>
                                                         <td><?=$stakeholder_macro['cargo']?></td>
                                                         <td align="center">
-                                                          <a href="../forms/form-altera-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>
-                                                          <a href="../forms/form-altera-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>                                                          
+                                                          <a href="../forms/form-altera-stakeholder-m.php?id_stakeholder=<?=$stakeholder_macro['id_stakeholder_macro']?>"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
+                                                          <a href="../forms/form-altera-stakeholder.php?id_stakeholder=<?=$stakeholder['id_stakeholder']?>"><button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button></a>                                                          
                                                         </td>
                                                       </tr>
                                                       <?php
